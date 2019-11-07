@@ -8,6 +8,7 @@ router.post('/', async (request, response, next) => {
         name: request.body.name,
         messages:[]
       })
+      console.log(request.body.name)
       const result = await channel.save()
       response.status(201).json(result)
     } catch (exception) {
@@ -20,6 +21,11 @@ router.put('/:id', async (request, response, next) => {
       const channel = await Channel.findById(request.params.id)
       const updatedMsgs = channel.messages.concat(request.body.message)
       const result = await Channel.findByIdAndUpdate(request.params.id, {messages:updatedMsgs})
+      /*
+      response.setHeader('set-cookie', [
+        'same-site-cookie=bar; SameSite=Lax',
+        'cross-site-cookie=foo; SameSite=None; Secure',
+      ])*/
       response.json({ ...result.toJSON(),messages:updatedMsgs}) 
     } catch (exception) {
       next(exception)

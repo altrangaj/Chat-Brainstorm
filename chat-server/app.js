@@ -9,8 +9,14 @@ const mongoUrl = config.MONGODB_URI
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true })
 
-app.use(bodyParser.json())
-
+/*
+app.use('/',function (req, res) {
+    res.cookie('foo', 'bar', {
+      sameSite: true
+    })
+    res.end()
+  })
+*/
 app.use('/api/channels',channelRouter)
 
 
