@@ -8,14 +8,14 @@ const server = http.createServer(app)
 server.listen(config.PORT, () => {
   console.log(`Server running on port ${config.PORT}`)
 })*/
-
-var io = require('socket.io')(server,{cookie:false})//server,{path:'/',cookie:false,pingInterval:1000})//.listen(server);
+const channelID = '5dbfc45d1b0f5f053c6d0a67'
+var io = require('socket.io')(server)//server,{path:'/',cookie:false,pingInterval:1000})//.listen(server);
 
 let count = 0
 io.on('connection', async socket => {
   console.log(count++,socket.id.slice(8))
   try {
-    const channel = await Channel.findById('5dbfc45d1b0f5f053c6d0a67')
+    const channel = await Channel.findById(channelID)
    if(channel && channel.messages) socket.emit('messages', channel.messages)
   } catch (exception) {
     console.log(exception)
@@ -24,13 +24,16 @@ io.on('connection', async socket => {
     console.log('disconnect:'+count)
     count--
   }) //
-  socket.on('message_to_server', async data => {
+  socket.on('action', async message => {
+    console.log(message)
     try {
-      const channel = await Channel.findById(data.id)
-      const updatedMsgs = channel.messages.concat(data.message)
-      const result = await Channel.findByIdAndUpdate(data.id, {messages:updatedMsgs})
-      //io.origins(updatedMsgs)
-      socket.broadcast.emit('newMessage',{ ...result.toJSON(),messages:updatedMsgs}) 
+      
+        const channel = await Channel.findById(channelID)
+        const updatedMsgs = channel.messages.concat(message)
+        const result = await Channel.findByIdAndUpdate(channelID, {messages:updatedMsgs})
+        //io.origins(updatedMsgs)
+        socket.broadcast.emit('message',updatedMsgs) 
+      
     } catch (exception) {
       console.log(exception)
     }
@@ -38,3 +41,4 @@ io.on('connection', async socket => {
 
 })
 server.listen(config.PORT)
+//app.listen(3003)

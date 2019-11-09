@@ -15,6 +15,14 @@ router.post('/', async (request, response, next) => {
       next(exception)
     }
 })
+router.get('/:id', async (request, response, next) => {
+  try {
+    const channel = await Channel.findById(request.params.id)
+    response.json(channel.messages) 
+  } catch (exception) {
+    next(exception)
+  }
+})
 
 router.put('/:id', async (request, response, next) => {
     try {
