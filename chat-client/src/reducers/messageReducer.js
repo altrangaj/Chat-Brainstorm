@@ -1,5 +1,4 @@
 import messageService from '../services/messages'
-const id = '5dbfc45d1b0f5f053c6d0a67'
 
 export const initializeMessages = (id) => {
 	return async dispatch => {
@@ -9,27 +8,24 @@ export const initializeMessages = (id) => {
 			data: msgs
 		})
 	}
-}/*
-export const initializeMessages = (msgs) => {
-	return {
-			type: 'INIT_MESSAGES',
-			data: msgs
-	}
-}*/
+}
 export const addMsg = (message) => {
 	return {
 		type: 'SEND_WEBSOCKET_MESSAGE',
 		data: message
 	  }
   }
+
 const reducer = (state = [], action) => {
 	switch (action.type) {
 	case 'INIT_MESSAGES':
-		return action.data
+		return action
 	case 'SOCKET_MESSAGE_RECEIVED':
-		return action.data
+		console.log('SOCKET_MESSAGE_RECEIVED')
+		return action
 	case 'SEND_WEBSOCKET_MESSAGE':
-		return [...state.data,action.data]
+		console.log('SEND_WEBSOCKET_MESSAGE')
+		return {data:[...state.data,action.data]}
 	default:
 		return state
 	}

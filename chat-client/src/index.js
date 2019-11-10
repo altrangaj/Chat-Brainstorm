@@ -6,13 +6,13 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import reducer from './reducers/messageReducer'
-//import createSocketIoMiddleware from 'redux-socket.io'
 import io from 'socket.io-client'
-//let socket = io('http://localhost:3003')
+
+
 
 const createMySocketMiddleware = (url) => {
     return storeAPI => {
-        const socket = io(url);
+        const socket = io(url)
 
         socket.on("message", (message) => {
             storeAPI.dispatch({
@@ -24,23 +24,19 @@ const createMySocketMiddleware = (url) => {
         return next => action => {
             if(action.type === "SEND_WEBSOCKET_MESSAGE") {
 				console.log(action)
-                socket.emit('action',action.data);
-                return;
+                socket.emit('action',action)
+                return
             }
 
-            return next(action);
+            return next(action)
         }
     }
 }
-
-//let socketIoMiddleware = createSocketIoMiddleware(socket, "SERVER/")
-
 const store = createStore(reducer,
 	composeWithDevTools(
 		applyMiddleware(thunk,createMySocketMiddleware('http://localhost:3003'))
 	)
 )
-//const store = applyMiddleware(createMySocketMiddleware)(createStore)(reducer)
 
 const render = () => {
 	ReactDOM.render(
