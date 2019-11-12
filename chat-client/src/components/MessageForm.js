@@ -16,10 +16,8 @@ const MessageForm = (props) => {
   if(props.user !== null){
     return (
         <div>
-        <form onSubmit={sendMsg}>
             <input style={{width:'80%'}} {...msg.input} />
-            <button type="submit">send</button>
-        </form>
+            <button onClick={sendMsg}>send</button>
         </div>
     )} else return <div></div>
 }

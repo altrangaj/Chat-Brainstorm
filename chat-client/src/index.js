@@ -11,26 +11,20 @@ import channelsReducer from './reducers/channelsReducer'
 import selectedChannelReducer from './reducers/selectedChannelReducer'
 import io from 'socket.io-client'
 
-
-
 const createMySocketMiddleware = (url) => {
     return storeAPI => {
         const socket = io(url)
-
         socket.on("message", (message) => {
             storeAPI.dispatch({
                 type : "SOCKET_MESSAGE_RECEIVED",
                 data : message
-			});
-        });
-
+			})
+        })
         return next => action => {
             if(action.type === "SEND_WEBSOCKET_MESSAGE") {
 				console.log(action)
                 socket.emit('action',action)
-                return
             }
-
             return next(action)
         }
     }
