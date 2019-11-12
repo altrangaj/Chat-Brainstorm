@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const baseUrl = '/api/channels'
 
-const getAll = async (id) => {
+const getMessages = async (id) => {
 	const msgs = await axios.get(`${baseUrl}/${id}`)
 	return msgs.data
 }
-export default {getAll}
+export default {getMessages}

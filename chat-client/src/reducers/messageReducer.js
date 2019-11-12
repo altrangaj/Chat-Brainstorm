@@ -2,17 +2,18 @@ import messageService from '../services/messages'
 
 export const initializeMessages = (id) => {
 	return async dispatch => {
-		const msgs = await messageService.getAll(id)
+		const msgs = await messageService.getMessages(id)
 		dispatch({
 			type: 'INIT_MESSAGES',
 			data: msgs
 		})
 	}
 }
-export const addMsg = (message) => {
+export const addMsg = (message,user) => {
+	const msgByAuthor =`${user.username}:${message}`
 	return {
 		type: 'SEND_WEBSOCKET_MESSAGE',
-		data: message
+		data: msgByAuthor
 	  }
   }
 

@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import { Provider } from 'react-redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import reducer from './reducers/messageReducer'
+import messageReducer from './reducers/messageReducer'
+import loggedUserReducer from './reducers/loggedUserReducer'
+import channelsReducer from './reducers/channelsReducer'
+import selectedChannelReducer from './reducers/selectedChannelReducer'
 import io from 'socket.io-client'
 
 
@@ -32,6 +35,14 @@ const createMySocketMiddleware = (url) => {
         }
     }
 }
+
+const reducer = combineReducers({
+    messages: messageReducer,
+    loggedUser: loggedUserReducer,
+    channels: channelsReducer,
+    channel: selectedChannelReducer
+})
+
 const store = createStore(reducer,
 	composeWithDevTools(
 		applyMiddleware(thunk,createMySocketMiddleware('http://localhost:3003'))

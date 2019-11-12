@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const channelSchema = mongoose.Schema({
     name: String,
-    messages: [String]
+    messages: [String],
+    users: [{type: mongoose.Schema.Types.ObjectId, ref:'User'}]
 })
 channelSchema.set('toJSON', {
     transform: (document, returnedObject) => {
@@ -12,3 +13,4 @@ channelSchema.set('toJSON', {
     }
   })
 module.exports = mongoose.model('Channel', channelSchema)
+// Channels.find({users:{$in:[user._id]}})
