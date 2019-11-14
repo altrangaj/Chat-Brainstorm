@@ -9,11 +9,12 @@ export const initializeMessages = (id) => {
 		})
 	}
 }
-export const addMsg = (message,user) => {
+export const addMsg = (message, user, channel) => {
 	const msgByAuthor =`${user.username}:${message}`
 	return {
 		type: 'SEND_WEBSOCKET_MESSAGE',
-		data: msgByAuthor
+		data: { message: msgByAuthor,
+				channel }
 	  }
   }
 
@@ -22,11 +23,11 @@ const reducer = (state = [], action) => {
 	case 'INIT_MESSAGES':
 		return action
 	case 'SOCKET_MESSAGE_RECEIVED':
-		console.log('SOCKET_MESSAGE_RECEIVED')
-		return action
+		console.log('SOCKET_MESSAGE_RECEIVED',action.data)
+		return {data:action.data.messages}
 	case 'SEND_WEBSOCKET_MESSAGE':
 		console.log('SEND_WEBSOCKET_MESSAGE')
-		return {data:[...state.data,action.data]}
+		return {data:[...state.data,action.data.message]}
 	default:
 		return state
 	}

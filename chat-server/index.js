@@ -21,10 +21,21 @@ io.on('connection', async socket => {
     try {
       switch (action.type) {
         case 'SEND_WEBSOCKET_MESSAGE': {
-          const channel = await Channel.findById(channelID)
-          const updatedMsgs = channel.messages.concat(action.data)
-          await Channel.findByIdAndUpdate(channelID, {messages:updatedMsgs})
-          socket.broadcast.emit('message',updatedMsgs) 
+          const channel = await Channel.findById(action.data.channel)
+          const updatedMsgs = channel.messages.concat(action.data.message)
+          await Channel.findByIdAndUpdate(action.data.channel, {messages:updatedMsgs})
+         // socket.broadcast.emit('message',{channel: action.data.channel, messages: updatedMsgs})
+         io.emit('message',{channelID: action.data.channel, messages: updatedMsgs}) 
+         return
+        }
+        case 'CREATE_CHANNEL':{
+          const newChannel = new Channel({
+            name: action.data.name,
+            users: action.data.users
+          })
+          const result = await newChannel.save()
+          io.emit('channel', {id: result._id,users: result.users, messages:[],name: result.name})
+          return
         }
       }
     } catch (exception) {

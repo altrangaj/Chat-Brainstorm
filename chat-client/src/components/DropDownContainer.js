@@ -2,22 +2,29 @@ import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {initializeChannels} from '../reducers/channelsReducer'
 import { setChannel } from '../reducers/selectedChannelReducer'
+import { initializeMessages } from '../reducers/messageReducer'
 
 const DropDownContainer = (props) => {
 
     useEffect(() => {
+        /*
         const fetchData = async () => {
             await props.initializeChannels(props.user.userId)
         }
-        fetchData()
+        fetchData()*/
+        props.initializeChannels(props.user.userId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const handleChange = e => {
+    const handleChange =  e => {
         e.preventDefault()
         const index = e.target.selectedIndex
         const name = e.target.childNodes[index].value
-        if(name !== 'select:') props.setChannel(props.channels.find(i => i.name === name).id)
+        if(name !== 'select:'){
+            const chIndex = props.channels.find(i => i.name === name).id
+             props.setChannel(chIndex, name)
+             props.initializeMessages(chIndex)
+        }
     }
 
     if(props.channels.length !== 0){
@@ -32,9 +39,13 @@ const DropDownContainer = (props) => {
     } else return (<div></div>)}
 
 const mapStateToProps = (state) => {
-	console.log('tilapäivitys dropdownista',state)
 	return {
-        channels: state.channels
+        channels: state.channels,
+        channel: state.channel
 	}
 }
-export default connect(mapStateToProps,{ initializeChannels, setChannel })(DropDownContainer)
+export default connect(
+    mapStateToProps,
+    { initializeChannels, 
+    setChannel, 
+    initializeMessages })(DropDownContainer)

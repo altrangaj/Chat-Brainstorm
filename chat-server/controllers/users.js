@@ -3,6 +3,17 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 
 const UserController = {
+    getAll: async (request, response, next) => {
+      try {
+        const data = await User.find({})
+        const users = data.map(ch => ch.toJSON())
+        console.log(users)
+        response.json({users: users}) 
+      } catch (exception) {
+        console.log(exception)
+        return response.status(500).json({error:'something went wrong'})
+      }
+    },
     registerUser:  async (request, response, next) => {
         try {
           const body = request.body
@@ -19,7 +30,7 @@ const UserController = {
       
           const savedUser = await user.save()
       
-          response.json(savedUser)
+          response.json(savedUser.toJSON())
         } catch (exception) {
           if (exception.name === 'ValidationError') {
             return response.status(400).json({ error: 'dublicate username or too short' })

@@ -1,33 +1,47 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { initializeMessages } from '../reducers/messageReducer'
 import { Rail, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import FocusScrollable from './FocusScrollable'
 import MessageForm from './MessageForm'
 import DropDownContainer from './DropDownContainer'
-
+import CreateChannelForm from './CreateChannelForm'
+import './Chat.css'
 
 const Chat = (props) => {
   
-    useEffect(() => {
-        console.log('useEffect')
-        props.initializeMessages('5dbfc45d1b0f5f053c6d0a67')
-       
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-  
-  if(props.messages && props.messages.map && props.user !== null){
+  const [uiComponent, setUiComponent] = useState('chat')
+
+  const chat = () => {
     return (
-      <Segment>
-        <Rail attached internal position='right'>
+      <div>
+        <Segment.Inline style={{textAlign:'right'}}>
+          create a new channel
+          <button style={{marginLeft:'0.5em'}} onClick={() => setUiComponent('createChannel')}>create</button>
+        </Segment.Inline>
+        <DropDownContainer user={props.user} />
+        { props.messages && <FocusScrollable messages={props.messages} />}
+        <MessageForm />
+      </div>
+    )
+  }
+  
+
+
+  if(props.user !== null){
+    return (
+      <div>
+      <Segment className='segmentStyle' placeholder>
+        <Rail attached internal position='right'>  
           <Segment>
-          <DropDownContainer user={props.user} />
-          <FocusScrollable messages={props.messages} />
-          <MessageForm />
+          {uiComponent === 'chat' && chat()}
+          {uiComponent === 'createChannel' && <CreateChannelForm setUiComponent={setUiComponent} />}
           </Segment>
         </Rail>
       </Segment>
-    )} else {return (<div>kukkuu</div>)}
+      </div>
+    )} else return <div>kukkuu</div> 
+    
 }
 
 const mapStateToProps = (state) => {

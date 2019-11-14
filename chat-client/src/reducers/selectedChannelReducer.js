@@ -1,7 +1,7 @@
-export const setChannel = (id) => {
+export const setChannel = (id, name) => {
 	return {
 		type: 'SET_CHANNEL',
-		data: id
+		data: {id, name}
 	  }
   }
 

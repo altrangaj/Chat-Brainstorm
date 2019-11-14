@@ -9,7 +9,8 @@ const MessageForm = (props) => {
 
   const sendMsg = () => {
     const txt = msg.input.value
-    props.addMsg(txt,props.user)
+    console.log('MESSAGEFORMINPOUT-->',txt,props.user, props.channel)
+    props.addMsg(txt,props.user, props.channel.id)
     msg.reset()
   }
   
@@ -24,7 +25,8 @@ const MessageForm = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-        user: state.loggedUser
+        user: state.loggedUser,
+        channel: state.channel
 	}
 }
 export default connect(mapStateToProps, { addMsg })(MessageForm)
