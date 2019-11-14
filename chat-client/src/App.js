@@ -5,10 +5,10 @@ import Chat from './components/Chat'
 
 
 const App = () => (
-  <Container>
-    <Login />
-    <Chat />
-  </Container>
+	<Container>
+		<Login />
+		<Chat />
+	</Container>
 )
 
 export default App

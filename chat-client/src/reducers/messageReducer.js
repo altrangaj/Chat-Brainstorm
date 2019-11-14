@@ -14,9 +14,9 @@ export const addMsg = (message, user, channel) => {
 	return {
 		type: 'SEND_WEBSOCKET_MESSAGE',
 		data: { message: msgByAuthor,
-				channel }
+			channel }
 	  }
-  }
+}
 
 const reducer = (state = [], action) => {
 	switch (action.type) {

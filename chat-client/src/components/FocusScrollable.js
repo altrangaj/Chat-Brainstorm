@@ -5,20 +5,20 @@ import ScrollableFeed from 'react-scrollable-feed'
 const FocusScrollable = ({ messages }) => {
 
   
-    const Div = styled.div`
+	const Div = styled.div`
       padding: 0.1em 0.3em;
       border: 1px solid Gray;
       border-radius: 3px;
   `
   
-    return (
-        <Div style={{ maxHeight: '27em' }}>
-        <ScrollableFeed>
-            {messages.map((m,i) => <div key={i}>{m}</div>)}
-        </ScrollableFeed>
-        </Div>
-    )
-  } 
+	return (
+		<Div style={{ maxHeight: '27em' }}>
+			<ScrollableFeed>
+				{messages.map((m,i) => <div key={i}>{m}</div>)}
+			</ScrollableFeed>
+		</Div>
+	)
+} 
 
 
 /*
