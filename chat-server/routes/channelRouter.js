@@ -7,6 +7,8 @@ router.post('/', channels.addChannel)
 
 router.get('/:id', channels.getMessages)
 
+router.get('/:id/notes', channels.getNotes)
+
 router.get('/user/:id', channels.getChannels)
 
 router.put('/:id', channels.addMessage)

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {initializeChannels} from '../reducers/channelsReducer'
+import {initializeNotes} from '../reducers/noteReducer'
 import { setChannel } from '../reducers/selectedChannelReducer'
 import { initializeMessages } from '../reducers/messageReducer'
 
@@ -13,6 +14,7 @@ const DropDownContainer = (props) => {
         }
         fetchData()*/
 		props.initializeChannels(props.user.userId)
+		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -24,6 +26,7 @@ const DropDownContainer = (props) => {
 			const chIndex = props.channels.find(i => i.name === name).id
 			props.setChannel(chIndex, name)
 			props.initializeMessages(chIndex)
+			props.initializeNotes(chIndex)
 		}
 	}
 
@@ -48,4 +51,5 @@ export default connect(
 	mapStateToProps,
 	{ initializeChannels, 
 		setChannel, 
-		initializeMessages })(DropDownContainer)
+		initializeMessages,
+		initializeNotes })(DropDownContainer)

@@ -6,6 +6,9 @@ import FocusScrollable from './FocusScrollable'
 import MessageForm from './MessageForm'
 import DropDownContainer from './DropDownContainer'
 import CreateChannelForm from './CreateChannelForm'
+import DnDContainer from './DnDContainer'
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 import './Chat.css'
 
 const Chat = (props) => {
@@ -26,12 +29,17 @@ const Chat = (props) => {
 		)
 	}
   
-
+	const dnd = () => (
+		<DndProvider backend={HTML5Backend}>
+			<DnDContainer />
+		</DndProvider>
+	)
 
 	if(props.user !== null){
 		return (
 			<div>
 				<Segment className='segmentStyle' placeholder>
+					{props.channel && dnd()}
 					<Rail attached internal position='right'>  
 						<Segment>
 							{uiComponent === 'chat' && chat()}
@@ -48,7 +56,8 @@ const mapStateToProps = (state) => {
 	console.log('tilapäivitys',state)
 	return {
 		messages: state.messages.data,
-		user: state.loggedUser
+		user: state.loggedUser,
+		channel: state.channel
 	}
 }
 export default connect(mapStateToProps,{ initializeMessages })(Chat)

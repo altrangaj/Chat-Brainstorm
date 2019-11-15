@@ -2,6 +2,7 @@ const config = require('./utils/config')
 const app = require('./app')
 const http = require('http')
 const Channel = require('./models/channel')
+const Note = require('./models/note')
 
 const server = http.createServer(app)
 
@@ -35,6 +36,21 @@ io.on('connection', async socket => {
 				})
 				const result = await newChannel.save()
 				io.emit('channel', {id: result._id,users: result.users, messages:[],name: result.name})
+				return
+			}
+			case 'ADD_NOTE': {
+				const newNote = new Note(action.data.note)
+				const result = await newNote.save()
+				const channel = await Channel.findById(action.data.channel)
+				const notes = channel.notes.concat(result._id)
+				await Channel.findByIdAndUpdate(action.data.channel, {notes:notes})
+				io.emit('add_note', {channelID: action.data.channel,id: result._id, left: result.left, top: result.top})
+				return
+			}
+			case 'SET_NOTE': {
+				const note = action.data.note
+				await Note.findByIdAndUpdate(note.id, {top:note.top, left: note.left, content: note.content})
+				io.emit('set_note', {channelID: action.data.channel, note: note})
 				return
 			}
 			}

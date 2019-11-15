@@ -24,6 +24,15 @@ const channelController = {
 			next(exception)
 		}
 	},
+	getNotes: async (request, response, next) => {
+		try {
+			const channel = await Channel.findById(request.params.id).populate('notes')
+			const chs = channel.notes.map(ch => ch.toJSON())
+			response.json(chs) 
+		} catch (exception) {
+			next(exception)
+		}
+	},
 	addMessage: async (request, response, next) => {
 		try {
 			const channel = await Channel.findById(request.params.id)

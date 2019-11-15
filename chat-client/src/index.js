@@ -10,6 +10,7 @@ import loggedUserReducer from './reducers/loggedUserReducer'
 import channelsReducer from './reducers/channelsReducer'
 import selectedChannelReducer from './reducers/selectedChannelReducer'
 import usersReducer from './reducers/usersReducer'
+import noteReducer from './reducers/noteReducer'
 import io from 'socket.io-client'
 
 const createMySocketMiddleware = (url) => {
@@ -26,6 +27,26 @@ const createMySocketMiddleware = (url) => {
 				})
 			}
 		})
+		socket.on('add_note', (data) => {
+			console.log(storeAPI.getState())
+			if(storeAPI.getState().channel.id === data.channelID) {
+				console.log('MIDDLEWARE DATA (add_note):',data)
+				storeAPI.dispatch({
+					type : 'SOCKET_ADD_NOTE',
+					data : { id: data.id, left: data.left, top: data.top }
+				})
+			}
+		})
+		socket.on('set_note', (data) => {
+			console.log(storeAPI.getState())
+			if(storeAPI.getState().channel.id === data.channelID) {
+				console.log('MIDDLEWARE DATA (set_note):',data)
+				storeAPI.dispatch({
+					type : 'SOCKET_SET_NOTE',
+					data : data.note
+				})
+			}
+		})
 		socket.on('channel', data => {
 			console.log(data,'XXX', storeAPI.getState())
 			if(data.users.find(u => u === storeAPI.getState().loggedUser.userId)){
@@ -39,7 +60,9 @@ const createMySocketMiddleware = (url) => {
 
 		return next => action => {
 			if(action.type === 'SEND_WEBSOCKET_MESSAGE' ||
-                action.type === 'CREATE_CHANNEL') {
+				action.type === 'CREATE_CHANNEL' ||
+				action.type === 'ADD_NOTE' ||
+				action.type === 'SET_NOTE') {
 				console.log('EMIT FROM MIDDLEWARE',action)
 				socket.emit('action',action)
 				return
@@ -54,7 +77,8 @@ const reducer = combineReducers({
 	loggedUser: loggedUserReducer,
 	channels: channelsReducer,
 	channel: selectedChannelReducer,
-	users: usersReducer
+	users: usersReducer,
+	notes: noteReducer
 })
 
 const store = createStore(reducer,

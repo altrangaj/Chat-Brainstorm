@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const channelSchema = mongoose.Schema({
 	name: String,
 	messages: [String],
-	users: [{type: mongoose.Schema.Types.ObjectId, ref:'User'}]
+	users: [{type: mongoose.Schema.Types.ObjectId, ref:'User'}],
+	notes: [{type: mongoose.Schema.Types.ObjectId, ref:'Note'}]
 })
 channelSchema.set('toJSON', {
 	transform: (document, returnedObject) => {
