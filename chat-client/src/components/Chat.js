@@ -53,7 +53,7 @@ const Chat = (props) => {
 }
 
 const mapStateToProps = (state) => {
-	console.log('tilapäivitys',state)
+	//console.log('tilapäivitys',state)
 	return {
 		messages: state.messages.data,
 		user: state.loggedUser,

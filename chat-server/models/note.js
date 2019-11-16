@@ -3,7 +3,10 @@ const mongoose = require('mongoose')
 const noteSchema = mongoose.Schema({
 	content: String,
 	top: Number,
-	left: Number
+    left: Number,
+    backgroundColor: String,
+    author: String,
+    date: Date
 })
 noteSchema.set('toJSON', {
 	transform: (document, returnedObject) => {

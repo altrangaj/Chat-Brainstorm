@@ -17,30 +17,31 @@ const createMySocketMiddleware = (url) => {
 	return storeAPI => {
 		const socket = io(url)
 		socket.on('message', (data) => {
-			console.log(storeAPI.getState())
 			if(storeAPI.getState().channel.id === data.channelID) {
-				console.log('MIDDLEWARE DATA:',data)
 				storeAPI.dispatch({
 					type : 'SOCKET_MESSAGE_RECEIVED',
-					data : { channel: data.channelID,
-						messages: data.messages }
+					data : { channel: data.channelID, messages: data.messages }
 				})
 			}
 		})
 		socket.on('add_note', (data) => {
-			console.log(storeAPI.getState())
 			if(storeAPI.getState().channel.id === data.channelID) {
-				console.log('MIDDLEWARE DATA (add_note):',data)
 				storeAPI.dispatch({
 					type : 'SOCKET_ADD_NOTE',
-					data : { id: data.id, left: data.left, top: data.top }
+					data : data.note
+				})
+			}
+		})
+		socket.on('delete_note', (data) => {
+			if(storeAPI.getState().channel.id === data.channelID) {
+				storeAPI.dispatch({
+					type : 'SOCKET_DELETE_NOTE',
+					data : data.noteID
 				})
 			}
 		})
 		socket.on('set_note', (data) => {
-			console.log(storeAPI.getState())
 			if(storeAPI.getState().channel.id === data.channelID) {
-				console.log('MIDDLEWARE DATA (set_note):',data)
 				storeAPI.dispatch({
 					type : 'SOCKET_SET_NOTE',
 					data : data.note
@@ -48,9 +49,7 @@ const createMySocketMiddleware = (url) => {
 			}
 		})
 		socket.on('channel', data => {
-			console.log(data,'XXX', storeAPI.getState())
 			if(data.users.find(u => u === storeAPI.getState().loggedUser.userId)){
-				console.log('hiphei')
 				storeAPI.dispatch({
 					type: 'SOCKET_ADD_CHANNEL',
 					data
@@ -59,11 +58,11 @@ const createMySocketMiddleware = (url) => {
 		})
 
 		return next => action => {
-			if(action.type === 'SEND_WEBSOCKET_MESSAGE' ||
+			if( action.type === 'SEND_WEBSOCKET_MESSAGE' ||
 				action.type === 'CREATE_CHANNEL' ||
 				action.type === 'ADD_NOTE' ||
-				action.type === 'SET_NOTE') {
-				console.log('EMIT FROM MIDDLEWARE',action)
+				action.type === 'SET_NOTE' ||
+				action.type === 'DELETE_NOTE') {
 				socket.emit('action',action)
 				return
 			}

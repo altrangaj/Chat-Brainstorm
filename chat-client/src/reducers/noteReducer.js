@@ -12,8 +12,7 @@ export const initializeNotes = (id) => {
 export const addNote = (note, channel) => {
 	return {
 		type: 'ADD_NOTE',
-		data: { note: note,
-			channel }
+		data: { note, channel }
 	}
 }
 export const setNote = (note, channel) => {
@@ -23,16 +22,23 @@ export const setNote = (note, channel) => {
 	}
 }
 
+export const deleteNote = (noteID, channelID) => {
+	return {
+		type: 'DELETE_NOTE',
+		data: { noteID, channelID }
+	}
+}
+
 const reducer = (state = [], action) => {
 	switch (action.type) {
 	case 'INIT_NOTES':
 		return action.data
 	case 'SOCKET_ADD_NOTE':
-		console.log('SOCKET_ADD_NOTE',action.data)
 		return state.concat(action.data)
 	case 'SOCKET_SET_NOTE':
-		console.log('SOCKET_SET_NOTE',action.data)
-		return state.map(n => (action.data.id === n.id ? action.data : n))
+        return state.map(n => (action.data.id === n.id ? action.data : n))
+    case 'SOCKET_DELETE_NOTE':
+        return state.filter(n => n.id !== action.data)
 	default:
 		return state
 	}

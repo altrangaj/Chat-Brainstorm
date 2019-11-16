@@ -18,14 +18,13 @@ io.on('connection', async socket => {
 		count--
 	})
 	socket.on('action', async action => {
-		console.log(action)
+		
 		try {
 			switch (action.type) {
 			case 'SEND_WEBSOCKET_MESSAGE': {
 				const channel = await Channel.findById(action.data.channel)
 				const updatedMsgs = channel.messages.concat(action.data.message)
 				await Channel.findByIdAndUpdate(action.data.channel, {messages:updatedMsgs})
-				// socket.broadcast.emit('message',{channel: action.data.channel, messages: updatedMsgs})
 				io.emit('message',{channelID: action.data.channel, messages: updatedMsgs}) 
 				return
 			}
@@ -39,18 +38,26 @@ io.on('connection', async socket => {
 				return
 			}
 			case 'ADD_NOTE': {
-				const newNote = new Note(action.data.note)
+				const newNote = new Note({...action.data.note, content: ''})
 				const result = await newNote.save()
 				const channel = await Channel.findById(action.data.channel)
 				const notes = channel.notes.concat(result._id)
 				await Channel.findByIdAndUpdate(action.data.channel, {notes:notes})
-				io.emit('add_note', {channelID: action.data.channel,id: result._id, left: result.left, top: result.top})
+				io.emit('add_note', {channelID: action.data.channel, note:newNote.toJSON()})
 				return
 			}
 			case 'SET_NOTE': {
 				const note = action.data.note
-				await Note.findByIdAndUpdate(note.id, {top:note.top, left: note.left, content: note.content})
+				await Note.findByIdAndUpdate(note.id, {...note})
 				io.emit('set_note', {channelID: action.data.channel, note: note})
+				return
+			}
+			case 'DELETE_NOTE': {
+				const channel = await Channel.findById(action.data.channelID)
+				const updatedNotes = channel.notes.filter(n => n != action.data.noteID)
+				await Channel.findByIdAndUpdate(action.data.channelID, {notes: updatedNotes})
+				await Note.remove({_id: action.data.noteID})
+				io.emit('delete_note', { ...action.data})
 				return
 			}
 			}
