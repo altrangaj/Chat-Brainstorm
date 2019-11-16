@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import ScrollableFeed from 'react-scrollable-feed'
+import Message from './Message'
+import { connect } from 'react-redux'
 
-const FocusScrollable = ({ messages }) => {
+const FocusScrollable = (props) => {
 
   
 	const Div = styled.div`
@@ -11,13 +13,15 @@ const FocusScrollable = ({ messages }) => {
       border-radius: 3px;
   `
   
-	return (
-		<Div style={{ maxHeight: '27em' }}>
-			<ScrollableFeed>
-				{messages.map((m,i) => <div key={i}>{m}</div>)}
-			</ScrollableFeed>
-		</Div>
-	)
+	
+	if(props.user){
+		return (
+			<Div style={{ height: '27em',backgroundColor:'#01011A', color:'#ffffe6' }}>
+				<ScrollableFeed>
+					{props.messages.map((m,i) => <Message key={i} message={m} user={props.user.username} />)}
+				</ScrollableFeed>
+			</Div>
+		)} else return <div></div>
 } 
 
 
@@ -73,4 +77,6 @@ const FocusScrollable = ({ messages }) => {
   )
 } */
 
-export default FocusScrollable
+const mapStateToProps = (state) => {
+	return { user: state.loggedUser } }
+export default connect(mapStateToProps, null)(FocusScrollable) 

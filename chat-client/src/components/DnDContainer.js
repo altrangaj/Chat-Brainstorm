@@ -7,9 +7,9 @@ import { Menu, Dropdown } from 'semantic-ui-react'
 
 const styles = {
 	width: '100%',
-	height: 800,
+	height: 900,
 	position: 'relative',
-	backgroundColor: '#003300'
+	backgroundImage: 'linear-gradient(#1f1f47,#01011A)'
 }
 const DnDContainer = (props) => {
         

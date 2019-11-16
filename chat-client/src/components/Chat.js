@@ -18,12 +18,12 @@ const Chat = (props) => {
 	const chat = () => {
 		return (
 			<div>
-				<Segment.Inline style={{textAlign:'right'}}>
-          create a new channel
+				<Segment.Inline style={{textAlign:'right', color:'#ffffcc'}}>
+          create new channel
 					<button style={{marginLeft:'0.5em'}} onClick={() => setUiComponent('createChannel')}>create</button>
 				</Segment.Inline>
 				<DropDownContainer user={props.user} />
-				{ props.messages && <FocusScrollable messages={props.messages} />}
+				{ props.messages && <FocusScrollable messages={props.messages} style={{}}/>}
 				<MessageForm />
 			</div>
 		)
@@ -38,15 +38,16 @@ const Chat = (props) => {
 	if(props.user !== null){
 		return (
 			<div>
-				<Segment className='segmentStyle' placeholder>
+				<Segment className='segmentStyle' style={{backgroundColor: '#01011A'}} placeholder>
 					{props.channel && dnd()}
-					<Rail attached internal position='right'>  
-						<Segment>
+					<Rail attached internal position='right' >  
+						<Segment style={{backgroundColor:'#0C375B'}}>
 							{uiComponent === 'chat' && chat()}
 							{uiComponent === 'createChannel' && <CreateChannelForm setUiComponent={setUiComponent} />}
 						</Segment>
 					</Rail>
 				</Segment>
+				<Segment style={{backgroundColor:'#0C375B', marginTop:'0%', height:'10px', padding:'0px'}}></Segment>
 			</div>
 		)} else return <div>kukkuu</div> 
     

@@ -36,9 +36,9 @@ const CreateChannelForm = (props) => {
 			<div>
     
 
-				<Form>
+				<Form inverted>
 					<Form.Input
-					
+						
 						label='Name'
 						placeholder='channel name'
 						{...name.input}

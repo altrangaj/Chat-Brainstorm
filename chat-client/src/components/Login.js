@@ -42,7 +42,7 @@ const Login = (props) => {
 		setSignUp(false)
 	}
 	const form = (buttonText, eventHandler) => (
-		<Form onSubmit={eventHandler}>
+		<Form inverted onSubmit={eventHandler}>
 			<Form.Input
 				icon='user'
 				iconPosition='left'
@@ -81,22 +81,25 @@ const Login = (props) => {
 	}
 	if (props.user === null) {
 		return (
-			<Segment placeholder>
+			<Segment style={{backgroundColor:'#0C375B', marginTop:'3rem'}} placeholder>
 				{!signUp && options()}
 				{signUp && form('Sign Up',handleSignUp)}
 			</Segment>
 		) 
 	} else return (
-		<div>
-			<Segment textAlign='right'>
+		<div style={{marginTop:'3rem'}}>
+			<Segment style={{textAlign:'right',backgroundColor:'#0C375B',color:'#ffffcc'}}>
 				<Grid columns={2}>
 					<Grid.Column>
-						{ props.channel && <Header as='h1' dividing>{props.channel.name}</Header> }
+						{ props.channel && <Header as='h1' dividing style={{fontWeight:'bold',color:'#ffffcc'}}>{props.channel.name}</Header> }
 					</Grid.Column>
 					<Grid.Column >
-						<Form onSubmit={handleLogout}>
-							<Button type="submit">logout</Button>
-						</Form>
+						<div style={{display:'inline', marginRight:'4rem'}}>
+							{props.user.username} is logged in &nbsp;
+						</div>
+						<div style={{display:'inline'}}>
+							<Button onClick={handleLogout}>logout</Button>	
+						</div>
 					</Grid.Column>
 				</Grid>
 			</Segment>
