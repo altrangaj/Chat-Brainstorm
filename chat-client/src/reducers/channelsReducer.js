@@ -1,9 +1,9 @@
 import channelsService from '../services/channels'
 
 
-export const initializeChannels = (id) => {
+export const initializeChannels = (user) => {
 	return async dispatch => {
-		const data = await channelsService.getChannels(id)
+		const data = await channelsService.getChannels(user)
 		dispatch({
 			type: 'GET_CHANNELS',
 			data
@@ -11,10 +11,10 @@ export const initializeChannels = (id) => {
 	}
 }
 
-export const createChannel = (name, users) => {
+export const createChannel = (name, users, user) => {
 	return {
 		type: 'CREATE_CHANNEL',
-		data: { name, users }
+		data: { name, users, token:user.token }
 	}
 }
 

@@ -9,7 +9,6 @@ const MessageForm = (props) => {
 
 	const sendMsg = () => {
 		const txt = msg.input.value
-		console.log('MESSAGEFORMINPOUT-->',txt,props.user, props.channel)
 		props.addMsg(txt,props.user, props.channel.id)
 		msg.reset()
 	}

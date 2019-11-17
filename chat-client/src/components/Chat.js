@@ -19,8 +19,13 @@ const Chat = (props) => {
 		return (
 			<div>
 				<Segment.Inline style={{textAlign:'right', color:'#ffffcc'}}>
+				<div style={{fontWeight:'bold',textAlign:'left',display:'inline', marginRight:'2rem'}}>
+							channel 
+						</div>
+						<div style={{border:'solid 1px black', display:'inline', padding: '5px 0px 5px 5px'}}>
           create new channel
 					<button style={{marginLeft:'0.5em'}} onClick={() => setUiComponent('createChannel')}>create</button>
+					</div>
 				</Segment.Inline>
 				<DropDownContainer user={props.user} />
 				{ props.messages && <FocusScrollable messages={props.messages} style={{}}/>}

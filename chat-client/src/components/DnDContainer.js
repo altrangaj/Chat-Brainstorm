@@ -28,12 +28,12 @@ const DnDContainer = (props) => {
 	})
 	const moveNote = (id, left, top) => {
 		const note= props.notes.find(n => n.id === id)
-		props.setNote({...note, top: top, left:left}, props.channel.id)
+		props.setNote({...note, top: top, left:left}, props.channel.id, props.user)
 	}
 	const updateText = (event,id) => {
 		const note= props.notes.find(n => n.id === id)
 		const date = new Date()
-		props.setNote({...note, content: event.target.value, author:props.user.username, date: new Date(date.getTime()-date.getTimezoneOffset()*60*1000)}, props.channel.id)
+		props.setNote({...note, content: event.target.value, author:props.user.username, date: new Date(date.getTime()-date.getTimezoneOffset()*60*1000)}, props.channel.id, props.user)
 	}
 	const handleContextMenu = (event) => {
 		event.preventDefault()
@@ -51,15 +51,15 @@ const DnDContainer = (props) => {
 	}
 	const handleItemClick = () => {
 		const date = new Date()
-		props.addNote({left: menu.style.left, top: menu.style.top, backgroundColor:'#ffffcc', date: new Date(date.getTime()-date.getTimezoneOffset()*60*1000), author: props.user.username}, props.channel.id)
+		props.addNote({left: menu.style.left, top: menu.style.top, backgroundColor:'#ffffcc', date: new Date(date.getTime()-date.getTimezoneOffset()*60*1000), author: props.user.username}, props.channel.id, props.user)
 		setMenu({visible: false})
 	}
 	const handleDelete = () => {
-		props.deleteNote(menu2.id, props.channel.id)
+		props.deleteNote(menu2.id, props.channel.id, props.user)
 	}
 	const setColor = (e) => {
 		const note= props.notes.find(n => n.id === menu2.id)
-		props.setNote({...note, backgroundColor: e.nativeEvent.target.id}, props.channel.id)
+		props.setNote({...note, backgroundColor: e.nativeEvent.target.id}, props.channel.id, props.user)
 		hideMenus()
 	}
 	const contextMenu2 = () => (

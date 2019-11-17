@@ -14,7 +14,7 @@ const CreateChannelForm = (props) => {
    
 
 	useEffect(() => {
-		props.initializeUsers()
+		props.initializeUsers(props.user)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -27,7 +27,7 @@ const CreateChannelForm = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		if(selection.length > 0 && name.input.value !== '') 
-			props.createChannel(name.input.value, selection)
+			props.createChannel(name.input.value, selection, props.user)
 		props.setUiComponent('chat')
 	}
 

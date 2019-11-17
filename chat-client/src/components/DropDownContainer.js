@@ -13,10 +13,11 @@ const DropDownContainer = (props) => {
             await props.initializeChannels(props.user.userId)
         }
         fetchData()*/
-		props.initializeChannels(props.user.userId)
+		props.initializeChannels(props.user)
 		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
+
 
 	const handleChange =  e => {
 		e.preventDefault()
@@ -25,8 +26,8 @@ const DropDownContainer = (props) => {
 		if(name !== 'select:'){
 			const chIndex = props.channels.find(i => i.name === name).id
 			props.setChannel(chIndex, name)
-			props.initializeMessages(chIndex)
-			props.initializeNotes(chIndex)
+			props.initializeMessages(chIndex, props.user)
+			props.initializeNotes(chIndex, props.user)
 		}
 	}
 
@@ -44,7 +45,8 @@ const DropDownContainer = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		channels: state.channels,
-		channel: state.channel
+		channel: state.channel,
+		user: state.loggedUser
 	}
 }
 export default connect(

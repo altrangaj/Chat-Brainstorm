@@ -1,9 +1,9 @@
 import usersService from '../services/users'
 
 
-export const initializeUsers = () => {
+export const initializeUsers = (user) => {
 	return async dispatch => {
-		const data = await usersService.getUsers()
+		const data = await usersService.getUsers(user)
 		dispatch({
 			type: 'GET_USERS',
 			data

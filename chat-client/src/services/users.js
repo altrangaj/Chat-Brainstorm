@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const baseUrl = '/api/users'
 
-const getUsers = async () => {
-	const users = await axios.get(`${baseUrl}`)
+const getUsers = async (user) => {
+	const users = await axios.get(`${baseUrl}`, { headers: {Authorization: user.token}})
 	return users
 }
 const addUser = async (data) => {

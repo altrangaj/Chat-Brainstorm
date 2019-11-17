@@ -10,6 +10,16 @@ const cors = require('cors')
 const mongoUrl = config.MONGODB_URI
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true })
+/*
+const MongoClient = require('mongodb').MongoClient;
+const uri = 'mongodb+srv://juha.jokeri@gmail.com:Qeadzc13"@cluster0-oxzpv.mongodb.net/test?retryWrites=true&w=majority';
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+ // const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+})
+*/
 app.use(cors())
 app.use(bodyParser.json())
 /*
@@ -22,6 +32,5 @@ app.use('/',function (req, res) {
 */
 app.use('/api/users',userRouter)
 app.use('/api/channels',channelRouter)
-
 
 module.exports = app

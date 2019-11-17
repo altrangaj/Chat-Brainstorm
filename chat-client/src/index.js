@@ -13,9 +13,9 @@ import usersReducer from './reducers/usersReducer'
 import noteReducer from './reducers/noteReducer'
 import io from 'socket.io-client'
 
-const createMySocketMiddleware = (url) => {
+const createMySocketMiddleware = () => {
 	return storeAPI => {
-		const socket = io(url)
+		const socket = io()
 		socket.on('message', (data) => {
 			if(storeAPI.getState().channel.id === data.channelID) {
 				storeAPI.dispatch({
@@ -63,6 +63,7 @@ const createMySocketMiddleware = (url) => {
 				action.type === 'ADD_NOTE' ||
 				action.type === 'SET_NOTE' ||
 				action.type === 'DELETE_NOTE') {
+
 				socket.emit('action',action)
 				return
 			}
@@ -70,6 +71,7 @@ const createMySocketMiddleware = (url) => {
 		}
 	}
 }
+
 
 const reducer = combineReducers({
 	messages: messageReducer,
@@ -82,7 +84,7 @@ const reducer = combineReducers({
 
 const store = createStore(reducer,
 	composeWithDevTools(
-		applyMiddleware(thunk,createMySocketMiddleware('http://localhost:3003'))
+		applyMiddleware(thunk,createMySocketMiddleware())
 	)
 )
 
