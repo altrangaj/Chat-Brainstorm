@@ -7,7 +7,7 @@ import { Menu, Dropdown } from 'semantic-ui-react'
 
 const styles = {
 	width: '100%',
-	height: 900,
+	height: '85vh',
 	position: 'relative',
 	backgroundImage: 'linear-gradient(#1f1f47,#01011A)'
 }

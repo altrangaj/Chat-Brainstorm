@@ -15,7 +15,13 @@ import io from 'socket.io-client'
 
 const createMySocketMiddleware = () => {
 	return storeAPI => {
-		const socket = io()
+		let socket = io('ws://localhost:3003')
+		
+		socket.on('reconnect_attempt', () => {
+			socket.io.opts.query = {
+				token: storeAPI.getState().loggedUser.token
+			}
+		})
 		socket.on('message', (data) => {
 			if(storeAPI.getState().channel.id === data.channelID) {
 				storeAPI.dispatch({

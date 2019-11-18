@@ -17,7 +17,7 @@ const MessageForm = (props) => {
 		return (
 			<div>
 				<input style={{width:'80%'}} {...msg.input} />
-				<button onClick={sendMsg}>send</button>
+				<button style={{width:'20%'}} onClick={sendMsg}>send</button>
 			</div>
 		)} else return <div></div>
 }

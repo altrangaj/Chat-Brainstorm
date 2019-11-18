@@ -17,26 +17,33 @@ const Chat = (props) => {
 
 	const chat = () => {
 		return (
-			<div>
-				<Segment.Inline style={{textAlign:'right', color:'#ffffcc'}}>
-				<div style={{fontWeight:'bold',textAlign:'left',display:'inline', marginRight:'2rem'}}>
-							channel 
-						</div>
-						<div style={{border:'solid 1px black', display:'inline', padding: '5px 0px 5px 5px'}}>
-          create new channel
-					<button style={{marginLeft:'0.5em'}} onClick={() => setUiComponent('createChannel')}>create</button>
-					</div>
+			<div >
+				<Segment.Inline style={{color:'#ffffcc'}}>
+					<table style={{width:'100%'}}>
+						<tr >
+							<td style={{fontWeight:'bold', width:'50%'}}>
+									channel 
+							</td>
+							<td style={{whiteSpace: 'nowrap', width:'50%',marginRight:'0%', paddingRight:'0px', borderRight:'0px', textAlign:'right'}}>
+								<div style={{whiteSpace: 'nowrap', display:'inline'}}>create new channel</div>
+								<div style={{marginLeft:'0.5em', display:'inline'}}>
+									<button  onClick={() => setUiComponent('createChannel')}>create</button>
+								</div>
+							</td>
+						</tr>
+					</table>
 				</Segment.Inline>
 				<DropDownContainer user={props.user} />
-				{ props.messages && <FocusScrollable messages={props.messages} style={{}}/>}
+				{ props.messages && <FocusScrollable messages={props.messages} />}
 				<MessageForm />
 			</div>
 		)
 	}
   
+
 	const dnd = () => (
 		<DndProvider backend={HTML5Backend}>
-			<DnDContainer />
+			<DnDContainer/>
 		</DndProvider>
 	)
 
@@ -45,17 +52,15 @@ const Chat = (props) => {
 			<div>
 				<Segment className='segmentStyle' style={{backgroundColor: '#01011A'}} placeholder>
 					{props.channel && dnd()}
-					<Rail attached internal position='right' >  
+					<Rail attached internal position='right' style={{ minWidth:'22rem', width:'25vw'}} >  
 						<Segment style={{backgroundColor:'#0C375B'}}>
 							{uiComponent === 'chat' && chat()}
 							{uiComponent === 'createChannel' && <CreateChannelForm setUiComponent={setUiComponent} />}
 						</Segment>
 					</Rail>
 				</Segment>
-				<Segment style={{backgroundColor:'#0C375B', marginTop:'0%', height:'10px', padding:'0px'}}></Segment>
 			</div>
-		)} else return <div>kukkuu</div> 
-    
+		)} else return <div></div> 
 }
 
 const mapStateToProps = (state) => {
