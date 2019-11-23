@@ -9,12 +9,14 @@ const styles = {
 	width: '100%',
 	height: '85vh',
 	position: 'relative',
+	borderRadius:'0px 0px 30px 30px',
 	backgroundImage: 'linear-gradient(#1f1f47,#01011A)'
 }
 const DnDContainer = (props) => {
         
 	const [menu, setMenu] = useState({visible: false}) 
-	const [menu2, setMenu2] = useState({visible: false}) 
+	const [menu2, setMenu2] = useState({visible: false})
+	
         
 	const [, drop] = useDrop({
 		accept: 'note',
@@ -30,11 +32,7 @@ const DnDContainer = (props) => {
 		const note= props.notes.find(n => n.id === id)
 		props.setNote({...note, top: top, left:left}, props.channel.id, props.user)
 	}
-	const updateText = (event,id) => {
-		const note= props.notes.find(n => n.id === id)
-		const date = new Date()
-		props.setNote({...note, content: event.target.value, author:props.user.username, date: new Date(date.getTime()-date.getTimezoneOffset()*60*1000)}, props.channel.id, props.user)
-	}
+
 	const handleContextMenu = (event) => {
 		event.preventDefault()
 		if(event.target.id === 'workArea'){
@@ -124,12 +122,9 @@ const DnDContainer = (props) => {
 						backgroundColor={b.backgroundColor}
 						author={b.author}
 						date={b.date}
-                        
-					>
-                    
-						<textarea className='txt-mesta' style={{fontSize: '1rem',width:'7rem', height:'3.8rem',backgroundColor:b.backgroundColor}} value={b.content} onChange={(e) => updateText(e,b.id)} />
-					</Note>
-                   
+						content={b.content}
+                       
+					/>
 				))
 				}
 			</div>

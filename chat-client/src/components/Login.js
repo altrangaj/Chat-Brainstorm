@@ -4,6 +4,7 @@ import  { useField } from '../hooks/field'
 import { signUp } from '../reducers/usersReducer'
 import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
 import { Button, Divider, Form, Grid, Segment, Header } from 'semantic-ui-react'
+import Clock from './Clock'
 
 const Login = (props) => {
 	const username = useField('text')
@@ -91,11 +92,22 @@ const Login = (props) => {
 			<Segment style={{textAlign:'right',backgroundColor:'#0C375B',color:'#ffffcc'}}>
 				<Grid columns={2}>
 					<Grid.Column>
-						{ props.channel && <Header as='h1' dividing style={{fontWeight:'bold',color:'#ffffcc'}}>{props.channel.name}</Header> }
+						<table style={{width:'100%'}}>
+							<tbody>
+								<tr >
+									<td style={{fontWeight:'bold', width:'50%',textAlign:'left'}}>
+										<Header style={{color:'#ffffcc'}} as='h1'><Clock/></Header>
+									</td>
+									<td style={{whiteSpace: 'nowrap', width:'50%',marginRight:'0%', paddingRight:'0px', borderRight:'0px', textAlign:'right'}}>
+										{ props.channel && <Header as='h1' dividing style={{fontWeight:'bold',color:'#ffffcc', display:'inline', textAlign:'right'}}>{props.channel.name}</Header> }
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</Grid.Column>
 					<Grid.Column >
-						<div style={{display:'inline', marginRight:'4rem'}}>
-							{props.user.username} is logged in &nbsp;
+						<div style={{display:'inline'}}>
+							<Header style={{whiteSpace: 'nowrap', display:'inline', marginRight:'2rem',color:'#ffffcc'}} as='h3'>{props.user.username} is logged in &nbsp;</Header>
 						</div>
 						<div style={{display:'inline'}}>
 							<Button onClick={handleLogout}>logout</Button>	
@@ -106,7 +118,7 @@ const Login = (props) => {
 		</div>
 	)
 }
-
+//<Header style={{color:'#ffffcc'}} as='h1'>21:53</Header>
 const mapStateToProps = (state) => {
 	return {
 		user: state.loggedUser,

@@ -20,17 +20,19 @@ const Chat = (props) => {
 			<div >
 				<Segment.Inline style={{color:'#ffffcc'}}>
 					<table style={{width:'100%'}}>
-						<tr >
-							<td style={{fontWeight:'bold', width:'50%'}}>
-									channel 
-							</td>
-							<td style={{whiteSpace: 'nowrap', width:'50%',marginRight:'0%', paddingRight:'0px', borderRight:'0px', textAlign:'right'}}>
-								<div style={{whiteSpace: 'nowrap', display:'inline'}}>create new channel</div>
-								<div style={{marginLeft:'0.5em', display:'inline'}}>
-									<button  onClick={() => setUiComponent('createChannel')}>create</button>
-								</div>
-							</td>
-						</tr>
+						<tbody>
+							<tr >
+								<td style={{fontWeight:'bold', width:'50%'}}>
+										channel 
+								</td>
+								<td style={{whiteSpace: 'nowrap', width:'50%',marginRight:'0%', paddingRight:'0px', borderRight:'0px', textAlign:'right'}}>
+									<div style={{whiteSpace: 'nowrap', display:'inline'}}>create new channel</div>
+									<div style={{marginLeft:'0.5em', display:'inline'}}>
+										<button  onClick={() => setUiComponent('createChannel')}>create</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
 					</table>
 				</Segment.Inline>
 				<DropDownContainer user={props.user} />
@@ -43,14 +45,14 @@ const Chat = (props) => {
 
 	const dnd = () => (
 		<DndProvider backend={HTML5Backend}>
-			<DnDContainer/>
+			<DnDContainer />
 		</DndProvider>
 	)
 
 	if(props.user !== null){
 		return (
 			<div>
-				<Segment className='segmentStyle' style={{backgroundColor: '#01011A'}} placeholder>
+				<Segment className='segmentStyle' style={{backgroundColor: '#01011A', borderRadius:'0px 0px 30px 30px'}} placeholder>
 					{props.channel && dnd()}
 					<Rail attached internal position='right' style={{ minWidth:'22rem', width:'25vw'}} >  
 						<Segment style={{backgroundColor:'#0C375B'}}>

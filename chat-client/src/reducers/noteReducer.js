@@ -1,5 +1,6 @@
 import noteService from '../services/notes'
 
+
 export const initializeNotes = (id, user) => {
 	return async dispatch => {
 		const notes = await noteService.getNotes(id, user)
