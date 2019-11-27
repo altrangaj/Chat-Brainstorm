@@ -5,6 +5,7 @@ import  { useField } from '../hooks/field'
 import { initializeUsers } from '../reducers/usersReducer'
 import { createChannel } from '../reducers/channelsReducer'
 import { Button, Form, Dropdown } from 'semantic-ui-react'
+import './ChannelForm.css'
 
 
 const CreateChannelForm = (props) => {
@@ -33,7 +34,7 @@ const CreateChannelForm = (props) => {
 
 	if(props.users){
 		return (
-			<div>
+			<div id='metal_form' >
     
 
 				<Form inverted>
@@ -43,12 +44,15 @@ const CreateChannelForm = (props) => {
 						placeholder='channel name'
 						{...name.input}
 					/>
+					<div style={{width:'80%', margin:'auto'}}>
+					<div style={{color:'white',fontWeight:'bold', paddingBottom:'0.3em'}}>Users</div>
 					<Dropdown label='Users' placeholder='users' fluid multiple selection 
+						
 						options={props.users.map(u => ({key:u.id, text:u.username,value:u.id}))}
 						onChange={handleChange}
 					/>
-
-					<Button content='create' primary onClick={handleSubmit} />
+					</div>
+					<Button style={{marginTop:'0.9em'}} content='create'  onClick={handleSubmit} />
 				</Form>
 
 		

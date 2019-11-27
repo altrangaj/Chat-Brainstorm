@@ -10,6 +10,7 @@ import DnDContainer from './DnDContainer'
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import './Chat.css'
+const image = require('./MetalBare.jpg')
 
 const Chat = (props) => {
   
@@ -18,12 +19,14 @@ const Chat = (props) => {
 	const chat = () => {
 		return (
 			<div >
-				<Segment.Inline style={{color:'#ffffcc'}}>
+				<Segment.Inline style={{backgroundColor: 'black',color:'white'}}>
 					<table style={{width:'100%'}}>
 						<tbody>
 							<tr >
-								<td style={{fontWeight:'bold', width:'50%'}}>
+								<td style={{paddingLeft:'0.6em',fontWeight:'bold', width:'50%'}}>
+									<div style={{display:'inline',verticalAlign: 'middle'}}>
 										channel 
+									</div>
 								</td>
 								<td style={{whiteSpace: 'nowrap', width:'50%',marginRight:'0%', paddingRight:'0px', borderRight:'0px', textAlign:'right'}}>
 									<div style={{whiteSpace: 'nowrap', display:'inline'}}>create new channel</div>
@@ -52,10 +55,10 @@ const Chat = (props) => {
 	if(props.user !== null){
 		return (
 			<div>
-				<Segment className='segmentStyle' style={{backgroundColor: '#01011A', borderRadius:'0px 0px 30px 30px'}} placeholder>
+				<Segment className='segmentStyle'  placeholder>
 					{props.channel && dnd()}
-					<Rail attached internal position='right' style={{ minWidth:'22rem', width:'25vw'}} >  
-						<Segment style={{backgroundColor:'#0C375B'}}>
+					<Rail attached internal position='right' style={{ minWidth:'22rem', width:'25vw',marginTop:'0.1rem'}} >  
+						<Segment id='borderImage' style={{backgroundColor:'transparent', padding:'0rem', borderWidth:'0.8rem'}}>
 							{uiComponent === 'chat' && chat()}
 							{uiComponent === 'createChannel' && <CreateChannelForm setUiComponent={setUiComponent} />}
 						</Segment>

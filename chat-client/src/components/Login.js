@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import  { useField } from '../hooks/field'
 import { signUp } from '../reducers/usersReducer'
 import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
-import { Button, Divider, Form, Grid, Segment, Header } from 'semantic-ui-react'
+import { Button, Divider, Form, Grid, Segment, Header, Image } from 'semantic-ui-react'
 import Clock from './Clock'
+import './Login.css'
+const image = require('./team.png')
 
 const Login = (props) => {
 	const username = useField('text')
@@ -43,7 +45,7 @@ const Login = (props) => {
 		setSignUp(false)
 	}
 	const form = (buttonText, eventHandler) => (
-		<Form inverted onSubmit={eventHandler}>
+		<Form style={{paddingTop:'2em', paddingBottom:'1em'}} onSubmit={eventHandler} >
 			<Form.Input
 				icon='user'
 				iconPosition='left'
@@ -57,17 +59,17 @@ const Login = (props) => {
 				label='Password'
 				{...password.input}
 			/>
-			<Button content={buttonText} primary type="submit" />
+			<Button style={{borderStyle: 'outset'}} content={buttonText} type="submit" />
 		</Form>
 	)
 	const options = () => (
-		<div>
-			<Grid columns={2} relaxed='very' stackable>
+		<div >
+			<Grid columns={2} relaxed='very' stackable >
 				<Grid.Column>
 					{form('Login', handleLogin)}
 				</Grid.Column>
 				<Grid.Column verticalAlign='middle'>
-					<Button content='Sign up' icon='signup' size='big' onClick={() => setSignUp(true)} />
+					<Button style={{borderStyle: 'outset'}} content='Sign up' icon='signup' size='big' onClick={() => setSignUp(true)} />
 				</Grid.Column>
 			</Grid>
 			<Divider vertical>Or</Divider>
@@ -82,36 +84,41 @@ const Login = (props) => {
 	}
 	if (props.user === null) {
 		return (
-			<Segment style={{backgroundColor:'#0C375B', marginTop:'3rem'}} placeholder>
+			<Segment className='metal' style={{border:'0px',padding:'0px', marginTop:'3rem'}} placeholder>
+			<Image src={image} />
 				{!signUp && options()}
 				{signUp && form('Sign Up',handleSignUp)}
 			</Segment>
-		) 
+		) //#ffffcc
 	} else return (
 		<div style={{marginTop:'3rem'}}>
-			<Segment style={{textAlign:'right',backgroundColor:'#0C375B',color:'#ffffcc'}}>
+			
+			<Segment className='metal' style={{color:'black', padding:'0.3rem'}}>
 				<Grid columns={2}>
-					<Grid.Column>
-						<table style={{width:'100%'}}>
-							<tbody>
-								<tr >
-									<td style={{fontWeight:'bold', width:'50%',textAlign:'left'}}>
-										<Header style={{color:'#ffffcc'}} as='h1'><Clock/></Header>
-									</td>
-									<td style={{whiteSpace: 'nowrap', width:'50%',marginRight:'0%', paddingRight:'0px', borderRight:'0px', textAlign:'right'}}>
-										{ props.channel && <Header as='h1' dividing style={{fontWeight:'bold',color:'#ffffcc', display:'inline', textAlign:'right'}}>{props.channel.name}</Header> }
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</Grid.Column>
 					<Grid.Column >
-						<div style={{display:'inline'}}>
-							<Header style={{whiteSpace: 'nowrap', display:'inline', marginRight:'2rem',color:'#ffffcc'}} as='h3'>{props.user.username} is logged in &nbsp;</Header>
+						<div style={{ textAlign:'left',display:'inline', float:'left',width:'30%',boxSizing:'border-box', paddingLeft:'0.35rem'}}>
+						
+						<Header style={{ textAlign:'center',display:'inline',color:'white'}} as='h1'><Clock/></Header>
+						
 						</div>
-						<div style={{display:'inline'}}>
-							<Button onClick={handleLogout}>logout</Button>	
+						<div style={{textAlign:'right',display:'inline', float:'right',width:'70%',boxSizing:'border-box'}}>
+								
+							{ props.channel && <Header as='h1' style={{fontWeight:'bold', display:'inline', textAlign:'center',color:'white'}}>
+								<div style={{display:'inline',verticalAlign: 'middle',borderRadius:'4px',paddingLeft:'0.2em',paddingRight:'0.2em',backgroundColor:'rgba(15, 15, 15,0.6)'}}>{props.channel.name}</div>
+							</Header> }
+						
+						</div>			
+					</Grid.Column>
+					<Grid.Column  >
+					<div style={{display:'inline-block',verticalAlign: 'middle', float:'right',width:'30%',textAlign:'right',boxSizing:'border-box'}}>
+							<Button style={{borderStyle: 'outset',borderRadius:'6px',padding:'0.7em'}} onClick={handleLogout}>logout</Button>	
 						</div>
+						<div style={{  float:'right',verticalAlign: 'middle',width:'70%',height:'100%',boxSizing:'border-box', marginRight:'2.5em'}}>
+						
+							<div style={{color:'white',whiteSpace: 'nowrap', position:'absolute',top:'35%',paddingLeft:'0.2em',paddingRight:'0.2em',right:'7em',borderRadius:'4px',backgroundColor:'rgba(15, 15, 15,0.6)'}}>{props.user.username} is logged in </div>
+						
+						</div>
+
 					</Grid.Column>
 				</Grid>
 			</Segment>

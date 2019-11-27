@@ -4,20 +4,21 @@ import Note from './Note'
 import {addNote, setNote, deleteNote} from '../reducers/noteReducer'
 import { connect } from 'react-redux'
 import { Menu, Dropdown } from 'semantic-ui-react'
+//import './DnD.css'
 
 const styles = {
 	width: '100%',
 	height: '85vh',
 	position: 'relative',
 	borderRadius:'0px 0px 30px 30px',
-	backgroundImage: 'linear-gradient(#1f1f47,#01011A)'
-}
+	
+}//#bd7201
 const DnDContainer = (props) => {
         
 	const [menu, setMenu] = useState({visible: false}) 
 	const [menu2, setMenu2] = useState({visible: false})
 	
-        
+	
 	const [, drop] = useDrop({
 		accept: 'note',
 		drop(item, monitor) {

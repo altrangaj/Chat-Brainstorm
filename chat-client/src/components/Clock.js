@@ -21,7 +21,7 @@ const Clock = () => {
 	}
 
 	return (
-		<div>
+		<div style={{display:'inline',verticalAlign: 'middle',borderRadius:'4px',paddingLeft:'0.2em',paddingRight:'0.2em',backgroundColor:'rgba(15, 15, 15,0.6)'}}>
 			{time}
 		</div>
 	)

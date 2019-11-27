@@ -12,11 +12,11 @@ const FocusScrollable = (props) => {
       border: 1px solid Gray;
       border-radius: 3px;
   `
-  
-	
+  //backgroundImage:'linear-gradient(rgba(46, 66, 107,0.8),rgba(153, 51, 102,0.8))'
+	//backgroundImage:'linear-gradient(rgba(153,115,8,0.6),rgba(255, 153, 0,0.8))'
 	if(props.user){
 		return (
-			<Div style={{ height: '27em',backgroundColor:'#01011A', color:'#ffffe6' }}>
+			<Div style={{ height: '33em',backgroundImage:'linear-gradient(rgba(102, 102, 102,0.8),rgba(30,30, 30,0.8))', color:'#d9d9d9' }}>
 				<ScrollableFeed>
 					{props.messages.map((m,i) => <Message key={i} message={m} user={props.user.username} />)}
 				</ScrollableFeed>
