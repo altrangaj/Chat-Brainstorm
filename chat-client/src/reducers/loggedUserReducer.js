@@ -17,7 +17,7 @@ export const setUser = (gredentials) => {
 
 export const clearUser = () => {
 	window.localStorage.removeItem('loggedChatUser')
-	return { type: 'CLEAR_USER' }
+	return { type: 'USER_LOGOUT' }
 }
 export const resetUser = data => ({ type:'SET_USER', data })
 
@@ -25,7 +25,7 @@ const reducer = (state = null, action) => {
 	switch (action.type) {
 	case 'SET_USER':
 		return  action.data
-	case 'CLEAR_USER':
+	case 'USER_LOGOUT':
 		return null
 	default:
 		return state

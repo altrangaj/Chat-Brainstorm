@@ -38,14 +38,15 @@ const Note = (props) => {
 	const updateText = async (Id) => {
 		const note= props.notes.find(n => n.id === Id)
 		const date2 = new Date()
-		await props.setNote({...note, content:text, author:props.user.username, 
-			date: new Date(date2.getTime()-date2.getTimezoneOffset()*60*1000)}, props.channel.id, props.user)
+		if(note.content !== text)
+			await props.setNote({...note, content:text, author:props.user.username, 
+				date: new Date(date2.getTime()-date2.getTimezoneOffset()*60*1000)}, props.channel.id, props.user)
 	}
 	
 	return (
 		<div ref={drag} id={props.id} style={{ ...style, left:props.left, top:props.top, backgroundColor:props.backgroundColor }} >
 		&nbsp; {props.author} {props.date.slice(8,10)}.{props.date.slice(5,7)}. {props.date.slice(11,16)}
-		<textarea className='txt-mesta' style={{fontSize: '1rem',width:'7rem', height:'3.8rem',backgroundColor:props.backgroundColor}} 
+		<textarea className='txt-mesta' style={{fontSize: '1rem',width:'7rem', height:'3.8rem', boxShadow:'2px 2px 5px rgba(0,0,0,0.5)',backgroundColor:props.backgroundColor}} 
 		value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
 		</div>
 	)

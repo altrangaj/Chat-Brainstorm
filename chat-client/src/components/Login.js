@@ -80,15 +80,18 @@ const Login = (props) => {
 		event.preventDefault()
 		window.localStorage.removeItem('loggedChatUser')
 		props.clearUser()
+		
 
 	}
 	if (props.user === null) {
 		return (
-			<Segment className='metal' style={{border:'0px',padding:'0px', marginTop:'3rem'}} placeholder>
-			<Image src={image} />
-				{!signUp && options()}
-				{signUp && form('Sign Up',handleSignUp)}
-			</Segment>
+			<div style={{border:'0px',padding:'0px', maxWidth:'1920px',margin:'auto'}}>
+				<Image style={{marginTop:'3rem'}} src={image} />
+				<Segment className='metal' style={{border:'0px',padding:'0px', margin:'0rem'}} placeholder>
+					{!signUp && options()}
+					{signUp && form('Sign Up',handleSignUp)}
+				</Segment>
+			</div>
 		) //#ffffcc
 	} else return (
 		<div style={{marginTop:'3rem'}}>
@@ -98,24 +101,24 @@ const Login = (props) => {
 					<Grid.Column >
 						<div style={{ textAlign:'left',display:'inline', float:'left',width:'30%',boxSizing:'border-box', paddingLeft:'0.35rem'}}>
 						
-						<Header style={{ textAlign:'center',display:'inline',color:'white'}} as='h1'><Clock/></Header>
+							<Header style={{ textAlign:'center',display:'inline',color:'white', textShadow: '0px 0px 3px black'}} as='h1'><Clock/></Header>
 						
 						</div>
 						<div style={{textAlign:'right',display:'inline', float:'right',width:'70%',boxSizing:'border-box'}}>
 								
 							{ props.channel && <Header as='h1' style={{fontWeight:'bold', display:'inline', textAlign:'center',color:'white'}}>
-								<div style={{display:'inline',verticalAlign: 'middle',borderRadius:'4px',paddingLeft:'0.2em',paddingRight:'0.2em',backgroundColor:'rgba(15, 15, 15,0.6)'}}>{props.channel.name}</div>
+								<div style={{textShadow: '0px 0px 3px black',whiteSpace: 'nowrap',display:'inline',verticalAlign: 'middle',borderRadius:'4px',paddingLeft:'0.2em',paddingRight:'0.2em',backgroundColor:'rgba(15, 15, 15,0.6)'}}>{props.channel.name}</div>
 							</Header> }
 						
 						</div>			
 					</Grid.Column>
 					<Grid.Column  >
-					<div style={{display:'inline-block',verticalAlign: 'middle', float:'right',width:'30%',textAlign:'right',boxSizing:'border-box'}}>
+						<div style={{display:'inline-block',verticalAlign: 'middle', float:'right',width:'30%',textAlign:'right',boxSizing:'border-box'}}>
 							<Button style={{borderStyle: 'outset',borderRadius:'6px',padding:'0.7em'}} onClick={handleLogout}>logout</Button>	
 						</div>
 						<div style={{  float:'right',verticalAlign: 'middle',width:'70%',height:'100%',boxSizing:'border-box', marginRight:'2.5em'}}>
 						
-							<div style={{color:'white',whiteSpace: 'nowrap', position:'absolute',top:'35%',paddingLeft:'0.2em',paddingRight:'0.2em',right:'7em',borderRadius:'4px',backgroundColor:'rgba(15, 15, 15,0.6)'}}>{props.user.username} is logged in </div>
+							<div style={{textShadow: '0px 0px 3px black',color:'white',whiteSpace: 'nowrap', position:'absolute',top:'35%',paddingLeft:'0.2em',paddingRight:'0.2em',right:'7em',borderRadius:'4px',backgroundColor:'rgba(15, 15, 15,0.6)'}}>{props.user.username} is logged in </div>
 						
 						</div>
 

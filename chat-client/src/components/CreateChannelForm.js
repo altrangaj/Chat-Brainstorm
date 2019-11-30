@@ -27,6 +27,7 @@ const CreateChannelForm = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		console.log(selection)
 		if(selection.length > 0 && name.input.value !== '') 
 			props.createChannel(name.input.value, selection, props.user)
 		props.setUiComponent('chat')

@@ -87,7 +87,15 @@ const reducer = combineReducers({
 	notes: noteReducer
 })
 
-const store = createStore(reducer,
+const rootReducer = (state, action) => {
+	if (action.type === 'USER_LOGOUT') {
+		console.log('USER_LOGOUT')
+		state = undefined
+	}
+	return reducer(state, action)
+}
+
+const store = createStore(rootReducer,
 	composeWithDevTools(
 		applyMiddleware(thunk,createMySocketMiddleware())
 	)

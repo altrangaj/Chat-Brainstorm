@@ -8,5 +8,5 @@
     border-radius:0px 0px 30px 30px;
 }
 #borderImage {
-    border-image: url(border_image.png) 20% round;
+    border-image: url(border_image.png) 10% round;
 }

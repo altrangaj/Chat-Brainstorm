@@ -10,7 +10,7 @@ import DnDContainer from './DnDContainer'
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import './Chat.css'
-const image = require('./MetalBare.jpg')
+
 
 const Chat = (props) => {
   
