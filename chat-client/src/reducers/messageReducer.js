@@ -23,9 +23,12 @@ const reducer = (state = [], action) => {
 	case 'INIT_MESSAGES':
 		return action
 	case 'SOCKET_MESSAGE_RECEIVED':
-		return {data:action.data.messages}
+		const msgs = action.data.messages.slice()
+		msgs[msgs.length-1] = 'UUSIVIESTI:'+msgs[msgs.length-1]
+		return {data:msgs}
 	case 'SEND_WEBSOCKET_MESSAGE':
-		return {data:[...state.data,action.data.message]}
+		const msgs2 = state.data.map((m) => (m.split(':',1) == 'UUSIVIESTI' ? m.replace('UUSIVIESTI:', '') : m))
+		return {data:[...msgs2,action.data.message]}
 	default:
 		return state
 	}

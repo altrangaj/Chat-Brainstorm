@@ -107,7 +107,7 @@ const Login = (props) => {
 						<div style={{textAlign:'right',display:'inline', float:'right',width:'70%',boxSizing:'border-box'}}>
 								
 							{ props.channel && <Header as='h1' style={{fontWeight:'bold', display:'inline', textAlign:'center',color:'white'}}>
-								<div style={{textShadow: '0px 0px 3px black',whiteSpace: 'nowrap',display:'inline',verticalAlign: 'middle',borderRadius:'4px',paddingLeft:'0.2em',paddingRight:'0.2em',backgroundColor:'rgba(15, 15, 15,0.6)'}}>{props.channel.name}</div>
+								<div style={{textShadow: '0px 0px 3px black',whiteSpace: 'nowrap',display:'inline',verticalAlign: 'middle',borderRadius:'4px',paddingLeft:'0.2em',paddingRight:'0.2em',backgroundColor:'rgba(0, 0, 0,0.6)'}}>{props.channel.name}</div>
 							</Header> }
 						
 						</div>			

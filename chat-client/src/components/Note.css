@@ -1,0 +1,14 @@
+.note{
+    position: absolute;
+    box-shadow:2px 2px 5px rgba(0,0,0,0.5);
+    border: 2px solid transparent;
+	padding: 0rem 0rem 0rem 0rem;
+	cursor: move;
+	font-size:9px;
+	width: 7rem;
+    height: 5rem;
+    transition: 1s;
+}
+.note:hover {
+    border-color: red;
+}

@@ -2,16 +2,9 @@ import React,{ useState, useEffect } from 'react'
 import { useDrag } from 'react-dnd'
 import {setNote } from '../reducers/noteReducer'
 import { connect } from 'react-redux'
+import './Note.css'
 
-const style = {
-	position: 'absolute',
-	border: '1px dashed gray',
-	padding: '0rem 0rem 0rem 0rem',
-	cursor: 'move',
-	fontSize:'9px',
-	width: '7rem',
-	height: '4rem'
-}
+
 const Note = (props) => {
 
 	const [text, setText] = useState(props.content)
@@ -40,13 +33,17 @@ const Note = (props) => {
 		const date2 = new Date()
 		if(note.content !== text)
 			await props.setNote({...note, content:text, author:props.user.username, 
-				date: new Date(date2.getTime()-date2.getTimezoneOffset()*60*1000)}, props.channel.id, props.user)
+				date: new Date(date2.getTime()-date2.getTimezoneOffset()*60*1000).toISOString()}, props.channel.id, props.user)
+	}
+
+	const setDate = (date) => {
+			return date.slice(8,10)+"."+date.slice(5,7)+". "+date.slice(11,16)
 	}
 	
 	return (
-		<div ref={drag} id={props.id} style={{ ...style, left:props.left, top:props.top, backgroundColor:props.backgroundColor }} >
-		&nbsp; {props.author} {props.date.slice(8,10)}.{props.date.slice(5,7)}. {props.date.slice(11,16)}
-		<textarea className='txt-mesta' style={{fontSize: '1rem',width:'7rem', height:'3.8rem', boxShadow:'2px 2px 5px rgba(0,0,0,0.5)',backgroundColor:props.backgroundColor}} 
+		<div className='note' ref={drag} id={props.id} style={{ left:props.left, top:props.top, backgroundColor:props.backgroundColor }} >
+		<span style={{height:'30%',whiteSpace: 'nowrap'}}>&nbsp; {props.author} {setDate(props.date)}</span>
+		<textarea className='txt-mesta' style={{fontSize: '1rem',width:'100%', height:'70%', backgroundColor:props.backgroundColor}} 
 		value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
 		</div>
 	)

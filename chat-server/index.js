@@ -49,7 +49,7 @@ io.on('connection', async socket => {
 				const channel = await Channel.findById(action.data.channel)
 				const updatedMsgs = channel.messages.concat(action.data.message)
 				await Channel.findByIdAndUpdate(action.data.channel, {messages:updatedMsgs})
-				io.emit('message',{channelID: action.data.channel, messages: updatedMsgs}) 
+				socket.broadcast.emit('message',{channelID: action.data.channel, messages: updatedMsgs}) 
 				return
 			}
 			case 'CREATE_CHANNEL':{
@@ -89,9 +89,10 @@ io.on('connection', async socket => {
 							return new Error('authentication error')
 						}
 					})
+				console.log(action.data.note)
 				const note = action.data.note
 				await Note.findByIdAndUpdate(note.id, {...note})
-				io.emit('set_note', {channelID: action.data.channel, note: note})
+				socket.broadcast.emit('set_note', {channelID: action.data.channel, note: note})
 				return
 			}
 			case 'DELETE_NOTE': {

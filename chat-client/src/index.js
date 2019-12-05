@@ -70,7 +70,7 @@ const createMySocketMiddleware = () => {
 				action.type === 'SET_NOTE' ||
 				action.type === 'DELETE_NOTE') {
 				socket.emit('action',action)
-				return
+				return next(action)
 			}
 			return next(action)
 		}

@@ -34,6 +34,9 @@ const reducer = (state = [], action) => {
 	switch (action.type) {
 	case 'INIT_NOTES':
 		return action.data
+	case 'SET_NOTE':
+		const newNote = action.data.note
+		return state.map(n => (newNote.id === n.id ? newNote : n))
 	case 'SOCKET_ADD_NOTE':
 		return state.concat(action.data)
 	case 'SOCKET_SET_NOTE':

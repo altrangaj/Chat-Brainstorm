@@ -1,0 +1,12 @@
+.message {
+    padding:6px 8px 6px 8px;
+    border-radius:6px;
+    background-color:rgba(5, 5, 5,0.5);
+    border: 2px solid transparent;
+    animation-name: example;
+    animation-duration: 10s;
+}
+@keyframes example {
+    from {border-color: red;}
+    to {border-color: transparent;}
+  }
