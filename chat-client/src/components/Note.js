@@ -9,6 +9,7 @@ const Note = (props) => {
 
 	const [text, setText] = useState(props.content)
 
+	// onBlur ei toimi ilman tätä
 	useEffect(() => {
 		setText(props.content)
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,7 +43,7 @@ const Note = (props) => {
 	
 	return (
 		<div className='note' ref={drag} id={props.id} style={{ left:props.left, top:props.top, backgroundColor:props.backgroundColor }} >
-		<span style={{height:'30%',whiteSpace: 'nowrap'}}>&nbsp; {props.author} {setDate(props.date)}</span>
+		&nbsp; {props.author} {setDate(props.date)}
 		<textarea className='txt-mesta' style={{fontSize: '1rem',width:'100%', height:'70%', backgroundColor:props.backgroundColor}} 
 		value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
 		</div>

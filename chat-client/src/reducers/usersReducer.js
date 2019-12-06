@@ -14,7 +14,7 @@ export const initializeUsers = (user) => {
 export const signUp = (userdata) => {
 	return async dispatch => {
 		const data = await usersService.addUser(userdata)
-		console.log('ADD_USER:', data)
+		if(!data) throw Error('username is in use')
 		dispatch({
 			type: 'ADD_USER',
 			data

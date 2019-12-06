@@ -10,6 +10,7 @@ const styles = {
 	width: '100%',
 	height: '85vh',
 	position: 'relative',
+	fontSize:'9px',
 	borderRadius:'0px 0px 30px 30px',
 	
 }//#bd7201
@@ -44,6 +45,7 @@ const DnDContainer = (props) => {
 	}
 	const handleContextMenu2 = (event) => {
 		event.preventDefault()
+		console.log(event.target.style)
 		const left = Number(event.target.style.left.replace('px','')) + Number(event.nativeEvent.offsetX)
 		const top = Number(event.target.style.top.replace('px','')) - Number(event.nativeEvent.offsetY)
 		setMenu2({visible: true, id: event.nativeEvent.target.id, style:{position: 'absolute', left:left, top:top, zIndex:1000}})

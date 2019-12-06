@@ -7,18 +7,17 @@ const UserController = {
 		try {
 			const data = await User.find({})
 			const users = data.map(ch => ch.toJSON())
-			console.log(users)
 			response.json({users: users}) 
 		} catch (exception) {
-			console.log(exception)
 			return response.status(500).json({error:'something went wrong'})
 		}
 	},
 	registerUser:  async (request, response, next) => {
 		try {
 			const body = request.body
-			if (body.username === undefined || body.password === undefined) {
-				return response.status(400).json({ error: 'missing password or username' })
+			if (body.username === undefined || body.password === undefined
+				|| body.username.length < 3 || body.password.length < 3) {
+				return response.status(400).json({ error: 'missing or invalid password or username' })
 			}
 			const saltRounds = 10
 			const password = await bcrypt.hash(body.password, saltRounds)
@@ -33,7 +32,7 @@ const UserController = {
 			response.json(savedUser.toJSON())
 		} catch (exception) {
 			if (exception.name === 'ValidationError') {
-				return response.status(400).json({ error: 'dublicate username or too short' })
+				return response.status(400).json({ error: 'dublicate username' })
 			}
 			next(exception)
 		}
@@ -41,9 +40,7 @@ const UserController = {
 	authenticateUser: async (request, response, next) => {
 		try{
 			const body = request.body
-			console.log('auth:',body)
 			const user = await User.findOne({ username: body.username })
-			console.log('user:',user)
 			const passwordCorrect = user === null
 				? false
 				: await bcrypt.compare(body.password, user.password)
@@ -65,7 +62,6 @@ const UserController = {
 				.status(200)
 				.send({ token, username: user.username, userId: user._id })
 		} catch (exception) {
-			console.log(exception)
 			next(exception)
 		}
 	}

@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import  { useField } from '../hooks/field'
 import { signUp } from '../reducers/usersReducer'
 import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
-import { Button, Divider, Form, Grid, Segment, Header, Image } from 'semantic-ui-react'
+import { Button, Divider, Form, Grid, Segment, Header, Image, Message, Icon } from 'semantic-ui-react'
 import Clock from './Clock'
+import ChannelName from './ChannelName'
 import './Login.css'
 const image = require('./team.png')
 
@@ -13,25 +14,42 @@ const Login = (props) => {
 	const password = useField('password')
 	
 	const [signUp, setSignUp] = useState(false)
-    
+	const [message,setMessage] = useState(null)
+	
+	const showMessage = (m) => {
+		setMessage(m)
+		setTimeout(() => {
+			setMessage(null)
+		},5000)
+	}
+
 	useEffect(() => {
 		const loggedUserJSON = window.localStorage.getItem('loggedChatUser')
 		if (loggedUserJSON) {
-			const user = JSON.parse(loggedUserJSON)
-			props.resetUser(user)
+			try{
+				const user = JSON.parse(loggedUserJSON)
+				props.resetUser(user)
+			} catch (e) {console.log(e.name)}
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	const handleInputs = async (event, func) => {
 		event.preventDefault()
 		try {
+			if(!username.input.value || username.input.value.length < 3) {
+				showMessage('valid username is required (min length is 3)')
+				return
+			}
+			if(!password.input.value || password.input.value.length < 3) {
+				showMessage('valid password is required (min length is 3)')
+				return
+			}
 			const credentials = {
 				username:username.input.value, password:password.input.value
 			}
-			console.log('credentials:',credentials)
 			await func(credentials)
 		} catch (exception) {
-			console.log(exception)
+			showMessage(exception.message)
 			//console.log('käyttäjätunnus tai salasana virheellinen')
 		}
 		username.reset()
@@ -44,6 +62,7 @@ const Login = (props) => {
 		handleInputs(e,props.signUp)
 		setSignUp(false)
 	}
+	
 	const form = (buttonText, eventHandler) => (
 		<Form style={{paddingTop:'2em', paddingBottom:'1em'}} onSubmit={eventHandler} >
 			<Form.Input
@@ -91,6 +110,12 @@ const Login = (props) => {
 					{!signUp && options()}
 					{signUp && form('Sign Up',handleSignUp)}
 				</Segment>
+				{message && 
+				<Message attached='bottom' warning>
+      				<Icon name='warning sign' />
+      				{message}
+    			</Message>
+				}
 			</div>
 		) //#ffffcc
 	} else return (
@@ -107,7 +132,7 @@ const Login = (props) => {
 						<div style={{textAlign:'right',display:'inline', float:'right',width:'70%',boxSizing:'border-box'}}>
 								
 							{ props.channel && <Header as='h1' style={{fontWeight:'bold', display:'inline', textAlign:'center',color:'white'}}>
-								<div style={{textShadow: '0px 0px 3px black',whiteSpace: 'nowrap',display:'inline',verticalAlign: 'middle',borderRadius:'4px',paddingLeft:'0.2em',paddingRight:'0.2em',backgroundColor:'rgba(0, 0, 0,0.6)'}}>{props.channel.name}</div>
+								<ChannelName/>
 							</Header> }
 						
 						</div>			
@@ -128,6 +153,7 @@ const Login = (props) => {
 		</div>
 	)
 }
+
 //<Header style={{color:'#ffffcc'}} as='h1'>21:53</Header>
 const mapStateToProps = (state) => {
 	return {

@@ -7,11 +7,12 @@ const getUsers = async (user) => {
 	return users
 }
 const addUser = async (data) => {
+	let newData = null
 	try {
-		const newData = await axios.post(`${baseUrl}/signup`, data)
+		newData = await axios.post(`${baseUrl}/signup`, data)
 		return newData.data
 	} catch (exception) {
-		console.log(exception)
+		return newData
 	}
 }
 export default { getUsers, addUser }
