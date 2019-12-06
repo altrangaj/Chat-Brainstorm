@@ -4,6 +4,8 @@ import './Message.css'
 
 const Message = (props) => {
 
+	/*eslint-disable eqeqeq*/
+
 	let name = props.message.split(':',1)
 	let msg = props.message.replace(name + ':', '')
 	let uus = false

@@ -131,7 +131,7 @@ const DnDContainer = (props) => {
 				))
 				}
 			</div>
-		)} else return <div></div>
+		)} else return <div>odota</div>
 }
 const mapStateToProps = (state) => {
 	return {

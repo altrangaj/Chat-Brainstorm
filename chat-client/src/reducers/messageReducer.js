@@ -1,5 +1,7 @@
 import messageService from '../services/messages'
 
+/*eslint-disable eqeqeq*/
+
 export const initializeMessages = (id, user) => {
 	return async dispatch => {
 		const msgs = await messageService.getMessages(id, user)
