@@ -47,8 +47,8 @@ const CreateChannelForm = (props) => {
 			setChannelsCount(props.channels.length)
 			clearTimeout(timeout)
 			const setNewChannel = async () => {
-				const chId = props.channels.find(i => i.name === name.input.value).id
-				await props.setChannel(chId, name.input.value)
+				const chId = props.channels.find(i => i.name === name.input.value.trim()).id
+				await props.setChannel(chId, name.input.value.trim())
 				await props.makeEmptyMessages()
 				await props.makeEmptyNotes()
 				resetWarnings()
