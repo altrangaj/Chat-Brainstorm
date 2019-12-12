@@ -22,10 +22,12 @@ export const makeEmptyMessages = () => {
 
 export const addMsg = (message, user, channel) => {
 	const msgByAuthor =`${user.username}:${message}`
-	return {
-		type: 'SEND_WEBSOCKET_MESSAGE',
-		data: { message: msgByAuthor,
-			channel, token: user.token }
+	return async dispatch => {
+		dispatch ({
+			type: 'SEND_WEBSOCKET_MESSAGE',
+			data: { message: msgByAuthor,
+				channel, token: user.token }
+		})
 	}
 }
 

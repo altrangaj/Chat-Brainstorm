@@ -4,7 +4,7 @@ import {initializeChannels} from '../reducers/channelsReducer'
 import {initializeNotes} from '../reducers/noteReducer'
 import { setChannel } from '../reducers/selectedChannelReducer'
 import { initializeMessages } from '../reducers/messageReducer'
-
+/*eslint-disable eqeqeq*/
 const DropDownContainer = (props) => {
 
 	useEffect(() => {
@@ -13,15 +13,15 @@ const DropDownContainer = (props) => {
 	}, [])
 
 
-	const handleChange =  e => {
+	const handleChange =  async e => {
 		e.preventDefault()
 		const index = e.target.selectedIndex
 		const name = e.target.childNodes[index].value
 		if(name !== 'select:'){
-			const chId = props.channels.find(i => i.name === name).id
-			props.setChannel(chId, name)
-			props.initializeMessages(chId, props.user)
-			props.initializeNotes(chId, props.user)
+			const chId = props.channels.find(i => i.name == name).id
+			await props.setChannel(chId, name)
+			await props.initializeMessages(chId, props.user)
+			await props.initializeNotes(chId, props.user)
 		}
 	}
 

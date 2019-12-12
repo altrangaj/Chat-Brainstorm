@@ -7,7 +7,7 @@ import { Button, Divider, Form, Grid, Segment, Header, Image, Message, Icon } fr
 import Clock from './Clock'
 import ChannelName from './ChannelName'
 import './Login.css'
-const image = require('./team.png')
+const image = require('./team.jpg')
 
 const Login = (props) => {
 	const username = useField('text')
