@@ -70,12 +70,13 @@ const CreateChannelForm = (props) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		if(selection.length > 0 && name.input.value !== '') {
-			if(props.channels.find(c => c.name === name.input.value)){
+		const chName = name.input.value.trim()
+		if(selection.length > 0 && chName !== '') {
+			if(props.channels.find(c => c.name === chName)){
 				setMessage('dublicate channel name')
 				return
 			}
-			await props.createChannel(name.input.value, [...selection,props.user.userId], props.user)
+			await props.createChannel(chName, [...selection,props.user.userId], props.user)
 		}
 		else setMessage('users or name missing')
 	}

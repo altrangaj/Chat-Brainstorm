@@ -11,6 +11,7 @@ export const initializeMessages = (id, user) => {
 		})
 	}
 }
+
 export const makeEmptyMessages = () => {
 	return async dispatch => {
 		dispatch ({
@@ -18,13 +19,14 @@ export const makeEmptyMessages = () => {
 		})
 	}
 }
+
 export const addMsg = (message, user, channel) => {
 	const msgByAuthor =`${user.username}:${message}`
 	return {
 		type: 'SEND_WEBSOCKET_MESSAGE',
 		data: { message: msgByAuthor,
 			channel, token: user.token }
-	  }
+	}
 }
 
 const reducer = (state = [], action) => {
@@ -33,7 +35,7 @@ const reducer = (state = [], action) => {
 		return action.data
 	case 'SOCKET_MESSAGE_RECEIVED':
 		const msgs = action.data.messages.slice()
-		msgs[msgs.length-1] = 'UUSIVIESTI:'+msgs[msgs.length-1]
+		msgs[msgs.length-1] = `UUSIVIESTI:${msgs[msgs.length-1]}`
 		return msgs
 	case 'SEND_WEBSOCKET_MESSAGE':
 		const msgs2 = state.map((m) => (m.split(':',1) == 'UUSIVIESTI' ? m.replace('UUSIVIESTI:', '') : m))

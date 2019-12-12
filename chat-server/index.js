@@ -78,7 +78,7 @@ io.on('connection', async socket => {
 				const channel = await Channel.findById(action.data.channelID)
 				const updatedNotes = channel.notes.filter(n => n != action.data.noteID)
 				await Channel.findByIdAndUpdate(action.data.channelID, {notes: updatedNotes})
-				await Note.remove({_id: action.data.noteID})
+				await Note.deleteOne({_id: action.data.noteID})
 				io.emit('delete_note', { ...action.data})
 				return
 			}

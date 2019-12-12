@@ -36,7 +36,7 @@ const Login = (props) => {
 	const handleInputs = async (event, func) => {
 		event.preventDefault()
 		try {
-			if(!username.input.value || username.input.value.length < 3) {
+			if(!username.input.value || username.input.value.trim().length < 3) {
 				showMessage('valid username is required (min length is 3)')
 				return
 			}
@@ -45,7 +45,7 @@ const Login = (props) => {
 				return
 			}
 			const credentials = {
-				username:username.input.value, password:password.input.value
+				username:username.input.value.trim(), password:password.input.value
 			}
 			await func(credentials)
 		} catch (exception) {

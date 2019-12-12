@@ -9,7 +9,10 @@ const cors = require('cors')
 
 const mongoUrl = config.MONGODB_URI
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true })
+mongoose.connect(mongoUrl, { useNewUrlParser: true,
+                             useUnifiedTopology: true,
+                             useFindAndModify: false,
+                             useCreateIndex: true })
 
 app.use(cors())
 app.use(bodyParser.json())

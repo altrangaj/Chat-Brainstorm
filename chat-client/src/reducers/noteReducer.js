@@ -1,6 +1,5 @@
 import noteService from '../services/notes'
 
-
 export const initializeNotes = (id, user) => {
 	return async dispatch => {
 		const notes = await noteService.getNotes(id, user)
@@ -10,6 +9,7 @@ export const initializeNotes = (id, user) => {
 		})
 	}
 }
+
 export const makeEmptyNotes = () => {
 	return async dispatch => {
 		dispatch ({
@@ -17,12 +17,14 @@ export const makeEmptyNotes = () => {
 		})
 	}
 }
+
 export const addNote = (note, channel, user) => {
 	return {
 		type: 'ADD_NOTE',
 		data: { note, channel, token: user.token }
 	}
 }
+
 export const setNote = (note, channel, user) => {
 	return {
 		type: 'SET_NOTE',
