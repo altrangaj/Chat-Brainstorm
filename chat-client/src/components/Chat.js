@@ -39,13 +39,12 @@ const Chat = (props) => {
 					</table>
 				</Segment.Inline>
 				<DropDownContainer user={props.user} />
-				{ props.messages && <FocusScrollable messages={props.messages} />}
+				{ props.messages && <FocusScrollable/>}
 				<MessageForm />
 			</div>
 		)
 	}
-  
-
+	
 	const dnd = () => (
 		<DndProvider backend={HTML5Backend}>
 			<DnDContainer />
@@ -69,9 +68,8 @@ const Chat = (props) => {
 }
 
 const mapStateToProps = (state) => {
-	//console.log('tilapäivitys',state)
 	return {
-		messages: state.messages.data,
+		messages: state.messages,
 		user: state.loggedUser,
 		channel: state.channel
 	}

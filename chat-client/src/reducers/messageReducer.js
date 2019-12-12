@@ -11,6 +11,13 @@ export const initializeMessages = (id, user) => {
 		})
 	}
 }
+export const makeEmptyMessages = () => {
+	return async dispatch => {
+		dispatch ({
+			type: 'INIT_EMPTY_MESSAGES'
+		})
+	}
+}
 export const addMsg = (message, user, channel) => {
 	const msgByAuthor =`${user.username}:${message}`
 	return {
@@ -23,14 +30,16 @@ export const addMsg = (message, user, channel) => {
 const reducer = (state = [], action) => {
 	switch (action.type) {
 	case 'INIT_MESSAGES':
-		return action
+		return action.data
 	case 'SOCKET_MESSAGE_RECEIVED':
 		const msgs = action.data.messages.slice()
 		msgs[msgs.length-1] = 'UUSIVIESTI:'+msgs[msgs.length-1]
-		return {data:msgs}
+		return msgs
 	case 'SEND_WEBSOCKET_MESSAGE':
-		const msgs2 = state.data.map((m) => (m.split(':',1) == 'UUSIVIESTI' ? m.replace('UUSIVIESTI:', '') : m))
-		return {data:[...msgs2,action.data.message]}
+		const msgs2 = state.map((m) => (m.split(':',1) == 'UUSIVIESTI' ? m.replace('UUSIVIESTI:', '') : m))
+		return [...msgs2,action.data.message]
+	case 'INIT_EMPTY_MESSAGES':
+		return []
 	default:
 		return state
 	}

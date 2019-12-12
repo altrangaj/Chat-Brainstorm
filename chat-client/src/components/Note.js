@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDrag } from 'react-dnd'
 import {setNote } from '../reducers/noteReducer'
 import { connect } from 'react-redux'
@@ -38,14 +38,14 @@ const Note = (props) => {
 	}
 
 	const setDate = (date) => {
-			return date.slice(8,10)+"."+date.slice(5,7)+". "+date.slice(11,16)
+		return date.slice(8,10)+'.'+date.slice(5,7)+'. '+date.slice(11,16)
 	}
 	
 	return (
 		<div className='note' ref={drag} id={props.id} style={{ left:props.left, top:props.top, backgroundColor:props.backgroundColor }} >
 		&nbsp; {props.author} {setDate(props.date)}
-		<textarea className='txt-mesta' style={{fontSize: '1rem',width:'100%', height:'70%', backgroundColor:props.backgroundColor}} 
-		value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
+			<textarea className='txt-mesta' style={{fontSize: '1rem',width:'100%', height:'70%', backgroundColor:props.backgroundColor}} 
+				value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
 		</div>
 	)
 }

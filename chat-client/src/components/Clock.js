@@ -9,7 +9,7 @@ const Clock = (props) => {
 
 	useEffect(() => {
 		updateTime(props.user)
-		return function cleanup() {
+		return () => {
 			updateTime(undefined)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -17,7 +17,7 @@ const Clock = (props) => {
 
 	const updateTime = (user) => {
 		const date = new Date()
-        //jostain syystä tämä date onkin jo Suomiajassa
+		//jostain syystä tämä date onkin jo Suomiajassa
 		clearTimeout(timeoutId)
 		if(user){
 			setTime(date.toString().slice(16,24))

@@ -8,13 +8,7 @@ import { initializeMessages } from '../reducers/messageReducer'
 const DropDownContainer = (props) => {
 
 	useEffect(() => {
-		/*
-        const fetchData = async () => {
-            await props.initializeChannels(props.user.userId)
-        }
-        fetchData()*/
 		props.initializeChannels(props.user)
-		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -24,15 +18,14 @@ const DropDownContainer = (props) => {
 		const index = e.target.selectedIndex
 		const name = e.target.childNodes[index].value
 		if(name !== 'select:'){
-			const chIndex = props.channels.find(i => i.name === name).id
-			props.setChannel(chIndex, name)
-			props.initializeMessages(chIndex, props.user)
-			props.initializeNotes(chIndex, props.user)
+			const chId = props.channels.find(i => i.name === name).id
+			props.setChannel(chId, name)
+			props.initializeMessages(chId, props.user)
+			props.initializeNotes(chId, props.user)
 		}
 	}
 
 	if(props.channels.length !== 0){
-        
 		return (
 			<div>
 				<select onChange={handleChange} style={{width:'100%'}}>

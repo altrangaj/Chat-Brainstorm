@@ -1,15 +1,15 @@
-export const setChannel = (id, name) => {
+export const setError = (data) => {
 	return async dispatch => {
 		dispatch ({
-			type: 'SET_CHANNEL',
-			data: {id, name}
+			type: 'SET_ERROR',
+			data
 		})
 	}
 }
 
-const reducer = (state = '', action) => {
+const reducer = (state = null, action) => {
 	switch (action.type) {
-	case 'SET_CHANNEL':
+	case 'SET_ERROR':
 		return action.data
 	default:
 		return state

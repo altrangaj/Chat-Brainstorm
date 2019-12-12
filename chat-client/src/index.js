@@ -11,17 +11,13 @@ import channelsReducer from './reducers/channelsReducer'
 import selectedChannelReducer from './reducers/selectedChannelReducer'
 import usersReducer from './reducers/usersReducer'
 import noteReducer from './reducers/noteReducer'
+import errorReducer from './reducers/errorReducer'
 import io from 'socket.io-client'
 
 const createMySocketMiddleware = () => {
 	return storeAPI => {
 		let socket = io('ws://localhost:3003')
 		
-		socket.on('reconnect_attempt', () => {
-			socket.io.opts.query = {
-				token: storeAPI.getState().loggedUser.token
-			}
-		})
 		socket.on('message', (data) => {
 			if(storeAPI.getState().channel.id === data.channelID) {
 				storeAPI.dispatch({
@@ -54,6 +50,12 @@ const createMySocketMiddleware = () => {
 				})
 			}
 		})
+		socket.on('myError', (data) => {
+			storeAPI.dispatch({
+				type : 'SET_ERROR',
+				data
+			})
+		})
 		socket.on('channel', data => {
 			if(data.users.find(u => u === storeAPI.getState().loggedUser.userId)){
 				storeAPI.dispatch({
@@ -69,8 +71,12 @@ const createMySocketMiddleware = () => {
 				action.type === 'ADD_NOTE' ||
 				action.type === 'SET_NOTE' ||
 				action.type === 'DELETE_NOTE') {
+					
 				socket.emit('action',action)
-				return next(action)
+
+				if(action.type === 'SEND_WEBSOCKET_MESSAGE' || action.type === 'SET_NOTE')
+					return next(action)
+				else return
 			}
 			return next(action)
 		}
@@ -84,12 +90,12 @@ const reducer = combineReducers({
 	channels: channelsReducer,
 	channel: selectedChannelReducer,
 	users: usersReducer,
-	notes: noteReducer
+	notes: noteReducer,
+	error: errorReducer
 })
 
 const rootReducer = (state, action) => {
 	if (action.type === 'USER_LOGOUT') {
-		console.log('USER_LOGOUT')
 		state = undefined
 	}
 	return reducer(state, action)

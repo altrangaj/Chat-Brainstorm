@@ -50,7 +50,6 @@ const Login = (props) => {
 			await func(credentials)
 		} catch (exception) {
 			showMessage(exception.message)
-			//console.log('käyttäjätunnus tai salasana virheellinen')
 		}
 		username.reset()
 		password.reset()
@@ -99,9 +98,8 @@ const Login = (props) => {
 		event.preventDefault()
 		window.localStorage.removeItem('loggedChatUser')
 		props.clearUser()
-		
-
 	}
+
 	if (props.user === null) {
 		return (
 			<div style={{border:'0px',padding:'0px', maxWidth:'1920px',margin:'auto'}}>
@@ -117,36 +115,28 @@ const Login = (props) => {
     			</Message>
 				}
 			</div>
-		) //#ffffcc
+		)
 	} else return (
 		<div style={{marginTop:'3rem'}}>
-			
 			<Segment className='metal' style={{color:'black', padding:'0.3rem'}}>
 				<Grid columns={2}>
-					<Grid.Column >
+					<Grid.Column>
 						<div style={{ textAlign:'left',display:'inline', float:'left',width:'30%',boxSizing:'border-box', paddingLeft:'0.35rem'}}>
-						
 							<Header style={{ textAlign:'center',display:'inline',color:'white', textShadow: '0px 0px 3px black'}} as='h1'><Clock/></Header>
-						
 						</div>
-						<div style={{textAlign:'right',display:'inline', float:'right',width:'70%',boxSizing:'border-box'}}>
-								
+						<div style={{textAlign:'right',display:'inline', float:'right',width:'70%',boxSizing:'border-box'}}>	
 							{ props.channel && <Header as='h1' style={{fontWeight:'bold', display:'inline', textAlign:'center',color:'white'}}>
 								<ChannelName/>
 							</Header> }
-						
 						</div>			
 					</Grid.Column>
-					<Grid.Column  >
+					<Grid.Column>
 						<div style={{display:'inline-block',verticalAlign: 'middle', float:'right',width:'30%',textAlign:'right',boxSizing:'border-box'}}>
 							<Button style={{borderStyle: 'outset',borderRadius:'6px',padding:'0.7em'}} onClick={handleLogout}>logout</Button>	
 						</div>
 						<div style={{  float:'right',verticalAlign: 'middle',width:'70%',height:'100%',boxSizing:'border-box', marginRight:'2.5em'}}>
-						
 							<div style={{textShadow: '0px 0px 3px black',color:'white',whiteSpace: 'nowrap', position:'absolute',top:'35%',paddingLeft:'0.2em',paddingRight:'0.2em',right:'7em',borderRadius:'4px',backgroundColor:'rgba(15, 15, 15,0.6)'}}>{props.user.username} is logged in </div>
-						
 						</div>
-
 					</Grid.Column>
 				</Grid>
 			</Segment>
@@ -154,7 +144,6 @@ const Login = (props) => {
 	)
 }
 
-//<Header style={{color:'#ffffcc'}} as='h1'>21:53</Header>
 const mapStateToProps = (state) => {
 	return {
 		user: state.loggedUser,

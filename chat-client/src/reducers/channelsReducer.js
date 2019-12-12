@@ -12,9 +12,11 @@ export const initializeChannels = (user) => {
 }
 
 export const createChannel = (name, users, user) => {
-	return {
-		type: 'CREATE_CHANNEL',
-		data: { name, users, token:user.token }
+	return async dispatch => {
+		dispatch ({
+			type: 'CREATE_CHANNEL',
+			data: { name, users, token:user.token }
+		})
 	}
 }
 

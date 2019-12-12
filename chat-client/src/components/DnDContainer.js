@@ -4,7 +4,6 @@ import Note from './Note'
 import {addNote, setNote, deleteNote} from '../reducers/noteReducer'
 import { connect } from 'react-redux'
 import { Menu, Dropdown } from 'semantic-ui-react'
-//import './DnD.css'
 
 const styles = {
 	width: '100%',
@@ -12,14 +11,13 @@ const styles = {
 	position: 'relative',
 	fontSize:'9px',
 	borderRadius:'0px 0px 30px 30px',
-	
-}//#bd7201
+}
+
 const DnDContainer = (props) => {
         
 	const [menu, setMenu] = useState({visible: false}) 
 	const [menu2, setMenu2] = useState({visible: false})
-	
-	
+		
 	const [, drop] = useDrop({
 		accept: 'note',
 		drop(item, monitor) {
@@ -39,26 +37,29 @@ const DnDContainer = (props) => {
 		event.preventDefault()
 		if(event.target.id === 'workArea'){
 			setMenu({visible: true, style:{position: 'absolute', left:event.nativeEvent.offsetX, top:event.nativeEvent.offsetY}})
+			setMenu2({visible: false})
 		} else if(event.nativeEvent.target.className !== 'txt-mesta') {
 			handleContextMenu2(event)
 		}
 	}
 	const handleContextMenu2 = (event) => {
-		event.preventDefault()
-		console.log(event.target.style)
 		const left = Number(event.target.style.left.replace('px','')) + Number(event.nativeEvent.offsetX)
 		const top = Number(event.target.style.top.replace('px','')) - Number(event.nativeEvent.offsetY)
 		setMenu2({visible: true, id: event.nativeEvent.target.id, style:{position: 'absolute', left:left, top:top, zIndex:1000}})
+		setMenu({visible: false})
 	}
-	const handleItemClick = () => {
+	const handleItemClick = (e) => {
+		e.preventDefault()
 		const date = new Date()
 		props.addNote({left: menu.style.left, top: menu.style.top, backgroundColor:'#ffffcc', date: new Date(date.getTime()-date.getTimezoneOffset()*60*1000), author: props.user.username}, props.channel.id, props.user)
 		setMenu({visible: false})
 	}
-	const handleDelete = () => {
+	const handleDelete = (e) => {
+		e.preventDefault()
 		props.deleteNote(menu2.id, props.channel.id, props.user)
 	}
 	const setColor = (e) => {
+		e.preventDefault()
 		const note= props.notes.find(n => n.id === menu2.id)
 		props.setNote({...note, backgroundColor: e.nativeEvent.target.id}, props.channel.id, props.user)
 		hideMenus()
@@ -102,10 +103,9 @@ const DnDContainer = (props) => {
 				active
 				onClick={handleItemClick}
 			/>
-             
 		</Menu> 
 	)
-	const hideMenus = (event) => {
+	const hideMenus = () => {
 		setMenu({visible: false})
 		setMenu2({visible: false})
 	}
@@ -126,10 +126,8 @@ const DnDContainer = (props) => {
 						author={b.author}
 						date={b.date}
 						content={b.content}
-                       
 					/>
-				))
-				}
+				))}
 			</div>
 		)} else return <div>odota</div>
 }
