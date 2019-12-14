@@ -1,3 +1,10 @@
+sovellus: https://immense-tundra-18786.herokuapp.com/
+
+käyttöohje: https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/Chat_sovelluksen_kayttoohje.pdf
+
+tuntikirjanpito: https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/Tuntikirjanpito.pdf
+
+
 chat server & client (tarkoitus on panostaa käyttöliittymään)
 
 toteutus: node.js, React, mongoDB
