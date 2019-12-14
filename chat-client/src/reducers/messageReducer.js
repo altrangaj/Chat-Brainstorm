@@ -31,6 +31,8 @@ export const addMsg = (message, user, channel) => {
 	}
 }
 
+export const removeAnimation = () => ({type: 'REMOVE_ANIMATION'})
+
 const reducer = (state = [], action) => {
 	switch (action.type) {
 	case 'INIT_MESSAGES':
@@ -40,8 +42,9 @@ const reducer = (state = [], action) => {
 		msgs[msgs.length-1] = `UUSIVIESTI:${msgs[msgs.length-1]}`
 		return msgs
 	case 'SEND_WEBSOCKET_MESSAGE':
-		const msgs2 = state.map((m) => (m.split(':',1) == 'UUSIVIESTI' ? m.replace('UUSIVIESTI:', '') : m))
-		return [...msgs2,action.data.message]
+		return [...state,action.data.message]
+	case 'REMOVE_ANIMATION':
+		return state.map((m) => (m.split(':',1) == 'UUSIVIESTI' ? m.replace('UUSIVIESTI:', '') : m))
 	case 'INIT_EMPTY_MESSAGES':
 		return []
 	default:

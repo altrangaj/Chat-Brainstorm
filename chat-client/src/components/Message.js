@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { removeAnimation } from '../reducers/messageReducer'
 import './Message.css'
 
 
@@ -18,7 +20,7 @@ const Message = (props) => {
 
 	const setMessage = () => {
 		if(uus) return (
-			<div className='message' >
+			<div className='message' onAnimationEnd={props.removeAnimation}>
 				{msg}
 			</div>
 		)
@@ -48,4 +50,4 @@ const Message = (props) => {
 		</div>
 	)
 }
-export default Message
+export default connect(null,{ removeAnimation })(Message)
