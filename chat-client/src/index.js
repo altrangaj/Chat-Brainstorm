@@ -12,6 +12,7 @@ import selectedChannelReducer from './reducers/selectedChannelReducer'
 import usersReducer from './reducers/usersReducer'
 import noteReducer from './reducers/noteReducer'
 import errorReducer from './reducers/errorReducer'
+import connectedUsersReducer from './reducers/connectedUsersReducer'
 import io from 'socket.io-client'
 
 const createMySocketMiddleware = () => {
@@ -64,17 +65,25 @@ const createMySocketMiddleware = () => {
 				})
 			}
 		})
+		socket.on('set_connected_users', data => {
+			storeAPI.dispatch({
+				type: 'SET_CONNECTED_USERS',
+				data
+			})
+		})
 
 		return next => action => {
 			if( action.type === 'SEND_WEBSOCKET_MESSAGE' ||
 				action.type === 'CREATE_CHANNEL' ||
 				action.type === 'ADD_NOTE' ||
 				action.type === 'SET_NOTE' ||
-				action.type === 'DELETE_NOTE') {
+				action.type === 'DELETE_NOTE' ||
+				action.type === 'SET_USER' ||
+				action.type === 'USER_LOGOUT') {
 					
 				socket.emit('action',action)
 
-				if(action.type === 'SEND_WEBSOCKET_MESSAGE' || action.type === 'SET_NOTE')
+				if(action.type === 'SEND_WEBSOCKET_MESSAGE' || action.type === 'SET_NOTE' || action.type === 'SET_USER' || action.type === 'USER_LOGOUT')
 					return next(action)
 				else return
 			}
@@ -91,7 +100,8 @@ const reducer = combineReducers({
 	channel: selectedChannelReducer,
 	users: usersReducer,
 	notes: noteReducer,
-	error: errorReducer
+	error: errorReducer,
+	connectedUsers: connectedUsersReducer
 })
 
 const rootReducer = (state, action) => {

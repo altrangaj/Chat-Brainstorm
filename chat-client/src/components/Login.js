@@ -3,11 +3,10 @@ import { connect } from 'react-redux'
 import  { useField } from '../hooks/field'
 import { signUp } from '../reducers/usersReducer'
 import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
-import { Button, Divider, Form, Grid, Segment, Header, Image, Message, Icon } from 'semantic-ui-react'
-import Clock from './Clock'
-import ChannelName from './ChannelName'
+import { Button, Divider, Form, Grid, Segment, Image, Message, Icon } from 'semantic-ui-react'
 import './Login.css'
-const image = require('./team.jpg')
+
+const image = require('./meeting.jpg')
 
 const Login = (props) => {
 	const username = useField('text')
@@ -15,6 +14,9 @@ const Login = (props) => {
 	
 	const [signUp, setSignUp] = useState(false)
 	const [message,setMessage] = useState(null)
+
+	
+
 	
 	const showMessage = (m) => {
 		setMessage(m)
@@ -24,13 +26,16 @@ const Login = (props) => {
 	}
 
 	useEffect(() => {
-		const loggedUserJSON = window.localStorage.getItem('loggedChatUser')
-		if (loggedUserJSON) {
-			try{
-				const user = JSON.parse(loggedUserJSON)
-				props.resetUser(user)
-			} catch (e) {console.log(e.name)}
+		const setU = async () => {
+			const loggedUserJSON = window.localStorage.getItem('loggedChatUser')
+			if (loggedUserJSON) {
+				try{
+					const user = await JSON.parse(loggedUserJSON)
+					await props.resetUser(user)
+				} catch (e) {console.log(e.name)}
+			}
 		}
+		setU()
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	const handleInputs = async (event, func) => {
@@ -61,7 +66,7 @@ const Login = (props) => {
 		handleInputs(e,props.signUp)
 		setSignUp(false)
 	}
-	
+	//url("MetalBare.jpg")
 	const form = (buttonText, eventHandler) => (
 		<Form style={{paddingTop:'2em', paddingBottom:'1em'}} onSubmit={eventHandler} >
 			<Form.Input
@@ -94,17 +99,11 @@ const Login = (props) => {
 		</div>
 	)
 
-	const handleLogout = async (event) => {
-		event.preventDefault()
-		window.localStorage.removeItem('loggedChatUser')
-		props.clearUser()
-	}
-
-	if (props.user === null) {
+	if (!props.user && !window.localStorage.getItem('loggedChatUser')) {
 		return (
-			<div style={{border:'0px',padding:'0px', maxWidth:'1920px',margin:'auto'}}>
+			<div style={{border:'0px',padding:'0px', maxWidth:'1280px',width:'70%',margin:'auto'}}>
 				<Image style={{marginTop:'3rem'}} src={image} />
-				<Segment className='metal' style={{border:'0px',padding:'0px', margin:'0rem'}} placeholder>
+				<Segment style={{border:'0px',padding:'0px', margin:'0rem',backgroundColor:'#cccccc'}} placeholder>
 					{!signUp && options()}
 					{signUp && form('Sign Up',handleSignUp)}
 				</Segment>
@@ -117,30 +116,7 @@ const Login = (props) => {
 			</div>
 		)
 	} else return (
-		<div style={{marginTop:'3rem'}}>
-			<Segment className='metal' style={{color:'black', padding:'0.3rem'}}>
-				<Grid columns={2}>
-					<Grid.Column>
-						<div style={{ textAlign:'left',display:'inline', float:'left',width:'30%',boxSizing:'border-box', paddingLeft:'0.35rem'}}>
-							<Header style={{ textAlign:'center',display:'inline',color:'white', textShadow: '0px 0px 3px black'}} as='h1'><Clock/></Header>
-						</div>
-						<div style={{textAlign:'right',display:'inline', float:'right',width:'70%',boxSizing:'border-box'}}>	
-							{ props.channel && <Header as='h1' style={{fontWeight:'bold', display:'inline', textAlign:'center',color:'white'}}>
-								<ChannelName/>
-							</Header> }
-						</div>			
-					</Grid.Column>
-					<Grid.Column>
-						<div style={{display:'inline-block',verticalAlign: 'middle', float:'right',width:'30%',textAlign:'right',boxSizing:'border-box'}}>
-							<Button style={{borderStyle: 'outset',borderRadius:'6px',padding:'0.7em'}} onClick={handleLogout}>logout</Button>	
-						</div>
-						<div style={{  float:'right',verticalAlign: 'middle',width:'70%',height:'100%',boxSizing:'border-box', marginRight:'2.5em'}}>
-							<div style={{textShadow: '0px 0px 3px black',color:'white',whiteSpace: 'nowrap', position:'absolute',top:'35%',paddingLeft:'0.2em',paddingRight:'0.2em',right:'7em',borderRadius:'4px',backgroundColor:'rgba(15, 15, 15,0.6)'}}>{props.user.username} is logged in </div>
-						</div>
-					</Grid.Column>
-				</Grid>
-			</Segment>
-		</div>
+		<div></div>
 	)
 }
 

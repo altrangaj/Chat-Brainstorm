@@ -5,7 +5,7 @@ import Chat from './components/Chat'
 
 
 const App = () => (
-	<Container  style={{width:'80%'}}>
+	<Container  style={{width:'100%',height:'100vh'}}>
 		<Login />
 		<Chat />
 	</Container>

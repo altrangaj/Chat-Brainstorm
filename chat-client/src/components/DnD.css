@@ -2,3 +2,29 @@
 
     background: linear-gradient(#595959,#8c8c8c);
 }
+#dnd{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:2000px;
+    height:1200px;
+    background: transparent;
+    margin: 4em 6em;
+    outline: 1px solid transparent;
+    margin-top:10em;
+    transition: outline 1s;
+    border-radius:0px 0px 0px 0px;
+}
+#wa {
+    position:absolute;
+    font-family: 'Orbitron', sans-serif;
+    font-weight:700;
+    vertical-align:center;
+    top:0px;
+    font-size:0.9em;
+    line-height:0.9em;
+    color: transparent;
+    transition: color 1s;
+}
+div.hoverjuttu:hover #dnd {outline-color: rgba(128, 179, 255,0.4);}
+div.hoverjuttu:hover #wa {color: rgba(128, 179, 255,0.6);}

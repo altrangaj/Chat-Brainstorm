@@ -19,6 +19,8 @@ const CreateChannelForm = (props) => {
 	const [channelsCount,setChannelsCount] = useState(props.channels.length)
 	let timeout = -1
 	const isMounted = useRef(true)
+	props.setIn(true)
+	
 	
 	const resetWarnings = () => {
 		if(isMounted.current){
@@ -32,7 +34,7 @@ const CreateChannelForm = (props) => {
 		if(m) {
 			timeout = setTimeout(resetWarnings,5000)
 			return (
-				<Message style={{marginLeft:'0.9em',marginRight:'0.9em',marginTop:'0.9em'}} attached='bottom' warning>
+				<Message style={{width:'80%', margin:'auto', marginTop:'1.5em'}} attached='bottom' warning>
 					<Icon name='warning sign' />
 					{ m }
 				</Message>
@@ -42,23 +44,33 @@ const CreateChannelForm = (props) => {
 	}
 	
 	useEffect(() => {
+		
 		props.initializeUsers(props.user)
 		if(channelsCount < props.channels.length){
 			setChannelsCount(props.channels.length)
 			clearTimeout(timeout)
+			
+			
 			const setNewChannel = async () => {
-				const chId = props.channels.find(i => i.name === name.input.value.trim()).id
+				const chId = await props.channels.find(i => i.name === name.input.value.trim()).id
 				await props.setChannel(chId, name.input.value.trim())
 				await props.makeEmptyMessages()
 				await props.makeEmptyNotes()
-				resetWarnings()
-				props.setUiComponent('chat')
+				resetWarnings()	
 			}
+			
 			setNewChannel()
+			props.setChat(true)
+			
+			
+			
+			
 		}
 		return () => {
 			showMessage(null)
+			
 			isMounted.current = false
+			
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.channels])
@@ -80,14 +92,18 @@ const CreateChannelForm = (props) => {
 		}
 		else setMessage('users or name missing')
 	}
+	const cancel = () => {
+		props.setChat(true)
+	}
 
 	if(props.users){
 		return (
-			<div id='metal_form' >
+			<div style={{textAlign:'center'}}>
 				<Form inverted>
 					<Form.Input
 						label='Name'
 						placeholder='channel name'
+						style={{width:'80%', margin:'auto'}}
 						{...name.input}
 					/>
 					<div style={{width:'80%', margin:'auto'}}>
@@ -99,7 +115,7 @@ const CreateChannelForm = (props) => {
 					</div>
 					<div style={{margin:'auto',textAlign:'center'}}>
 						<Button type='button' style={{marginTop:'0.9em',display:'inline'}} content='create'  onClick={handleSubmit} />
-						<Button type='button' style={{marginLeft:'0.9em',marginTop:'0.9em',display:'inline'}} content='cancel'  onClick={() => {props.setUiComponent('chat')}} />
+						<Button type='button' style={{marginLeft:'0.9em',marginTop:'0.9em',display:'inline'}} content='cancel'  onClick={cancel} />
 					</div>
 				</Form>
 				{message && showMessage(message)}

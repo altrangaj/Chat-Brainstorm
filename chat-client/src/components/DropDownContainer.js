@@ -24,11 +24,11 @@ const DropDownContainer = (props) => {
 			await props.initializeNotes(chId, props.user)
 		}
 	}
-
+	
 	if(props.channels.length !== 0){
 		return (
 			<div>
-				<select onChange={handleChange} style={{width:'100%'}}>
+				<select onChange={handleChange} style={{fontSize:'1.2em',fontFamily: 'Orbitron, sans-serif',fontWeight:'700',backgroundColor:'#e6e6e6',width:'100%'}}>
 					{[{name:'select:'},...props.channels].map((channel,i) => (<option value={channel.name} key={i}>{channel.name}</option>))}
 				</select>
 			</div>

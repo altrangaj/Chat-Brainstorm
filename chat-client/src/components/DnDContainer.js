@@ -4,19 +4,17 @@ import Note from './Note'
 import {addNote, setNote, deleteNote} from '../reducers/noteReducer'
 import { connect } from 'react-redux'
 import { Menu, Dropdown } from 'semantic-ui-react'
+import map from './noteColors'
 
-const styles = {
-	width: '100%',
-	height: '85vh',
-	position: 'relative',
-	fontSize:'9px',
-	borderRadius:'0px 0px 30px 30px',
-}
+import './DnD.css'
+
+
 
 const DnDContainer = (props) => {
         
 	const [menu, setMenu] = useState({visible: false}) 
 	const [menu2, setMenu2] = useState({visible: false})
+	const [pos, setPos] = useState({left:'0px',top:'0px'})
 		
 	const [, drop] = useDrop({
 		accept: 'note',
@@ -31,14 +29,17 @@ const DnDContainer = (props) => {
 	const moveNote = (id, left, top) => {
 		const note= props.notes.find(n => n.id === id)
 		props.setNote({...note, top: top, left:left}, props.channel.id, props.user)
+
 	}
 
 	const handleContextMenu = (event) => {
 		event.preventDefault()
-		if(event.target.id === 'workArea'){
-			setMenu({visible: true, style:{position: 'absolute', left:event.nativeEvent.offsetX, top:event.nativeEvent.offsetY}})
+
+		if(event.target.id === 'dnd'){
+			let top = event.nativeEvent.offsetY - document.getElementById('wa').offsetHeight
+			setMenu({visible: true, style:{zIndex:1000,position: 'absolute', left:event.nativeEvent.offsetX, top}})
 			setMenu2({visible: false})
-		} else if(event.nativeEvent.target.className !== 'txt-mesta') {
+		} else if(event.nativeEvent.target.className !== 'txt-mesta' && event.nativeEvent.target.id !== 'wa') {
 			handleContextMenu2(event)
 		}
 	}
@@ -51,7 +52,9 @@ const DnDContainer = (props) => {
 	const handleItemClick = (e) => {
 		e.preventDefault()
 		const date = new Date()
-		props.addNote({left: menu.style.left, top: menu.style.top, backgroundColor:'#ffffcc', date: new Date(date.getTime()-date.getTimezoneOffset()*60*1000), author: props.user.username}, props.channel.id, props.user)
+		let top = menu.style.top + document.getElementById('wa').offsetHeight
+		
+		props.addNote({left: menu.style.left, top, backgroundColor:'#ffffcc', date: new Date(date.getTime()-date.getTimezoneOffset()*60*1000), author: props.user.username}, props.channel.id, props.user)
 		setMenu({visible: false})
 	}
 	const handleDelete = (e) => {
@@ -76,19 +79,19 @@ const DnDContainer = (props) => {
 					<table style={{width:'6em'}}>
 						<tbody>
 							<tr>
-								<td><button id='#ffffcc' onClick={setColor} style={{backgroundColor:'#ffffcc', width:'20px',height:'20px'}}></button></td>
-								<td><button id='#ffcccc' onClick={setColor} style={{backgroundColor:'#ffcccc', width:'20px',height:'20px'}}></button></td>
-								<td><button id='#ccffff' onClick={setColor} style={{backgroundColor:'#ccffff', width:'20px',height:'20px'}}></button></td>
+								<td><button id='#ffffcc' onClick={setColor} style={{backgroundColor:map.get('#ffffcc'), width:'20px',height:'20px'}}></button></td>
+								<td><button id='#ffcccc' onClick={setColor} style={{backgroundColor:map.get('#ffcccc'), width:'20px',height:'20px'}}></button></td>
+								<td><button id='#ccffff' onClick={setColor} style={{backgroundColor:map.get('#ccffff'), width:'20px',height:'20px'}}></button></td>
 							</tr>
 							<tr>
-								<td><button id='#99ffcc' onClick={setColor} style={{backgroundColor:'#99ffcc', width:'20px',height:'20px'}}></button></td>
-								<td><button id='#ffccff' onClick={setColor} style={{backgroundColor:'#ffccff', width:'20px',height:'20px'}}></button></td>
-								<td><button id='#80ffff' onClick={setColor} style={{backgroundColor:'#80ffff', width:'20px',height:'20px'}}></button></td>
+								<td><button id='#99ffcc' onClick={setColor} style={{backgroundColor:map.get('#99ffcc'), width:'20px',height:'20px'}}></button></td>
+								<td><button id='#ffccff' onClick={setColor} style={{backgroundColor:map.get('#ffccff'), width:'20px',height:'20px'}}></button></td>
+								<td><button id='#80ffff' onClick={setColor} style={{backgroundColor:map.get('#80ffff'), width:'20px',height:'20px'}}></button></td>
 							</tr>
 							<tr>
-								<td><button id='#ff99c2' onClick={setColor} style={{backgroundColor:'#ff99c2', width:'20px',height:'20px'}}></button></td>
-								<td><button id='#99ff99' onClick={setColor} style={{backgroundColor:'#99ff99', width:'20px',height:'20px'}}></button></td>
-								<td><button id='#ff99ff' onClick={setColor} style={{backgroundColor:'#ff99ff', width:'20px',height:'20px'}}></button></td>
+								<td><button id='#ff99c2' onClick={setColor} style={{backgroundColor:map.get('#ff99c2'), width:'20px',height:'20px'}}></button></td>
+								<td><button id='#99ff99' onClick={setColor} style={{backgroundColor:map.get('#99ff99'), width:'20px',height:'20px'}}></button></td>
+								<td><button id='#ff99ff' onClick={setColor} style={{backgroundColor:map.get('#ff99ff'), width:'20px',height:'20px'}}></button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -110,24 +113,58 @@ const DnDContainer = (props) => {
 		setMenu2({visible: false})
 	}
 
+	let offsetX, offsetY
+	let moveContent = false
+	const move = e => {
+		if(moveContent && e.target.className !== 'note') {
+			e.target.style.left = `${e.pageX-offsetX}px`
+			e.target.style.top = `${e.pageY-offsetY}px`
+			
+			document.getElementById('root').style.backgroundPositionX = 0.5*(e.pageX-offsetX) + 'px'
+			document.getElementById('root').style.backgroundPositionY = 0.5*(e.pageY-offsetY) + 'px'
+		}
+	}
+	const start = e => {
+		if(e.target.id === 'dnd'){
+			moveContent = true
+			offsetX = e.clientX - Number(pos.left.replace('px',''))
+			offsetY = e.clientY - Number(pos.top.replace('px',''))
+		}
+	}
+	
+	const stop = e => {
+		moveContent = false
+		if(e.target.id === 'dnd'){
+			setPos({
+				left :e.target.style.left,
+				top : e.target.style.top 
+			})
+		}
+	}
+
 	if(props.notes){
 		return (
-			<div ref={drop} style={styles} id='workArea' onContextMenu={handleContextMenu} onClick={hideMenus}>
-				{menu.visible && contextMenu()}
-				{menu2.visible && contextMenu2()}
-                
-				{props.notes.map((b) => (
-					<Note
-						key={b.id}
-						id={b.id}
-						left={b.left}
-						top={b.top}
-						backgroundColor={b.backgroundColor}
-						author={b.author}
-						date={b.date}
-						content={b.content}
-					/>
-				))}
+			<div className='hoverjuttu'>
+				
+				<div ref={drop} id='dnd' onContextMenu={handleContextMenu} style={pos} onClick={hideMenus} onMouseMove={move} onMouseDown={start} onMouseUp={stop} >
+					<div id='wa'>&nbsp;draggable working area</div>
+					{menu.visible && contextMenu()}
+					{menu2.visible && contextMenu2()}
+					
+					{props.notes.map((b) => (
+						<Note
+							key={b.id}
+							id={b.id}
+							left={b.left}
+							top={b.top}
+							backgroundColor={b.backgroundColor}
+							author={b.author}
+							date={b.date}
+							content={b.content}
+							
+						/>
+					))}
+				</div>
 			</div>
 		)} else return <div>odota</div>
 }

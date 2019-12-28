@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.js')
 
+
 const UserController = {
 	getAll: async (request, response, next) => {
 		try {
@@ -50,7 +51,7 @@ const UserController = {
 					error: 'invalid username or password'
 				})
 			}
-        
+			
 			const userForToken = {
 				username: user.username,
 				id: user._id

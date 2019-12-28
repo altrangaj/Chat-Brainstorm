@@ -15,10 +15,11 @@ export const setUser = (gredentials) => {
 	}
 }
 
-export const clearUser = () => {
+export const clearUser = (data) => {
 	window.localStorage.removeItem('loggedChatUser')
-	return { type: 'USER_LOGOUT' }
+	return { type: 'USER_LOGOUT', data }
 }
+
 export const resetUser = data => ({ type:'SET_USER', data })
 
 const reducer = (state = null, action) => {

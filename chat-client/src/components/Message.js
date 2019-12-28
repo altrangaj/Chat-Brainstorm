@@ -20,18 +20,18 @@ const Message = (props) => {
 
 	const setMessage = () => {
 		if(uus) return (
-			<div className='message' onAnimationEnd={props.removeAnimation}>
+			<div className='mymessage' onAnimationEnd={props.removeAnimation}>
 				{msg}
 			</div>
 		)
 		else return (
-			<div style={{padding:'8px',borderRadius:'6px',backgroundColor:'rgba(5, 5, 5,0.5)'}}>
+			<div style={{padding:'8px',borderRadius:'0px',backgroundColor:'rgba(5, 5, 5,0.5)'}}>
 				{msg}
 			</div>
 		)
 	}
 
-	let style = {marginRight:'0.7rem',marginLeft:'0.3rem',marginBottom:'0.5rem',backgroundColor:'transparent', display:'inline-block', float:'left'}
+	let style = {marginRight:'0.7rem',marginLeft:'0.3rem',marginBottom:'0.5rem',backgroundColor:'transparent', display:'inline-block', float:'left', fontFamily: 'Aldrich, sans-serif'}
 
 	if(props.user == name){
 		style.textAlign = 'right'
@@ -43,7 +43,7 @@ const Message = (props) => {
 		<div>
 			<div style={{clear:'left'}}></div>
 			<div style={style}>
-				<span style={{color:'white'}}>{name}</span><br/>
+				<span style={{color:'white',fontWeight:'900'}}>{name}</span><br/>
 				{setMessage()}
 			</div>
 			<div style={{clear:'right'}}></div>

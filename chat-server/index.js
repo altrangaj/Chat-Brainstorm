@@ -6,9 +6,14 @@ const Note = require('./models/note')
 var jwt = require('jsonwebtoken')
 
 const server = http.createServer(app)
-var io = require('socket.io')(server)
+const io = require('socket.io')(server)
+const users = new Map()
 
 io.on('connection', async socket => {
+	socket.on('disconnect', () => {
+		users.delete(socket.id)
+		io.emit('set_connected_users', Array.from(users.values()))
+	})
 	socket.on('action', async action => {
 		try {
 			switch (action.type) {
@@ -82,9 +87,21 @@ io.on('connection', async socket => {
 				io.emit('delete_note', { ...action.data})
 				return
 			}
+			case 'SET_USER': {
+				if(!users.has(socket.id) && !Array.from(users.values()).find(name => name === action.data.username))
+					users.set(socket.id,action.data.username)
+				io.emit('set_connected_users', Array.from(users.values()))
+				return
+			}
+			case 'USER_LOGOUT': {
+				users.delete(socket.id)
+				io.emit('set_connected_users', Array.from(users.values()))
+				return
+			}
 			}
 		} catch (exception) {
 			console.log(exception)
+			
 		}
 	})
 

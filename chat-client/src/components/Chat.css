@@ -1,12 +1,14 @@
-.ui.segment.segmentStyle {
-    padding: 0%;
-    margin-bottom: 0%;
-    margin-top: 0%;
-    height: 85vh;
-    
-    background: url('MetalBareT.png');
-    border-radius:0px 0px 30px 30px;
-}
-#borderImage {
-    border-image: url(border_image.png) 10% round;
-}
+.transitio-enter {
+    opacity: 0;
+  }
+.transitio-enter-active {
+    opacity: 1;
+    transition: opacity 350ms ease-in;
+  }
+.transitio-exit {
+    opacity: 1;
+  }
+.transitio-exit-active {
+    opacity: 0;
+    transition: opacity 350ms ease-out;
+  }
