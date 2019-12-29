@@ -62,7 +62,7 @@ const Chat = (props) => {
 					</span> }
 				</div>	
 				<div style={{textAlign:'left',position:'absolute',top:'5%',left:'4em'}}>
-					<div style={{ fontSize: '2em',fontFamily: 'Orbitron, sans-serif',fontWeight:'700',textAlign:'left',color:'#ff794d',textShadow: '-2px 0 black, 0 2px black, 2px 0 black, 0 -2px black'}} ><Clock/></div>
+					<div style={{ fontFamily: 'Quantico, sans-serif',fontSize: '2em', fontWeight:'700',textAlign:'left',color:'#ff794d',textShadow: '-2px 0 black, 0 2px black, 2px 0 black, 0 -2px black'}} ><Clock/></div>
 				</div>
 				<div style={{ position:'absolute',top:'5%',right:'5%',minWidth:'22rem', width:'25vw',paddingRight:'0'}} >  
 					<CSSTransition
