@@ -1,8 +1,8 @@
-export const setChannel = (id, name) => {
+export const setChannel = (id, name, user) => {
 	return async dispatch => {
 		dispatch ({
 			type: 'SET_CHANNEL',
-			data: {id, name}
+			data: {id, name, user}
 		})
 	}
 }

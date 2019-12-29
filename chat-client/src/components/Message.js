@@ -12,10 +12,34 @@ const Message = (props) => {
 	let msg = props.message.replace(name + ':', '')
 	let uus = false
 
+	const stringToDate = (s) => {
+		try {
+			var year = s.slice(0,4)
+			var month = s.slice(5,7)
+			var day = s.slice(8,10)
+			var hour = s.slice(11,13)
+			var min = s.slice(14,16)
+			var sec =s.slice(17,19)
+			return new Date(year,month,day,hour,min,sec,0)
+		} catch(e) {
+			return undefined
+		}
+	}
+
 	if(name == 'UUSIVIESTI'){
 		name = msg.split(':',1)
 		msg = msg.replace(name + ':', '')
 		uus=true
+	}
+
+	const tempString = msg.split(';',1)
+	const setDate = (date2) => {
+		return date2.slice(8,10)+'.'+date2.slice(5,7)+'. '+date2.slice(11,16)
+	}
+	let date = undefined
+	if(stringToDate(tempString[0]) != 'Invalid Date') {
+		date = setDate(tempString[0])
+		msg = msg.replace(tempString[0] + ';', '')
 	}
 
 	const setMessage = () => {
@@ -32,18 +56,32 @@ const Message = (props) => {
 	}
 
 	let style = {marginRight:'0.7rem',marginLeft:'0.3rem',marginBottom:'0.5rem',backgroundColor:'transparent', display:'inline-block', float:'left', fontFamily: 'Aldrich, sans-serif'}
+	let headerStyle = {marginRight:'0.7rem',marginLeft:'0.3rem',float:'left', lineHeight:'1em'}
 
 	if(props.user == name){
 		style.textAlign = 'right'
 		style.float = 'right'
+		headerStyle.textAlign = 'right'
+		headerStyle.float = 'right'
 
 	}
 
+	const setHeader = () => {
+		if(date)
+			return (<><span style={{color:'white',fontWeight:'900',marginBottom:'0px'}}>{name}</span><span style={{fontSize:'10px',marginBottom:'0px'}}>&nbsp;{date}</span><br/></>)
+		else
+			return (<><span style={{color:'white',fontWeight:'900',marginBottom:'0px'}}>{name}</span><br/></>)
+	}
+
 	return (
-		<div>
+		<div style={{marginBottom:'0px'}}>
+			<div style={{clear:'left'}}></div>
+			<div style={headerStyle}>
+				{setHeader()}
+			</div>
+			<div style={{clear:'right'}}></div>
 			<div style={{clear:'left'}}></div>
 			<div style={style}>
-				<span style={{color:'white',fontWeight:'900'}}>{name}</span><br/>
 				{setMessage()}
 			</div>
 			<div style={{clear:'right'}}></div>

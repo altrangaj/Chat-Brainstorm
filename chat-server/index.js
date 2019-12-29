@@ -88,13 +88,18 @@ io.on('connection', async socket => {
 				return
 			}
 			case 'SET_USER': {
-				if(!users.has(socket.id) && !Array.from(users.values()).find(name => name === action.data.username))
+				if(!users.has(socket.id))
 					users.set(socket.id,action.data.username)
 				io.emit('set_connected_users', Array.from(users.values()))
 				return
 			}
 			case 'USER_LOGOUT': {
 				users.delete(socket.id)
+				io.emit('set_connected_users', Array.from(users.values()))
+				return
+			}
+			case 'SET_CHANNEL': {
+				users.set(socket.id,`${action.data.user} - ${action.data.name}`)
 				io.emit('set_connected_users', Array.from(users.values()))
 				return
 			}

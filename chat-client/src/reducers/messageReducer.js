@@ -21,7 +21,8 @@ export const makeEmptyMessages = () => {
 }
 
 export const addMsg = (message, user, channel) => {
-	const msgByAuthor =`${user.username}:${message}`
+	const date = new Date()
+	const msgByAuthor =`${user.username}:${new Date(date.getTime()-date.getTimezoneOffset()*60*1000).toISOString()};${message}`
 	return async dispatch => {
 		dispatch ({
 			type: 'SEND_WEBSOCKET_MESSAGE',

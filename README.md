@@ -4,6 +4,8 @@ käyttöohje: https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/Ch
 
 tuntikirjanpito: https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/Tuntikirjanpito.pdf
 
+sovellus v2 (working areaa pystyy dragaamaan hiirellä, tieto aktiivisista käyttäjistä, viestin päiväys ja uusi look): https://dry-dusk-03720.herokuapp.com/
+
 
 chat server & client (tarkoitus on panostaa käyttöliittymään)
 

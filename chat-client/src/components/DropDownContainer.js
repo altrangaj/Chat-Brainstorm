@@ -19,7 +19,7 @@ const DropDownContainer = (props) => {
 		const name = e.target.childNodes[index].value
 		if(name !== 'select:'){
 			const chId = props.channels.find(i => i.name == name).id
-			await props.setChannel(chId, name)
+			await props.setChannel(chId, name, props.user.username)
 			await props.initializeMessages(chId, props.user)
 			await props.initializeNotes(chId, props.user)
 		}

@@ -79,11 +79,12 @@ const createMySocketMiddleware = () => {
 				action.type === 'SET_NOTE' ||
 				action.type === 'DELETE_NOTE' ||
 				action.type === 'SET_USER' ||
-				action.type === 'USER_LOGOUT') {
+				action.type === 'USER_LOGOUT' ||
+				action.type === 'SET_CHANNEL') {
 					
 				socket.emit('action',action)
 
-				if(action.type === 'SEND_WEBSOCKET_MESSAGE' || action.type === 'SET_NOTE' || action.type === 'SET_USER' || action.type === 'USER_LOGOUT')
+				if(action.type === 'SEND_WEBSOCKET_MESSAGE' || action.type === 'SET_NOTE' || action.type === 'SET_USER' || action.type === 'USER_LOGOUT' || action.type === 'SET_CHANNEL')
 					return next(action)
 				else return
 			}
