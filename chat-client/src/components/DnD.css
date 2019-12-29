@@ -26,5 +26,5 @@
     color: transparent;
     transition: color 1s;
 }
-div.hoverjuttu:hover #dnd {outline-color: rgba(128, 179, 255,0.4);}
-div.hoverjuttu:hover #wa {color: rgba(128, 179, 255,0.6);}
+div.hoverjuttu:hover #dnd {outline-color: rgba(128, 179, 255,0.2);}
+div.hoverjuttu:hover #wa {color: rgba(128, 179, 255,0.3);}

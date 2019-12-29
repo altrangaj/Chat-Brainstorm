@@ -120,8 +120,10 @@ const DnDContainer = (props) => {
 			e.target.style.left = `${e.pageX-offsetX}px`
 			e.target.style.top = `${e.pageY-offsetY}px`
 			
-			document.getElementById('root').style.backgroundPositionX = 0.5*(e.pageX-offsetX) + 'px'
-			document.getElementById('root').style.backgroundPositionY = 0.5*(e.pageY-offsetY) + 'px'
+			document.getElementById('root').style.backgroundPositionX = 0.6*(e.pageX-offsetX) + 'px'
+			document.getElementById('root').style.backgroundPositionY = 0.6*(e.pageY-offsetY) + 'px'
+			document.getElementById('fg2').style.backgroundPositionX = 0.4*(e.pageX-offsetX) + 'px'
+			document.getElementById('fg2').style.backgroundPositionY = 0.4*(e.pageY-offsetY) + 'px'
 		}
 	}
 	const start = e => {
