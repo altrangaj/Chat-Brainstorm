@@ -22,7 +22,15 @@ muita ominaisuuksia
 1. asenna MongoDB. ks. https://docs.mongodb.com/manual/installation/
    1. Vinkki (Windows): `msiexec.exe /l*v mdbinstall.log  /qb /i mongodb-win32-x86_64-2012plus-4.2.0-signed.msi ADDLOCAL="ServerNoService,ServerService,Client,Router,Client,MonitoringTools,ImportExportTools,MiscellaneousTools"` Jostain syystä en onnistunut perus MongoDB installerilla saamaan kantaa toimintaan. Tuollaisella rimpsulla kyllä. +tarvittavat Windows päivitykset
    1. lisäksi kätevä Robo3T työkalu on hyvä asentaa kannan tarkasteluun/editointiin
-   
+1. luo .env tiedosto chat-server hakemiston juureen:
+```
+    MONGODB_URI=mongodb://localhost/chat
+    PORT=3003
+    NODE_ENV=test
+    SECRET='mySecretStrimg'
+```
+
 ## käyttö
 
+![Image of UI] (https://raw.githubusercontent.com/altrangaj/FULLSTACK_HARJOITUSTYO/master/images/basicview.JPG)
 
