@@ -32,5 +32,7 @@ muita ominaisuuksia
 
 ## käyttö
 
-![Image of UI] (https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/images/UI.png)
+![Image of UI](https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/images/UI.png)
 
+* sininen reunus rajaa työskentelyaluetta, jossa voi toimia muistiinpanojen kanssa. Aluetta pystyy dragaamaan, koska se on laajempi mitä kuvaan mahtuu. (Tosin siinä on bugi. Kun tooltip katoaa näkyvistä, se keskeyttää dragaamisen. Kannattaa klikata taka-alaa ennen työskentelyalueen liikuttamista, niin tooltipistä pääsee eroon)
+* oikeassa ylänurkassa on chat-ikkuna, jonka oikeassa ylänurkassa on nappi kanavan luomiseen. Siitä aukeaa lomake, jossa on tekstikenttä kanavan nimelle, multiselect-search-dropdown tyyppinen lista käyttäjien valintaan sekä create että cancel napit
