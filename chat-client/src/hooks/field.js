@@ -1,19 +1,19 @@
 import { useState } from 'react'
 
 export const useField = (type) => {
-	const [value, setValue] = useState('')
+  const [value, setValue] = useState('')
 
-	const onChange = (event) => {
-		setValue(event.target.value)
-	}
-	const reset = () => {
-		setValue('')
-	}
+  const onChange = (event) => {
+    setValue(event.target.value)
+  }
+  const reset = () => {
+    setValue('')
+  }
 
-	return {
-		input:{ type,
-			value,
-			onChange },
-		reset:reset
-	}
+  return {
+    input:{ type,
+      value,
+      onChange },
+    reset:reset
+  }
 }

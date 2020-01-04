@@ -6,13 +6,14 @@ const channelRouter = require('./routes/channelRouter')
 const userRouter = require('./routes/userRouter')
 const config = require('./utils/config')
 const cors = require('cors')
+require('express-async-errors')
 
 const mongoUrl = config.MONGODB_URI
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true,
-                             useUnifiedTopology: true,
-                             useFindAndModify: false,
-                             useCreateIndex: true })
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true })
 
 app.use(cors())
 app.use(bodyParser.json())

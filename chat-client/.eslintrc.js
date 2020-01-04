@@ -4,7 +4,7 @@ module.exports = {
 		'es6': true,
 		'node': true
 	},
-	'extends': 'eslint:recommended',
+	'extends': ["react-app",'eslint:recommended'],
 	'globals': {
 		'Atomics': 'readonly',
 		'SharedArrayBuffer': 'readonly'
@@ -20,10 +20,7 @@ module.exports = {
 		'react'
 	],
 	'rules': {
-		'indent': [
-			'error',
-			'tab'
-		],
+		"indent": ["error", 2],
 		'linebreak-style': [
 			'error',
 			'windows'

@@ -6,9 +6,9 @@
     padding-right:0.2em;
     animation-name: borderAnim;
     animation-duration:  10s;
-    font-size: 2.8em;
-    font-weight: 900;
-    font-family: 'Orbitron', sans-serif;
+    font-size:3em;
+    font-weight: 500;
+    font-family: 'Playfair Display SC', serif;
     color:#e6e6e6;
 }
 @keyframes borderAnim {
@@ -21,8 +21,8 @@
     border-radius:0px;
     padding-left:0.2em;
     padding-right:0.2em;
-    font-size: 2.8em;
-    font-weight: 900;
-    font-family: 'Orbitron', sans-serif;
+    font-size: 3em;
+    font-weight:900;
+    font-family: 'Playfair Display SC', serif;
     color:#e6e6e6;
 }
