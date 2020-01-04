@@ -32,5 +32,5 @@ muita ominaisuuksia
 
 ## käyttö
 
-![Image of UI] (https://raw.githubusercontent.com/altrangaj/FULLSTACK_HARJOITUSTYO/master/images/basicview.JPG)
+![Image of UI] (https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/images/UI.png)
 
