@@ -1,23 +1,28 @@
-sovellus: https://immense-tundra-18786.herokuapp.com/
+# chat & brainstrorming - sovellus
 
-käyttöohje: https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/Chat_sovelluksen_kayttoohje.pdf
+[online versio sovelluksesta](https://dry-dusk-03720.herokuapp.com/)
 
-tuntikirjanpito: https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/Tuntikirjanpito.pdf
+## kuvaus
+kullakin chat-kanavalla on oma muistiinpanonäkymä. muistiinpanoja voi jokainen kanavan käyttäjä vapaasti luoda, muokata tekstisisältöä,
+liikutella, vaihtaa väriä tai poistaa. Muistiinpanonäkymän tila välittyy reaaliaikaisesti kyseisen kanavan käyttäjille.
 
-sovellus v2 (working areaa pystyy dragaamaan hiirellä, tieto aktiivisista käyttäjistä, viestin päiväys ja uusi look): https://dry-dusk-03720.herokuapp.com/
+muita ominaisuuksia
+* kirjautuminen ja rekisteröityminen
+* tieto aktiivisista käyttäjistä
+* kanavan luominen
+* muistiinpanoaluetta (working area) voi dragata. Tilan leveys on 2000px
+* kello
+* muistiinpanoon jää merkintä editoijasta/luojasta sekä ajankohta. Liikuttelu tai värin muuttaminen ei jätä tietoa
+* chat
+* uloskirjautuminen
+
+## asennus
+1. chat-client kansiossa npm install
+1. chat-server kansiossa npm install
+1. asenna MongoDB. ks. https://docs.mongodb.com/manual/installation/
+   1. Vinkki (Windows): `msiexec.exe /l*v mdbinstall.log  /qb /i mongodb-win32-x86_64-2012plus-4.2.0-signed.msi ADDLOCAL="ServerNoService,ServerService,Client,Router,Client,MonitoringTools,ImportExportTools,MiscellaneousTools"` Jostain syystä en onnistunut perus MongoDB installerilla saamaan kantaa toimintaan. Tuollaisella rimpsulla kyllä. +tarvittavat Windows päivitykset
+   1. lisäksi kätevä Robo3T työkalu on hyvä asentaa kannan tarkasteluun/editointiin
+   
+## käyttö
 
 
-chat server & client (tarkoitus on panostaa käyttöliittymään)
-
-toteutus: node.js, React, mongoDB
-
-ominaisuuksia:
-1.autentikointi (mahdollisesti Google login)
-2.chat-kanavan valinta ja lisäys, johon pystyy lisäämään käyttäjiä, jolloin he näkevät sen.
-3.(+kaikille näkyvä julkinen kanava)
-4.tieto aktiivisista käyttäjistä
-
-yksi mahdollinen lisäominaisuus, jos aikaa riittää ja React DnD taipuu tarkoitukseen:
-ilmoitustaulu-ikkuna, johon voi lisätä merkintöjä ikään kuin postit lappuina, jotka näkyvät kaikille tai ryhmän sisäisenä.
-
-ominaisuuksia tulee mahdollisesti kehityksen varrella lisääkin. Tarkoitus toteuttaa 10op laajuutena.
