@@ -6,7 +6,7 @@
 kullakin chat-kanavalla on oma muistiinpanonäkymä. muistiinpanoja voi jokainen kanavan käyttäjä vapaasti luoda, muokata tekstisisältöä,
 liikutella, vaihtaa väriä tai poistaa. Muistiinpanonäkymän tila välittyy reaaliaikaisesti kyseisen kanavan käyttäjille.
 
-muita ominaisuuksia
+##### muita ominaisuuksia
 * kirjautuminen ja rekisteröityminen
 * tieto aktiivisista käyttäjistä (käyttäjälista päivittyy myös verkkoyhteysongelmissa)
 * kanavan luominen
@@ -17,9 +17,9 @@ muita ominaisuuksia
 * uloskirjautuminen
 
 ## asennus
-1. chat-client kansiossa npm install
-1. chat-server kansiossa npm install
-1. asenna MongoDB. ks. https://docs.mongodb.com/manual/installation/
+1. chat-client kansiossa `npm install`
+1. chat-server kansiossa `npm install`
+1. asenna MongoDB. ks. [MongoDB asennus](https://docs.mongodb.com/manual/installation/)
 1. luo .env tiedosto chat-server hakemiston juureen:
 ```
     MONGODB_URI=mongodb://localhost/chat
