@@ -8,7 +8,7 @@
     white-space:nowrap;
 	width: 7rem;
     height: 5rem;
-    font-family: 'Aldrich', sans-serif;
+    font-weight: 700;
     transition: outline 1s;
 }
 .note:hover {

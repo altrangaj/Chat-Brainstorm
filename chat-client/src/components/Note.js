@@ -29,6 +29,7 @@ const Note = (props) => {
     },
   })
   if (isDragging) {
+    props.setOpen(false)
     return <div ref={drag} />
   }
 	
@@ -50,10 +51,12 @@ const Note = (props) => {
         <Tooltip
           title='open Edit Note - menu with the right mouse button'
           followCursor='true'
+          theme='transparent'
+          duration='500'
           trigger="mouseenter">
           <div>&nbsp; {props.author} {setDate(props.date)}</div>
         </Tooltip>
-        <textarea className='txt-mesta' style={{border: '0px solid transparent',paddingLeft:'0.2em',fontSize: '1rem',width:'100%', height:'70%', fontFamily: 'Quantico, sans-serif',backgroundColor:map.get(props.backgroundColor) }} 
+        <textarea className='txt-mesta' style={{border: '0px solid transparent',paddingLeft:'0.2em',fontSize: '1rem',width:'100%', height:'70%', backgroundColor:map.get(props.backgroundColor) }} 
           value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
       </div>
     </div>

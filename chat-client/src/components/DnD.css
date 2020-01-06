@@ -21,10 +21,10 @@
     font-weight:400;
     vertical-align:center;
     top:0px;
-    font-size:0.9em;
-    line-height:0.9em;
+    font-size:1.1em;
+    line-height:1.1em;
     color: transparent;
     transition: color 1s;
 }
 div.hoverjuttu:hover #dnd {outline-color: rgba(128, 179, 255,0.4);}
-div.hoverjuttu:hover #wa {color: rgba(128, 179, 255,0.6);}
+div.hoverjuttu:hover #wa {color: rgba(128, 179, 255,0.5);}

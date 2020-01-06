@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { useDrop } from 'react-dnd'
 import Note from './Note'
 import {addNote, setNote, deleteNote} from '../reducers/noteReducer'
@@ -15,7 +15,9 @@ const DnDContainer = (props) => {
   const [menu2, setMenu2] = useState({visible: false})
   const [pos, setPos] = useState({left:'0px',top:'0px'})
   const [open, setOpen] = useState(undefined)
-		
+    
+
+
   const [, drop] = useDrop({
     accept: 'note',
     drop(item, monitor) {
@@ -34,6 +36,11 @@ const DnDContainer = (props) => {
   }
   const handleContextMenu = (event) => {
     event.preventDefault()
+    if(menu.visible || menu2.visible){
+      setMenu2({visible: false})
+      setMenu({visible: false})
+      return
+    }
     if(event.target.id === 'dnd'){
       let top = event.nativeEvent.offsetY - document.getElementById('wa').offsetHeight
       setMenu({visible: true, style:{zIndex:1000,position: 'absolute', left:event.nativeEvent.offsetX, top}})
@@ -118,7 +125,6 @@ const DnDContainer = (props) => {
   let moveContent = false
 	
   const move = e => {
-
     if(e.target.className === 'txt-mesta' || e.target.className === 'note') {
       setOpen(false)
       return
@@ -150,13 +156,31 @@ const DnDContainer = (props) => {
         top : e.target.style.top 
       })
   }
-  let timeoutid = -1
-  const hideTip = () => {
-    clearTimeout(timeoutid)
-    timeoutid = setTimeout(() => {
-      setOpen(false)
-    },3000)
-  }
+
+  /*  TÄMÄ HÄSSÄKKÄ MUISTIVUOTOVAROITUKSEN TAKIA,
+   *  JOTA AIHEUTTAA SETTIMEOUT-FUNKTIO
+   */
+
+  let timeoutid = useRef(-1)
+  let o = useRef(true)
+
+  const hideTip = useCallback(() => {
+    clearTimeout(timeoutid.current)
+    if(o.current)
+      timeoutid.current = setTimeout(() => {
+        setOpen(false)
+      },3000)
+  },[timeoutid])
+
+  useEffect(() => {
+    return () => {
+      o.current = false
+      hideTip()
+    }
+  }, [hideTip])
+
+  /******************************************/
+
   const onpointerover = (e) => {
     if(e.target.id === 'dnd' && !open) {
       setOpen(true)
@@ -171,6 +195,8 @@ const DnDContainer = (props) => {
           title='add note with the right mouse button'
           trigger='mouseenter'
           followCursor='true'
+          theme='transparent'
+          duration='500'
           onShown={hideTip}
         >
           <div className='hoverjuttu'>
@@ -198,6 +224,7 @@ const DnDContainer = (props) => {
                   author={b.author}
                   date={b.date}
                   content={b.content}
+                  setOpen={setOpen}
                 />
               ))}
             </div>

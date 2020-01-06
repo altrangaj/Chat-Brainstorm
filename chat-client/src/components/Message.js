@@ -48,13 +48,13 @@ const Message = (props) => {
       </div>
     )
     return (
-      <div style={{padding:'8px',borderRadius:'0px',backgroundColor:'rgba(5, 5, 5,0.5)'}}>
+      <div style={{padding:'8px 12px 8px 12px',borderRadius:'9px',backgroundColor:'rgba(5, 5, 5,0.5)'}}>
         {msg}
       </div>
     )
   }
 
-  let style = {marginRight:'0.7rem',marginLeft:'0.3rem',marginBottom:'0.5rem',backgroundColor:'transparent', display:'inline-block', float:'left', fontFamily: 'Aldrich, sans-serif'}
+  let style = {marginRight:'0.7rem',marginLeft:'0.3rem',marginBottom:'0.5rem',backgroundColor:'transparent', display:'inline-block', float:'left'}
   let headerStyle = {marginRight:'0.7rem',marginLeft:'0.3rem',float:'left', lineHeight:'1em'}
 
   if(props.user == name){
@@ -65,8 +65,8 @@ const Message = (props) => {
   }
 
   const setHeader = () => {
-    if(date) return (<><span style={{color:'white',fontWeight:'900',marginBottom:'0px'}}>{name}</span><span style={{fontSize:'10px',marginBottom:'0px'}}>&nbsp;{date}</span><br/></>)
-    return (<><span style={{color:'white',fontWeight:'900',marginBottom:'0px'}}>{name}</span><br/></>)
+    if(date) return (<><span style={{color:'white',fontWeight:'500',marginBottom:'0px'}}>{name}</span><span style={{color: '#ccefff',fontSize:'10px',marginBottom:'0px'}}>&nbsp;&nbsp;{date}</span><br/></>)
+    return (<><span style={{color:'white',fontWeight:'500',marginBottom:'0px'}}>{name}</span><br/></>)
   }
 
   return (
