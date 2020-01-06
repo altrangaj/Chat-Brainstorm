@@ -3,6 +3,7 @@ import { useDrag } from 'react-dnd'
 import {setNote } from '../reducers/noteReducer'
 import { connect } from 'react-redux'
 import map from './noteColors'
+import 'react-tippy/dist/tippy.css'
 import { Tooltip } from 'react-tippy'
 import './Note.css'
 
@@ -44,18 +45,17 @@ const Note = (props) => {
   }
 	
   return (
-    <div>
-      <Tooltip
-        disabled={props.open}
-        title='open Edit Note - menu with the right mouse button'
-        trigger="mouseenter"  
-      >
-        <div className='note' ref={drag} id={props.id} style={{ left:props.left, top:props.top, backgroundColor:map.get(props.backgroundColor) }} >
-		&nbsp; {props.author} {setDate(props.date)}
-          <textarea className='txt-mesta' style={{border: '0px solid transparent',paddingLeft:'0.2em',fontSize: '1rem',width:'100%', height:'70%', fontFamily: 'Quantico, sans-serif',backgroundColor:map.get(props.backgroundColor) }} 
-            value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
-        </div>
-      </Tooltip>
+    <div> 
+      <div className='note' ref={drag} id={props.id} style={{ left:props.left, top:props.top, backgroundColor:map.get(props.backgroundColor) }} >
+        <Tooltip
+          title='open Edit Note - menu with the right mouse button'
+          followCursor='true'
+          trigger="mouseenter">
+          <div>&nbsp; {props.author} {setDate(props.date)}</div>
+        </Tooltip>
+        <textarea className='txt-mesta' style={{border: '0px solid transparent',paddingLeft:'0.2em',fontSize: '1rem',width:'100%', height:'70%', fontFamily: 'Quantico, sans-serif',backgroundColor:map.get(props.backgroundColor) }} 
+          value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
+      </div>
     </div>
   )
 }

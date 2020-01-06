@@ -14,7 +14,6 @@ const DnDContainer = (props) => {
   const [menu, setMenu] = useState({visible: false}) 
   const [menu2, setMenu2] = useState({visible: false})
   const [pos, setPos] = useState({left:'0px',top:'0px'})
-  const [header, setHeader] = useState('open menu with the right mouse button')
   const [open, setOpen] = useState(undefined)
 		
   const [, drop] = useDrop({
@@ -44,9 +43,11 @@ const DnDContainer = (props) => {
     }
   }
   const handleContextMenu2 = (event) => {
-    const left = Number(event.target.style.left.replace('px','')) + Number(event.nativeEvent.offsetX)
-    const top = Number(event.target.style.top.replace('px','')) - Number(event.nativeEvent.offsetY)
-    setMenu2({visible: true, id: event.nativeEvent.target.id, style:{position: 'absolute', left:left, top:top, zIndex:1000}})
+
+    const left = Number(event.target.offsetParent.style.left.replace('px','')) + Number(event.nativeEvent.offsetX)
+    const top = Number(event.target.offsetParent.style.top.replace('px','')) - Number(event.nativeEvent.offsetY)
+ 
+    setMenu2({visible: true, id: event.nativeEvent.target.offsetParent.id, style:{position: 'absolute', left:left, top:top, zIndex:1000}})
     setMenu({visible: false})
   }
   const handleItemClick = (e) => {
@@ -123,8 +124,6 @@ const DnDContainer = (props) => {
       return
     }
 		
-    if(e.target.id === 'dnd' && open === undefined) setOpen(true)
-
     if(moveContent && e.target.className !== 'note') {
       e.target.style.left = `${e.pageX-offsetX}px`
       e.target.style.top = `${e.pageY-offsetY}px`
@@ -135,6 +134,7 @@ const DnDContainer = (props) => {
       document.getElementById('fg2').style.backgroundPositionY = 0.37*(e.pageY-offsetY) + 'px'
     }
   }
+  
   const start = e => {
     if(e.target.id === 'dnd'){
       moveContent = true
@@ -157,30 +157,37 @@ const DnDContainer = (props) => {
       setOpen(false)
     },3000)
   }
-  const pointerout = (e) => {
-    setOpen(false)
-    setTimeout(() => {
-      setOpen(undefined)
-    },5)		
-    if(header === 'open menu with the right mouse button') setHeader('drag working area with the left mouse button')
-    else setHeader('open menu with the right mouse button')	
+  const onpointerover = (e) => {
+    if(e.target.id === 'dnd' && !open) {
+      setOpen(true)
+    }
   }
+
   if(props.notes)
     return (
       <div>
         <Tooltip
           open={open}
-          title={header}
+          title='add note with the right mouse button'
+          trigger='mouseenter'
           followCursor='true'
           onShown={hideTip}
         >
           <div className='hoverjuttu'>
-            <div ref={drop} id='dnd' onContextMenu={handleContextMenu} onPointerOut={pointerout} style={pos} onClick={hideMenus} onMouseMove={move} onMouseDown={start} onMouseUp={stop} >
+            <div ref={drop} id='dnd' 
+              onContextMenu={handleContextMenu}
+              onPointerOver={onpointerover}
+              onPointerDown={() => setOpen(false)}
+              onPointerOut={() => setOpen(false)}
+              onClick={hideMenus}
+              onMouseMove={move}
+              onMouseDown={start}
+              onMouseUp={stop}
+              style={pos} >
               <div id='wa'>&nbsp;draggable working area</div>
               {menu.visible && contextMenu()}
               {menu2.visible && contextMenu2()}
               {props.notes.map((b,i) => (
-
                 <Note
                   key={b.id}
                   id={b.id}
@@ -192,7 +199,6 @@ const DnDContainer = (props) => {
                   date={b.date}
                   content={b.content}
                 />
-						
               ))}
             </div>
           </div>
