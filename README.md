@@ -29,7 +29,7 @@ liikutella, vaihtaa väriä tai poistaa. Muistiinpanonäkymän tila välittyy re
 ```
 
 ## käyttö
-Käynnistä chat palvelin komennolla `npm start` chat-server hakemistossa. Vastaavasti client `npm start` chat-client hakemistossa. Mikäli testaat sovellusta useammalla käyttäjällä, tarvitset kullekkin käyttäjälle oman selaimen. **Sovellus ei toimi Edge selaimessa.** Uusi käyttäjä ei kuulu mihinkään kanavaan, joten kanavan valinta - alasvetovalikko ei ole näkyvissä.
+Käynnistä chat palvelin komennolla `npm start` chat-server hakemistossa. Vastaavasti client `npm start` chat-client hakemistossa. **Sovellus ei toimi Edge selaimessa.** Uusi käyttäjä ei kuulu mihinkään kanavaan, joten kanavan valinta - alasvetovalikko ei ole näkyvissä.
 
 ### työskentelynäkymä valitulle kanavalle
 
