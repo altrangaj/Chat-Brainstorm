@@ -8,7 +8,7 @@ liikutella, vaihtaa väriä tai poistaa. Muistiinpanonäkymän tila välittyy re
 
 ##### muita ominaisuuksia
 * kirjautuminen ja rekisteröityminen
-* tieto aktiivisista käyttäjistä (verkkoyhteyden katkeaminen ja uudelleenyhdistäminen päivittää myös palvelimen käyttäjälistaa)
+* tieto aktiivisista käyttäjistä sekä tieto, millä kanavalla käyttäjä on. (verkkoyhteyden katkeaminen ja uudelleenyhdistäminen päivittää myös palvelimen käyttäjälistaa, mikä näkyy verkkoyhteyden omaaville käyttäjille)
 * kanavan luominen
 * muistiinpanoaluetta (working area) voi dragata. Tilan leveys on 2000px
 * kello
