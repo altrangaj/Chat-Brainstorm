@@ -48,7 +48,7 @@ const Message = (props) => {
       </div>
     )
     return (
-      <div style={{padding:'8px 12px 8px 12px',borderRadius:'9px',backgroundColor:'rgba(5, 5, 5,0.5)'}}>
+      <div style={{color:'#e9d396',padding:'8px 12px 8px 12px',borderRadius:'9px',backgroundColor:'rgba(5, 5, 5,0.5)'}}>
         {msg}
       </div>
     )
@@ -65,7 +65,7 @@ const Message = (props) => {
   }
 
   const setHeader = () => {
-    if(date) return (<><span style={{color:'white',fontWeight:'500',marginBottom:'0px'}}>{name}</span><span style={{color: '#d4c6aa',fontSize:'10px',marginBottom:'0px'}}>&nbsp;&nbsp;{date}</span><br/></>)
+    if(date) return (<><span style={{color:'white',marginBottom:'0px'}}>{name}</span><span style={{color: '#d4c6aa',fontSize:'10px',marginBottom:'0px'}}>&nbsp;&nbsp;{date}</span><br/></>)
     return (<><span style={{color:'white',fontWeight:'500',marginBottom:'0px'}}>{name}</span><br/></>)
   }
 

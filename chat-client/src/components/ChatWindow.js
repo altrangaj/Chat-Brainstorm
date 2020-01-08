@@ -21,7 +21,7 @@ const ChatWindow = (props) => {
           <tbody>
             <tr >
               <td style={{paddingLeft:'0.6em',fontSize:'1.2em',fontWeight:'bold',paddingBottom:'0em', width:'50%'}}>
-                <div style={{fontFamily: 'Abhaya Libre, serif',fontWeight:'900',baddingBottom:'0px', color:'#b29966',display:'inline',verticalAlign: 'middle'}}>
+                <div style={{fontFamily: 'Abhaya Libre, serif',fontWeight:'900',baddingBottom:'0px', color:'#e9d396',display:'inline',verticalAlign: 'middle'}}>
 									CHANNEL 
                 </div>
               </td>
