@@ -3,11 +3,11 @@ import { useDrop } from 'react-dnd'
 import Note from './Note'
 import {addNote, setNote, deleteNote} from '../reducers/noteReducer'
 import { connect } from 'react-redux'
-import { Menu, Dropdown } from 'semantic-ui-react'
 import map from './noteColors'
 import 'react-tippy/dist/tippy.css'
 import { Tooltip } from 'react-tippy'
 import './DnD.css'
+
 
 const DnDContainer = (props) => {
         
@@ -15,6 +15,7 @@ const DnDContainer = (props) => {
   const [menu2, setMenu2] = useState({visible: false})
   const [pos, setPos] = useState({left:'0px',top:'0px'})
   const [open, setOpen] = useState(undefined)
+  const [zIndex, setZIndex] = useState('5')
     
 
 
@@ -76,45 +77,47 @@ const DnDContainer = (props) => {
     hideMenus()
   }
   const contextMenu2 = () => (
-    <Menu pointing vertical style={{...menu2.style, width:'9rem'}}>
-      <Menu.Item
-        name='delete note'
-        active
-        onClick={handleDelete}
-      />
-      <Dropdown item text='set color'>
-        <Dropdown.Menu >
-          <table style={{width:'6em'}}>
-            <tbody>
-              <tr>
-                <td><button id='#ffffcc' onClick={setColor} style={{backgroundColor:map.get('#ffffcc'), width:'20px',height:'20px'}}></button></td>
-                <td><button id='#ffcccc' onClick={setColor} style={{backgroundColor:map.get('#ffcccc'), width:'20px',height:'20px'}}></button></td>
-                <td><button id='#ccffff' onClick={setColor} style={{backgroundColor:map.get('#ccffff'), width:'20px',height:'20px'}}></button></td>
-              </tr>
-              <tr>
-                <td><button id='#99ffcc' onClick={setColor} style={{backgroundColor:map.get('#99ffcc'), width:'20px',height:'20px'}}></button></td>
-                <td><button id='#ffccff' onClick={setColor} style={{backgroundColor:map.get('#ffccff'), width:'20px',height:'20px'}}></button></td>
-                <td><button id='#80ffff' onClick={setColor} style={{backgroundColor:map.get('#80ffff'), width:'20px',height:'20px'}}></button></td>
-              </tr>
-              <tr>
-                <td><button id='#ff99c2' onClick={setColor} style={{backgroundColor:map.get('#ff99c2'), width:'20px',height:'20px'}}></button></td>
-                <td><button id='#99ff99' onClick={setColor} style={{backgroundColor:map.get('#99ff99'), width:'20px',height:'20px'}}></button></td>
-                <td><button id='#ff99ff' onClick={setColor} style={{backgroundColor:map.get('#ff99ff'), width:'20px',height:'20px'}}></button></td>
-              </tr>
-            </tbody>
-          </table>
-        </Dropdown.Menu>
-      </Dropdown>
-    </Menu> 
+    <div className='menu' style={{...menu2.style, width:'9rem'}}>
+      <ul className="menu-options">
+        <li className="menu-option" onClick={handleDelete}>delete note</li>
+        <li className="menu-option">
+        
+          <div className='dropdown'>
+        set color
+            <div className="dropdown-content">
+              <table style={{width:'6em', padding:'0.2em',background:'black',border:'solid 1px #665533'}}>
+                <tbody>
+                  <tr>
+                    <td><button id='#ffffcc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffffcc').background, width:'20px',height:'20px'}}></button></td>
+                    <td><button id='#ffcccc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffcccc').background, width:'20px',height:'20px'}}></button></td>
+                    <td><button id='#ccffff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ccffff').background, width:'20px',height:'20px'}}></button></td>
+                  </tr>
+                  <tr>
+                    <td><button id='#99ffcc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#99ffcc').background, width:'20px',height:'20px'}}></button></td>
+                    <td><button id='#ffccff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffccff').background, width:'20px',height:'20px'}}></button></td>
+                    <td><button id='#80ffff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#80ffff').background, width:'20px',height:'20px'}}></button></td>
+                  </tr>
+                  <tr>
+                    <td><button id='#ff99c2' onClick={setColor} style={{backgroundColor:map.get('#ff99c2').background, width:'20px',height:'20px'}}></button></td>
+                    <td><button id='#99ff99' onClick={setColor} style={{backgroundColor:map.get('#99ff99').background, width:'20px',height:'20px'}}></button></td>
+                    <td><button id='#ff99ff' onClick={setColor} style={{backgroundColor:map.get('#ff99ff').background, width:'20px',height:'20px'}}></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div> 
   )
   const contextMenu = () => (
-    <Menu pointing vertical style={{...menu.style, width:'9rem'}}>
-      <Menu.Item
-        name='add note'
-        active
-        onClick={handleItemClick}
-      />
-    </Menu> 
+    <div className='menu'  style={{...menu.style, width:'9rem'}}>
+      <ul className="menu-options">
+        <li className="menu-option" onClick={handleItemClick}>
+   add note
+        </li>
+      </ul>
+    </div> 
   )
   const hideMenus = () => {
     setMenu({visible: false})
@@ -125,15 +128,14 @@ const DnDContainer = (props) => {
   let moveContent = false
 	
   const move = e => {
-    if(e.target.className === 'txt-mesta' || e.target.className === 'note') {
+    if(e.target.className === 'txt-mesta' || e.target.className === 'note' || e.target.className === 'noteHeader') {
       setOpen(false)
-      return
     }
 		
     if(moveContent && e.target.className !== 'note') {
-      e.target.style.left = `${e.pageX-offsetX}px`
-      e.target.style.top = `${e.pageY-offsetY}px`
-			
+      document.getElementById('dndWrapper').style.left = `${e.pageX-offsetX}px`
+      document.getElementById('dndWrapper').style.top = `${e.pageY-offsetY}px`
+
       document.getElementById('root').style.backgroundPositionX = 0.5*(e.pageX-offsetX) + 'px'
       document.getElementById('root').style.backgroundPositionY = 0.5*(e.pageY-offsetY) + 'px'
       document.getElementById('fg2').style.backgroundPositionX = 0.25*(e.pageX-offsetX) + 'px'
@@ -142,7 +144,7 @@ const DnDContainer = (props) => {
   }
   
   const start = e => {
-    if(e.target.id === 'dnd'){
+    if(e.target.className === 'dndC'){
       moveContent = true
       offsetX = e.clientX - Number(pos.left.replace('px',''))
       offsetY = e.clientY - Number(pos.top.replace('px',''))
@@ -150,11 +152,13 @@ const DnDContainer = (props) => {
   }
   const stop = e => {
     moveContent = false
-    if(e.target.id === 'dnd')
+    if(e.target.className === 'dndC'){
       setPos({
-        left :e.target.style.left,
-        top : e.target.style.top 
+        left : document.getElementById('dndWrapper').style.left ,
+        top :  document.getElementById('dndWrapper').style.top
       })
+      setZIndex('5')
+    }
   }
 
   /*  TÄMÄ HÄSSÄKKÄ MUISTIVUOTOVAROITUKSEN TAKIA,
@@ -169,7 +173,7 @@ const DnDContainer = (props) => {
     if(o.current)
       timeoutid.current = setTimeout(() => {
         setOpen(false)
-      },3000)
+      },2500)
   },[timeoutid])
 
   useEffect(() => {
@@ -184,32 +188,40 @@ const DnDContainer = (props) => {
   const onpointerover = (e) => {
     if(e.target.id === 'dnd' && !open) {
       setOpen(true)
+      return
     }
+    setOpen(false)
+  }
+  const onpointerdown = e => {
+    setOpen(false)
+    if(e.target.id === 'dnd') setZIndex('2')
   }
 
   if(props.notes)
     return (
-      <div>
-        <Tooltip
-          open={open}
-          title='add note with the right mouse button'
-          trigger='mouseenter'
-          followCursor='true'
-          theme='transparent'
-          duration='500'
-          onShown={hideTip}
-        >
-          <div className='hoverjuttu'>
-            <div ref={drop} id='dnd' 
-              onContextMenu={handleContextMenu}
-              onPointerOver={onpointerover}
-              onPointerDown={() => setOpen(false)}
-              onPointerOut={() => setOpen(false)}
-              onClick={hideMenus}
-              onMouseMove={move}
-              onMouseDown={start}
-              onMouseUp={stop}
-              style={pos} >
+      <div  id='dndWrapper'      onContextMenu={handleContextMenu}
+        onPointerOver={onpointerover}
+        onPointerDown={onpointerdown}
+        onPointerOut={() => setOpen(false)}
+        onClick={hideMenus}
+        onMouseMove={move}
+        onMouseDown={start}
+        onMouseUp={stop}
+        style={{...pos}}>
+        <div className='hoverjuttu'>
+          <div id='dnd2' className='dndC' style={{zIndex:'3'}} ></div>
+          <Tooltip
+            open={open}
+            title='add note with the right mouse button'
+            followCursor='true'
+            theme='transparent'
+            duration='800'
+            onShown={hideTip}
+          >
+         
+            <div ref={drop} id='dnd' className='dndC'
+              style={{zIndex:zIndex}}
+            >
               <div id='wa'>&nbsp;draggable working area</div>
               {menu.visible && contextMenu()}
               {menu2.visible && contextMenu2()}
@@ -228,8 +240,8 @@ const DnDContainer = (props) => {
                 />
               ))}
             </div>
-          </div>
-        </Tooltip>
+          </Tooltip>
+        </div>
       </div>
     ) 
   return <div>odota</div>

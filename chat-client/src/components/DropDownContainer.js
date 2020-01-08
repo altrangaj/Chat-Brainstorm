@@ -4,6 +4,7 @@ import {initializeChannels} from '../reducers/channelsReducer'
 import {initializeNotes} from '../reducers/noteReducer'
 import { setChannel } from '../reducers/selectedChannelReducer'
 import { initializeMessages } from '../reducers/messageReducer'
+import './DropDownContainer.css'
 /*eslint-disable eqeqeq*/
 const DropDownContainer = (props) => {
 
@@ -28,7 +29,15 @@ const DropDownContainer = (props) => {
   if(props.channels.length !== 0){
     return (
       <div>
-        <select onChange={handleChange} style={{paddingLeft:'0.4em', fontSize:'1.4em',fontFamily: 'Abhaya Libre, serif',fontWeight:'700',backgroundColor:'#e6e6e6',width:'100%'}}>
+        <select onChange={handleChange} 
+          style={{border:'none',paddingLeft:'0.4em',
+            fontSize:'1.4em',
+            fontFamily: 'Abhaya Libre, serif',
+            fontWeight:'900',
+            color:'#b29966',
+            borderColor:'black',
+            backgroundColor:'black',
+            width:'100%'}}>
           {[{name:'select:'},...props.channels].map((channel,i) => (<option value={channel.name} key={i}>{channel.name}</option>))}
         </select>
       </div>

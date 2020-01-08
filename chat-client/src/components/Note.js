@@ -46,17 +46,17 @@ const Note = (props) => {
   }
 	
   return (
-    <div> 
-      <div className='note' ref={drag} id={props.id} style={{ left:props.left, top:props.top, backgroundColor:map.get(props.backgroundColor) }} >
+    <div > 
+      <div className='note' ref={drag} id={props.id} style={{left:props.left, top:props.top, ...map.get(props.backgroundColor) }} >
         <Tooltip
           title='open Edit Note - menu with the right mouse button'
           followCursor='true'
           theme='transparent'
-          duration='500'
+          duration='800'
           trigger="mouseenter">
-          <div>&nbsp; {props.author} {setDate(props.date)}</div>
+          <div className='noteHeader' onPointerOut={() => props.setOpen(false)} >&nbsp; {props.author} {setDate(props.date)}</div>
         </Tooltip>
-        <textarea className='txt-mesta' style={{border: '0px solid transparent',paddingLeft:'0.2em',fontSize: '1rem',width:'100%', height:'70%', backgroundColor:map.get(props.backgroundColor) }} 
+        <textarea className='txt-mesta' style={{border: '0px solid transparent',paddingLeft:'0.2em',fontSize: '1rem',width:'100%', height:'70%', ...map.get(props.backgroundColor) }} 
           value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
       </div>
     </div>

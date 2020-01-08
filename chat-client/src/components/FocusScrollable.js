@@ -9,7 +9,7 @@ const FocusScrollable = (props) => {
   const Div = styled.div`
       padding: 0.1em 0.3em;
       height: 33em;
-      background-image:linear-gradient(rgba(102, 102, 102,0.8),rgba(30,30, 30,0.8));
+      background-image:linear-gradient(rgba(85, 71, 43,0.9),rgba(22,12,12,0.9));
       color:#d9d9d9;
   `
 

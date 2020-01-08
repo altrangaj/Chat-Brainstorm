@@ -12,20 +12,23 @@ const ChatWindow = (props) => {
     props.setChat(false)
   }
   return (
-    <div >
-      <div style={{backgroundColor: 'black',color:'white'}}>
-        <table style={{width:'100%'}}>
+    <div style={{borderTop:'2px solid rgba(51,38,26,0.9)',
+      borderLeft:'4px solid rgba(51,38,26,0.9)',
+      bordeRight:'4px solid rgba(51,38,26,0.9)',
+      borderBottom:'2px solid rgba(51,38,26,0.9)'}}>
+      <div style={{backgroundColor: 'black',color:'white',borderBottom:'1px solid #665533'}}>
+        <table style={{width:'100%', borderTop:'1px solid #665533'}}>
           <tbody>
             <tr >
               <td style={{paddingLeft:'0.6em',fontSize:'1.2em',fontWeight:'bold',paddingBottom:'0em', width:'50%'}}>
-                <div style={{fontFamily: 'Abhaya Libre, serif',fontWeight:'900',baddingBottom:'0px', color:'#ff794d',display:'inline',verticalAlign: 'middle'}}>
+                <div style={{fontFamily: 'Abhaya Libre, serif',fontWeight:'900',baddingBottom:'0px', color:'#b29966',display:'inline',verticalAlign: 'middle'}}>
 									CHANNEL 
                 </div>
               </td>
               <td style={{whiteSpace: 'nowrap', width:'50%',marginRight:'0%', paddingRight:'0px', borderRight:'0px', textAlign:'right'}}>
-                <div style={{fontSize:'1.3em',fontFamily: 'Abhaya Libre, serif',fontWeight:'700',whiteSpace: 'nowrap', display:'inline'}}>create new channel</div>
+                <div style={{color:'#d4c6aa',fontSize:'1.3em',fontFamily: 'Abhaya Libre, serif',fontWeight:'700',whiteSpace: 'nowrap', display:'inline'}}>create new channel</div>
                 <div style={{marginLeft:'0.5em', display:'inline'}}>
-                  <button  onClick={handle}>create</button>
+                  <button style={{border: '1px solid #b29966',color:'#b29966', backgroundColor:'black'}}  onClick={handle}>create</button>
                 </div>
               </td>
             </tr>

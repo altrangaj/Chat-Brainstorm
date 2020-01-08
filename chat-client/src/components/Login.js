@@ -63,7 +63,7 @@ const Login = (props) => {
     setSignUp(false)
   }
   const form = (buttonText, eventHandler) => (
-    <Form style={{paddingTop:'2em', paddingBottom:'1em'}} onSubmit={eventHandler} >
+    <Form inverted style={{paddingTop:'2em', paddingBottom:'1em'}} onSubmit={eventHandler} >
       <Form.Input
         icon='user'
         iconPosition='left'
@@ -75,9 +75,10 @@ const Login = (props) => {
         icon='lock'
         iconPosition='left'
         label='Password'
+        style={{color:'#b29966',backgroundColor:'black',border:'solid 1px #b29966'}}
         {...password.input}
       />
-      <Button style={{borderStyle: 'outset'}} content={buttonText} type="submit" />
+      <Button style={{color:'#b29966',backgroundColor:'black',border:'solid 1px #b29966'}}  content={buttonText} type="submit" />
     </Form>
   )
   const options = () => (
@@ -87,18 +88,18 @@ const Login = (props) => {
           {form('Login', handleLogin)}
         </Grid.Column>
         <Grid.Column verticalAlign='middle'>
-          <Button style={{borderStyle: 'outset'}} content='Sign up' icon='signup' size='big' onClick={() => setSignUp(true)} />
+          <Button style={{ color:'#b29966',backgroundColor:'black',border:'solid 1px #b29966'}} content='Sign up' icon='signup' size='big' onClick={() => setSignUp(true)} />
         </Grid.Column>
       </Grid>
-      <Divider vertical>Or</Divider>
+      <Divider style={{color:'#b29966'}} vertical>Or</Divider>
     </div>
   )
 
   if (!props.user && !window.localStorage.getItem('loggedChatUser')) 
     return (
       <div style={{border:'0px',padding:'0px', maxWidth:'1280px',width:'70%',margin:'auto'}}>
-        <Image style={{paddingTop:'3rem'}} src={image} />
-        <Segment style={{border:'0px',padding:'0px', margin:'0rem',backgroundColor:'#cccccc'}} placeholder>
+        <Image style={{paddingTop:'7vh'}} src={image} />
+        <Segment style={{padding:'0px', margin:'0rem',backgroundColor:'black',border:'solid 3px #665533'}} placeholder>
           {!signUp && options()}
           {signUp && form('Sign Up',handleSignUp)}
         </Segment>

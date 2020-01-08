@@ -27,9 +27,27 @@ const MessageForm = (props) => {
 
   if(props.user)
     return (
-      <div>
-        <input style={{backgroundColor:'#e6e6e6',width:'80%'}} onKeyPress={keyPressed} {...msg.input} />
-        <button style={{width:'20%'}} onClick={sendMsg}>send</button>
+      <div style={{background:'#665533'}}>
+        <input placeholder='write msg here' style={{padding:'0.1em 0 0.1em 0',
+          fontWeight:'700',
+          fontSize:'1.2em',
+          paddingLeft:'0.4em',
+          lineHeight:'1.2em',
+          backgroundColor:'black',
+          borderTop: '0px solid #665533',
+          borderBottom: '1px solid #665533',
+          borderLeft:'none',
+          borderRight:'none',
+          color:'#b29966',
+          width:'80%'}} 
+        onKeyPress={keyPressed} {...msg.input} />
+        <button style={{
+          padding:'0.2em 0 0.2em 0',
+          border:'1px solid #665533',
+          color:'#b29966',
+          backgroundColor:'black',
+          width:'20%'}} 
+        onClick={sendMsg}>send</button>
         {warning && <div style={{color:'red',backgroundColor:'white',border:'2px solid red',padding:'1em',margin:'0em'}}>{warning}</div>}
       </div>
     )

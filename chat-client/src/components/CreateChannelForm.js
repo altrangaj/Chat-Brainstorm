@@ -104,8 +104,8 @@ const CreateChannelForm = (props) => {
             />
           </div>
           <div style={{margin:'auto',textAlign:'center'}}>
-            <Button type='button' style={{marginTop:'0.9em',display:'inline'}} content='create'  onClick={handleSubmit} />
-            <Button type='button' style={{marginLeft:'0.9em',marginTop:'0.9em',display:'inline'}} content='cancel'  onClick={cancel} />
+            <Button type='button' style={{border: '2px solid #b29966',color:'#b29966', backgroundColor:'black',marginTop:'0.9em',display:'inline'}} content='create'  onClick={handleSubmit} />
+            <Button type='button' style={{border: '2px solid #b29966',color:'#b29966', backgroundColor:'black', marginLeft:'0.9em',marginTop:'0.9em',display:'inline'}} content='cancel'  onClick={cancel} />
           </div>
         </Form>
         {message && showMessage(message)}

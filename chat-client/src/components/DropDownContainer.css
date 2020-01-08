@@ -1,0 +1,18 @@
+select::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  select::-webkit-scrollbar-track {
+    background: black; 
+  }
+   
+  /* Handle */
+  select::-webkit-scrollbar-thumb {
+    background:black; 
+  }
+  
+  /* Handle on hover */
+  select::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

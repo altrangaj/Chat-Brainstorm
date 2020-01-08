@@ -10,7 +10,8 @@
     height: 5rem;
     font-weight: 700;
     transition: outline 1s;
+    
 }
 .note:hover {
-    outline-color: #0066ff;
+    outline-color: #ffbb00;
 }

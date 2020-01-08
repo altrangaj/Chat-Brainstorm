@@ -9,10 +9,10 @@
     font-size:3em;
     font-weight: 500;
     font-family: 'Playfair Display SC', serif;
-    color:#e6e6e6;
+    color:#e2d4b7;
 }
 @keyframes borderAnim {
-    from {text-shadow: -4px 0 #0066ff, 0 4px #0066ff, 4px 0 #0066ff, 0 -4px #0066ff;}
+    from {text-shadow: -2px 0 #ff8800, 0 2px #ff8800, 2px 0 #ff8800, 0 -2px #ff8800;}
     to {text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;}
 }
 .channelName {
@@ -24,5 +24,5 @@
     font-size: 3em;
     font-weight:900;
     font-family: 'Playfair Display SC', serif;
-    color:#e6e6e6;
+    color:#e2d4b7;
 }
