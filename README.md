@@ -35,7 +35,7 @@ Käynnistä chat palvelin komennolla `npm start` chat-server hakemistossa. Vasta
 
 ![Image of UI](https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/images/UI.png)
 
-* Ohut sininen reunus (hover-tyyppinen) rajaa työskentelyaluetta, jossa voi toimia muistiinpanojen kanssa. Aluetta pystyy dragaamaan, koska se on laajempi mitä kuva-alaan mahtuu.
+* Kellertävä reunus (hover-tyyppinen) rajaa työskentelyaluetta, jossa voi toimia muistiinpanojen kanssa. Aluetta pystyy dragaamaan, koska se on laajempi mitä kuva-alaan mahtuu.
 * Oikeassa ylänurkassa on chat-ikkuna, jonka oikeassa ylänurkassa on nappi kanavan luomiseen. Siitä aukeaa lomake, jossa on tekstikenttä kanavan nimelle, multiselect-search-dropdown tyyppinen lista käyttäjien valintaan sekä create että cancel napit.
 * Kanavan valinta - alasvetovalikossa näkyy käyttäjälle näkyvät kanavat. Tämä sijaitsee chat-ikkunan ylälaidassa. (kuvassa valikko, missä näkyy 'Idea Wall' valittuna)
 * Vasemmassa alanurkassa on uloskirjautuminen.
