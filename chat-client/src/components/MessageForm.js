@@ -27,28 +27,32 @@ const MessageForm = (props) => {
 
   if(props.user)
     return (
-      <div style={{background:'#665533'}}>
-        <input placeholder='write msg here' style={{padding:'0.1em 0 0.1em 0',
-          fontWeight:'700',
+      <div style={{background:'black',border:'none'}}>
+        <input placeholder='write your msg here' style={{
+          padding:'0.1em 0 0.1em 0',
+          fontWeight:'500',
           fontSize:'1.2em',
           paddingLeft:'0.4em',
           lineHeight:'1.2em',
           backgroundColor:'black',
-          borderTop: '0px solid #665533',
-          borderBottom: '1px solid #665533',
+          borderTop: 'none',
+          borderBottom: '1px solid #b29966',
           borderLeft:'none',
           borderRight:'none',
           color:'#b29966',
           width:'80%'}} 
         onKeyPress={keyPressed} {...msg.input} />
         <button style={{
-          padding:'0.2em 0 0.2em 0',
-          border:'1px solid #665533',
+          padding:'0.2em 0 0.15em 0',
+          border:'1px solid #b29966',
           color:'#b29966',
+          marginTop:'0px',
           backgroundColor:'black',
+          fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', 
+          fontWeight:'700',
           width:'20%'}} 
         onClick={sendMsg}>send</button>
-        {warning && <div style={{color:'red',backgroundColor:'white',border:'2px solid red',padding:'1em',margin:'0em'}}>{warning}</div>}
+        {warning && <div style={{color:'red',backgroundColor:'black',border:'2px solid red',padding:'1em',margin:'0em'}}>{warning}</div>}
       </div>
     )
   return <div></div>

@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { useDrag } from 'react-dnd'
 import {setNote } from '../reducers/noteReducer'
 import { connect } from 'react-redux'
-import map from './noteColors'
+import { useTransition, animated } from 'react-spring'
 import 'react-tippy/dist/tippy.css'
 import { Tooltip } from 'react-tippy'
+import map from './noteColors'
 import './Note.css'
 
 
 const Note = (props) => {
 
   const [text, setText] = useState(props.content)
+  const [pr, set] = useState(props)
+  const [show, setShow] = useState(true)
 
   // onBlur ei toimi ilman tätä
   useEffect(() => {
@@ -18,9 +21,23 @@ const Note = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.content])
 
+  useEffect(() => {
+    set(props)
+  }, [props])
+
+  useEffect(() => {
+    return () => {setShow(false)}
+  }, [props.channel])
+
   const onChange = (event) => {
     setText(event.target.value)
   }
+  const transitions = useTransition(show, null, {
+    from: { opacity: 0, transform: 'scale(0)' },
+    enter: { opacity: 1, transform: 'scale(1)' },
+    leave: { opacity: 0, transform: 'scale(0)' },
+    config: {duration:250}
+  })
 
   const [{ isDragging }, drag] = useDrag({
     item: { id:props.id, left:props.left, top:props.top, type: 'note' },
@@ -29,7 +46,6 @@ const Note = (props) => {
     },
   })
   if (isDragging) {
-    props.setOpen(false)
     return <div ref={drag} />
   }
 	
@@ -42,24 +58,22 @@ const Note = (props) => {
   }
 
   const setDate = (date) => {
-    return date.slice(8,10)+'.'+date.slice(5,7)+'. '+date.slice(11,16)
+    if(date) return date.slice(8,10)+'.'+date.slice(5,7)+'. '+date.slice(11,16)
   }
-	
-  return (
-    <div > 
-      <div className='note' ref={drag} id={props.id} style={{left:props.left, top:props.top, ...map.get(props.backgroundColor) }} >
-        <Tooltip
-          title='open Edit Note - menu with the right mouse button'
-          followCursor='true'
-          theme='transparent'
-          duration='800'
-          trigger="mouseenter">
-          <div className='noteHeader' onPointerOut={() => props.setOpen(false)} >&nbsp; {props.author} {setDate(props.date)}</div>
-        </Tooltip>
-        <textarea className='txt-mesta' style={{border: '0px solid transparent',paddingLeft:'0.2em',fontSize: '1rem',width:'100%', height:'70%', ...map.get(props.backgroundColor) }} 
-          value={text} onChange={onChange}  onBlur={() => updateText(props.id)} />
-      </div>
-    </div>
+
+  return transitions.map(({ item, key, props }) => (
+    item && <animated.div key={key} className='note' ref={drag} id={pr.id} style={{left:pr.left,top:pr.top,...map.get(pr.backgroundColor),...props}}  >
+      <Tooltip
+        title='open Edit Note - menu with the right mouse button'
+        followCursor='true'
+        theme='transparent'
+        duration='800'
+        trigger="mouseenter">
+        <div className='noteHeader' style={{marginTop:'0px'}} >{pr.author} {setDate(pr.date)}</div>
+      </Tooltip>
+      <textarea className='txt-mesta' style={{textAlign:'center',border: '0px solid transparent',paddingLeft:'0.2em',fontSize: '1rem',width:'100%', height:'70%', ...map.get(pr.backgroundColor) }} 
+        value={text} onChange={onChange}  onBlur={() => updateText(pr.id)} />
+    </animated.div>)
   )
 }
 const mapStateToProps = (state) => {

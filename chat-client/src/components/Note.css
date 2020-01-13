@@ -10,8 +10,10 @@
     height: 5rem;
     font-weight: 700;
     transition: outline 1s;
-    
+    text-align:center;
+    will-change: transform, opacity;
 }
+
 .note:hover {
     outline-color: #ffbb00;
 }

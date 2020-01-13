@@ -199,7 +199,7 @@ const DnDContainer = (props) => {
 
   if(props.notes)
     return (
-      <div  id='dndWrapper'      onContextMenu={handleContextMenu}
+      <div  id='dndWrapper' onContextMenu={handleContextMenu}
         onPointerOver={onpointerover}
         onPointerDown={onpointerdown}
         onPointerOut={() => setOpen(false)}

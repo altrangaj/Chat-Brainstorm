@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import  { useField } from '../hooks/field'
 import { signUp } from '../reducers/usersReducer'
 import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
+import { useTransition, animated } from 'react-spring'
 import { Button, Divider, Form, Grid, Segment, Image, Message, Icon } from 'semantic-ui-react'
 import './Login.css'
 
@@ -34,6 +35,11 @@ const Login = (props) => {
     setU()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  const transitions = useTransition(!props.user, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  })
   const handleInputs = async (event, func) => {
     event.preventDefault()
     try {
@@ -95,8 +101,9 @@ const Login = (props) => {
     </div>
   )
 
-  if (!props.user && !window.localStorage.getItem('loggedChatUser')) 
-    return (
+   
+  return transitions.map(({ item, key, props }) =>
+    item && <animated.div key={key} style={props}>
       <div style={{border:'0px',padding:'0px', maxWidth:'1280px',width:'70%',margin:'auto'}}>
         <Image style={{paddingTop:'7vh'}} src={image} />
         <Segment style={{padding:'0px', margin:'0rem',backgroundColor:'black',border:'solid 3px #665533'}} placeholder>
@@ -110,8 +117,8 @@ const Login = (props) => {
          </Message>
         }
       </div>
-    )
-  return <div></div>
+    </animated.div>
+  )
 }
 
 const mapStateToProps = (state) => {

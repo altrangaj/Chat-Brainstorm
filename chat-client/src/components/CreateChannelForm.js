@@ -32,7 +32,7 @@ const CreateChannelForm = (props) => {
     if(m) {
       timeout = setTimeout(resetWarnings,5000)
       return (
-        <Message style={{width:'80%', margin:'auto', marginTop:'1.5em'}} attached='bottom' warning>
+        <Message style={{width:'80%', margin:'auto', marginTop:'1.5em',color:'red',backgroundColor:'black'}} attached='bottom' warning>
           <Icon name='warning sign' />
           { m }
         </Message>

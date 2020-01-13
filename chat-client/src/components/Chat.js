@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { initializeMessages } from '../reducers/messageReducer'
-import { Segment, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import ChatWindow from './ChatWindow'
 import CreateChannelForm from './CreateChannelForm'
@@ -9,9 +8,10 @@ import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { clearUser } from '../reducers/loggedUserReducer'
 import ChannelName from './ChannelName'
+import { Segment } from 'semantic-ui-react'
 import Clock from './Clock'
-import bg from './minimal1.png'
-import bg2 from './minimal2.png'
+import bg from './minimal1c.png'
+import bg2 from './minimal2b.png'
 import { CSSTransition } from 'react-transition-group'
 
 import './Chat.css'
@@ -41,10 +41,8 @@ const Chat = (props) => {
     </DndProvider>
   )
 
-	
   const handleLogout = async (event) => {
     event.preventDefault()
-    window.localStorage.removeItem('loggedChatUser')
     document.getElementById('root').style.backgroundPositionX = '0px'
     document.getElementById('root').style.backgroundPositionY = '0px'
     document.getElementById('fg2').style.backgroundPositionX = '0px'
@@ -86,11 +84,10 @@ const Chat = (props) => {
               {item}
             </div>
           </CSSTransition>
-
         </div>
         <div style={{zIndex:'10',position:'absolute',bottom:'2em',left:'2em'}}>
           <div style={{
-            borderRadius:'8px 0px 0px 4px', 
+            borderRadius:'2px 0px 0px 2px', 
             fontSize:'1.2em',
             float:'left',
             display:'inline',
@@ -98,19 +95,22 @@ const Chat = (props) => {
             color:'#e5ddcc',
             whiteSpace: 'nowrap',
             backgroundColor:'rgba(0,0,0,0.7)',
-            padding:'0.2em 0.5em 0.2em 0.5em',
+            marginTop:'1px',
+            padding:'0.15em 0.5em 0.2em 0.35em',
             textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black'
           }}>{props.user.username} is logged in </div>
           <div style={{float:'left',display:'inline'}}>
-            <Button style={{
+            <button style={{
               border: '1px solid #b29966',
               color:'#b29966', 
               backgroundColor:'black',
               fontSize:'1.1em',
               marginLeft:'0em',
               borderRadius:'2px',
-              padding:'0.3em 0.4em 0.3em 0.4em'
-            }} onClick={handleLogout}>logout</Button>
+              fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif',
+              fontWeight:'700',
+              padding:'0.25em 0.4em 0.25em 0.4em'
+            }} onClick={handleLogout}>logout</button>
           </div>
         </div>
         <div style={{
