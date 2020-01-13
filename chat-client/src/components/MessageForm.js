@@ -43,6 +43,7 @@ const MessageForm = (props) => {
           width:'80%'}} 
         onKeyPress={keyPressed} {...msg.input} />
         <button style={{
+          cursor: 'pointer',
           padding:'0.2em 0 0.15em 0',
           border:'1px solid #b29966',
           color:'#b29966',

@@ -71,8 +71,14 @@ const Note = (props) => {
         trigger="mouseenter">
         <div className='noteHeader' style={{marginTop:'0px'}} >{pr.author} {setDate(pr.date)}</div>
       </Tooltip>
-      <textarea className='txt-mesta' style={{textAlign:'center',border: '0px solid transparent',paddingLeft:'0.2em',fontSize: '1rem',width:'100%', height:'70%', ...map.get(pr.backgroundColor) }} 
-        value={text} onChange={onChange}  onBlur={() => updateText(pr.id)} />
+      <textarea className='txt-mesta' style={{
+        textAlign:'center',
+        border: '0px solid transparent',
+        paddingLeft:'0.2em',
+        fontSize: '1rem',width:'100%', 
+        height:'70%',
+        ...map.get(pr.backgroundColor) }} 
+      value={text} onChange={onChange}  onBlur={() => updateText(pr.id)} />
     </animated.div>)
   )
 }

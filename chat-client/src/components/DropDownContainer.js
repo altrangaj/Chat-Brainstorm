@@ -4,7 +4,7 @@ import {initializeChannels} from '../reducers/channelsReducer'
 import {initializeNotes} from '../reducers/noteReducer'
 import { setChannel } from '../reducers/selectedChannelReducer'
 import { initializeMessages } from '../reducers/messageReducer'
-import './DropDownContainer.css'
+
 /*eslint-disable eqeqeq*/
 const DropDownContainer = (props) => {
 

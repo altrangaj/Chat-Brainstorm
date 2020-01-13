@@ -12,28 +12,3 @@
     opacity: 0;
     transition: opacity 350ms ease-out;
   }
-  #vittu {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: stretch;
-    -ms-flex-align: stretch;
-    align-items: stretch;
-    max-width: initial;
-    -webkit-animation: none;
-    animation: none;
-    overflow: visible;
-    padding: 1em 1em;
-    min-height: 18rem;
-    background: #f9fafb;
-    border-color: rgba(34,36,38,.15);
-    -webkit-box-shadow: 0 2px 25px 0 rgba(34,36,38,.05) inset;
-    box-shadow: 0 2px 25px 0 rgba(34,36,38,.05) inset;
-  }

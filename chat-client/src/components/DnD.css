@@ -1,11 +1,7 @@
-#workArea{
 
-    background: linear-gradient(#595959,#8c8c8c);
-}
 .menu {
     width: 100px;
     box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.2);
-    
     background:black;
     color:#b29966;
   }
@@ -21,14 +17,15 @@
     cursor: pointer;
     white-space: nowrap;
     border:solid 1px #665533;
-    margin-bottom: 0.1em;;
+    margin-bottom: 0.1em;
+    transition: background 1s;
   }
   .menu-option:hover {
     background: rgba(119, 104, 35, 0.2);
   }
   .dropdown {
     position: relative;
-    display: inline-block;
+    display: block;
   }
   
   .dropdown-content {
@@ -48,7 +45,6 @@
     left:0px;
     width:2000px;
     height:1200px;
-   
     z-index:0;
     background-image: none;
     margin: 6em 4em;

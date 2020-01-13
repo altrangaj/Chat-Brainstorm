@@ -101,6 +101,7 @@ const Chat = (props) => {
           }}>{props.user.username} is logged in </div>
           <div style={{float:'left',display:'inline'}}>
             <button style={{
+              cursor: 'pointer',
               border: '1px solid #b29966',
               color:'#b29966', 
               backgroundColor:'black',

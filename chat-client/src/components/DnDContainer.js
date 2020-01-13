@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { useDrop } from 'react-dnd'
 import Note from './Note'
 import {addNote, setNote, deleteNote} from '../reducers/noteReducer'
+import { useTransition, animated } from 'react-spring'
 import { connect } from 'react-redux'
 import map from './noteColors'
 import 'react-tippy/dist/tippy.css'
@@ -17,7 +18,11 @@ const DnDContainer = (props) => {
   const [open, setOpen] = useState(undefined)
   const [zIndex, setZIndex] = useState('5')
     
-
+  const transitions = useTransition(menu.visible || menu2.visible, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  })
 
   const [, drop] = useDrop({
     accept: 'note',
@@ -77,47 +82,50 @@ const DnDContainer = (props) => {
     hideMenus()
   }
   const contextMenu2 = () => (
-    <div className='menu' style={{...menu2.style, width:'9rem'}}>
-      <ul className="menu-options">
-        <li className="menu-option" onClick={handleDelete}>delete note</li>
-        <li className="menu-option">
-        
-          <div className='dropdown'>
-        set color
-            <div className="dropdown-content">
-              <table style={{width:'6em', padding:'0.2em',background:'black',border:'solid 1px #665533'}}>
-                <tbody>
-                  <tr>
-                    <td><button id='#ffffcc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffffcc').background, width:'20px',height:'20px'}}></button></td>
-                    <td><button id='#ffcccc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffcccc').background, width:'20px',height:'20px'}}></button></td>
-                    <td><button id='#ccffff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ccffff').background, width:'20px',height:'20px'}}></button></td>
-                  </tr>
-                  <tr>
-                    <td><button id='#99ffcc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#99ffcc').background, width:'20px',height:'20px'}}></button></td>
-                    <td><button id='#ffccff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffccff').background, width:'20px',height:'20px'}}></button></td>
-                    <td><button id='#80ffff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#80ffff').background, width:'20px',height:'20px'}}></button></td>
-                  </tr>
-                  <tr>
-                    <td><button id='#ff99c2' onClick={setColor} style={{backgroundColor:map.get('#ff99c2').background, width:'20px',height:'20px'}}></button></td>
-                    <td><button id='#99ff99' onClick={setColor} style={{backgroundColor:map.get('#99ff99').background, width:'20px',height:'20px'}}></button></td>
-                    <td><button id='#ff99ff' onClick={setColor} style={{backgroundColor:map.get('#ff99ff').background, width:'20px',height:'20px'}}></button></td>
-                  </tr>
-                </tbody>
-              </table>
+    transitions.map(({ item, key, props }) =>
+      item && <animated.div className='menu' key={key} style={{...menu2.style, width:'9rem',...props}}>
+        <ul className="menu-options">
+          <li className="menu-option" onClick={handleDelete}>delete note</li>
+          <li className="menu-option">
+            <div className='dropdown'>
+              set color
+              <div className="dropdown-content">
+                <table style={{width:'6em', padding:'0.2em',background:'black',border:'solid 1px #665533'}}>
+                  <tbody>
+                    <tr>
+                      <td><button id='#ffffcc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffffcc').background, width:'20px',height:'20px'}}></button></td>
+                      <td><button id='#ffcccc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffcccc').background, width:'20px',height:'20px'}}></button></td>
+                      <td><button id='#ccffff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ccffff').background, width:'20px',height:'20px'}}></button></td>
+                    </tr>
+                    <tr>
+                      <td><button id='#99ffcc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#99ffcc').background, width:'20px',height:'20px'}}></button></td>
+                      <td><button id='#ffccff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffccff').background, width:'20px',height:'20px'}}></button></td>
+                      <td><button id='#80ffff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#80ffff').background, width:'20px',height:'20px'}}></button></td>
+                    </tr>
+                    <tr>
+                      <td><button id='#ff99c2' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ff99c2').background, width:'20px',height:'20px'}}></button></td>
+                      <td><button id='#99ff99' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#99ff99').background, width:'20px',height:'20px'}}></button></td>
+                      <td><button id='#ff99ff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ff99ff').background, width:'20px',height:'20px'}}></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        </li>
-      </ul>
-    </div> 
+          </li>
+        </ul>
+      </animated.div>  
+    )
   )
   const contextMenu = () => (
-    <div className='menu'  style={{...menu.style, width:'9rem'}}>
-      <ul className="menu-options">
-        <li className="menu-option" onClick={handleItemClick}>
-   add note
-        </li>
-      </ul>
-    </div> 
+    transitions.map(({ item, key, props }) =>
+      item && <animated.div className='menu' key={key} style={{...menu.style, width:'9rem',...props}}>
+        <ul className="menu-options">
+          <li className="menu-option" onClick={handleItemClick}>
+            add note
+          </li>
+        </ul>
+      </animated.div> 
+    )
   )
   const hideMenus = () => {
     setMenu({visible: false})
@@ -161,10 +169,6 @@ const DnDContainer = (props) => {
     }
   }
 
-  /*  TÄMÄ HÄSSÄKKÄ MUISTIVUOTOVAROITUKSEN TAKIA,
-   *  JOTA AIHEUTTAA SETTIMEOUT-FUNKTIO
-   */
-
   let timeoutid = useRef(-1)
   let o = useRef(true)
 
@@ -182,8 +186,6 @@ const DnDContainer = (props) => {
       hideTip()
     }
   }, [hideTip])
-
-  /******************************************/
 
   const onpointerover = (e) => {
     if(e.target.id === 'dnd' && !open) {

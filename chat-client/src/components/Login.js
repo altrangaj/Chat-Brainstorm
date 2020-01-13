@@ -5,7 +5,6 @@ import { signUp } from '../reducers/usersReducer'
 import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
 import { useTransition, animated } from 'react-spring'
 import { Button, Divider, Form, Grid, Segment, Image, Message, Icon } from 'semantic-ui-react'
-import './Login.css'
 
 const image = require('./meeting.jpg')
 

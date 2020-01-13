@@ -54,7 +54,15 @@ const Message = (props) => {
     )
   }
 
-  let style = {color:'#e5ddcc',marginRight:'0.7rem',marginLeft:'0.3rem',marginBottom:'0.5rem',backgroundColor:'transparent', display:'inline-block', float:'left'}
+  let style = {
+    color:'#e5ddcc',
+    marginRight:'0.7rem',
+    marginLeft:'0.3rem',
+    marginBottom:'0.5rem',
+    backgroundColor:'transparent', 
+    display:'inline-block', 
+    float:'left'}
+
   let headerStyle = {marginRight:'0.7rem',marginLeft:'0.3rem',float:'left', lineHeight:'1em'}
 
   if(props.user == name){
@@ -65,7 +73,15 @@ const Message = (props) => {
   }
 
   const setHeader = () => {
-    if(date) return (<><span style={{color:'white',marginBottom:'0px'}}>{name}</span><span style={{color: '#d4c6aa',fontSize:'10px',marginBottom:'0px'}}>&nbsp;&nbsp;{date}</span><br/></>)
+    if(date) return (
+      <>
+        <span style={{color:'white',marginBottom:'0px'}}>
+          {name}
+        </span>
+        <span style={{color: '#d4c6aa',fontSize:'10px',marginBottom:'0px'}}>
+          &nbsp;&nbsp;{date}
+        </span><br/>
+      </>)
     return (<><span style={{color:'white',fontWeight:'500',marginBottom:'0px'}}>{name}</span><br/></>)
   }
 
