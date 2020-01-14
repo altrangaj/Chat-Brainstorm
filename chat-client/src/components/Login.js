@@ -5,14 +5,16 @@ import { signUp } from '../reducers/usersReducer'
 import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
 import { useTransition, animated } from 'react-spring'
 import { Button, Divider, Form, Grid, Segment, Image, Message, Icon } from 'semantic-ui-react'
-
 const image = require('./meeting.jpg')
+
+
 
 const Login = (props) => {
   const username = useField('text')
   const password = useField('password')
   const [signUp, setSignUp] = useState(false)
   const [message,setMessage] = useState(null)
+  const [loaded, setLoaded] = useState(false)
 
   const showMessage = (m) => {
     setMessage(m)
@@ -20,7 +22,7 @@ const Login = (props) => {
       setMessage(null)
     },5000)
   }
-
+  
   useEffect(() => {
     const setU = async () => {
       const loggedUserJSON = window.localStorage.getItem('loggedChatUser')
@@ -34,7 +36,7 @@ const Login = (props) => {
     setU()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  const transitions = useTransition(!props.user, null, {
+  const transitions = useTransition((!props.user || !window.localStorage.getItem('loggedChatUser')) && loaded , null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -101,7 +103,7 @@ const Login = (props) => {
   )
 
    
-  return transitions.map(({ item, key, props }) =>
+  return loaded ? transitions.map(({ item, key, props }) =>
     item && <animated.div key={key} style={props}>
       <div style={{border:'0px',padding:'0px', maxWidth:'1280px',width:'70%',margin:'auto'}}>
         <Image style={{paddingTop:'7vh'}} src={image} />
@@ -117,7 +119,12 @@ const Login = (props) => {
         }
       </div>
     </animated.div>
-  )
+  ) : <div style={{width:'100vw',height:'100vh',background:'transparent'}}>
+    <Image onLoad={() => setLoaded(true)} style={{display:'none',paddingTop:'7vh'}} src={image} />
+    <span style={{position:'absolute',top:'50%',left:'50%',fontSize:'2em',color:'#b29966',marginLeft:'-5rem'}}>
+    loading...
+    </span>
+  </div>
 }
 
 const mapStateToProps = (state) => {

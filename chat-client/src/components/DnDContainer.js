@@ -146,8 +146,8 @@ const DnDContainer = (props) => {
 
       document.getElementById('root').style.backgroundPositionX = 0.5*(e.pageX-offsetX) + 'px'
       document.getElementById('root').style.backgroundPositionY = 0.5*(e.pageY-offsetY) + 'px'
-      document.getElementById('fg2').style.backgroundPositionX = 0.25*(e.pageX-offsetX) + 'px'
-      document.getElementById('fg2').style.backgroundPositionY = 0.25*(e.pageY-offsetY) + 'px'
+      document.getElementById('bg').style.backgroundPositionX = 0.25*(e.pageX-offsetX) + 'px'
+      document.getElementById('bg').style.backgroundPositionY = 0.25*(e.pageY-offsetY) + 'px'
     }
   }
   

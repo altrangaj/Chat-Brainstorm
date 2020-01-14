@@ -10,8 +10,7 @@ import { clearUser } from '../reducers/loggedUserReducer'
 import ChannelName from './ChannelName'
 import { Segment } from 'semantic-ui-react'
 import Clock from './Clock'
-import bg from './minimal1c.png'
-import bg2 from './minimal2b.png'
+
 import { CSSTransition } from 'react-transition-group'
 
 import './Chat.css'
@@ -32,8 +31,7 @@ const Chat = (props) => {
     else setTimeout(()=>setItem(() => <CreateChannelForm setChat={setChat} setIn={setInProp} />),350)
   },[chat])
 	
-  document.getElementById('root').style.backgroundImage = `url(${bg})`
-  document.getElementById('fg2').style.backgroundImage = `url(${bg2})`
+
 
   const dnd = () => (
     <DndProvider backend={HTML5Backend}>
@@ -45,8 +43,8 @@ const Chat = (props) => {
     event.preventDefault()
     document.getElementById('root').style.backgroundPositionX = '0px'
     document.getElementById('root').style.backgroundPositionY = '0px'
-    document.getElementById('fg2').style.backgroundPositionX = '0px'
-    document.getElementById('fg2').style.backgroundPositionY = '0px'
+    document.getElementById('bg').style.backgroundPositionX = '0px'
+    document.getElementById('bg').style.backgroundPositionY = '0px'
     setItem(null)
     setInProp(false)
     props.clearUser(props.user)

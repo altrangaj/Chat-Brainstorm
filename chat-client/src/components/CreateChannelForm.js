@@ -8,7 +8,6 @@ import { setChannel } from '../reducers/selectedChannelReducer'
 import { makeEmptyMessages } from '../reducers/messageReducer'
 import { makeEmptyNotes } from '../reducers/noteReducer'
 import { Button, Form, Dropdown, Message, Icon } from 'semantic-ui-react'
-import './ChannelForm.css'
 
 const CreateChannelForm = (props) => {
 

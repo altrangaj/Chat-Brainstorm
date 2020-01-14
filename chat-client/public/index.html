@@ -12,12 +12,17 @@
       name="description"
       content="Web site created using create-react-app"
     />
+
+      
     <link rel="apple-touch-icon" href="logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="preload" href="bg3b.png" type="image/png" as="image" >
+    <link rel="preload" href="minimal1c.png" type="image/png" as="image">
+    <link rel="preload" href="minimal2b.png" type="image/png" as="image">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -29,9 +34,17 @@
     -->
     <title>Chat</title>
   </head>
-  <body style="overflow-y:hidden;background-image: url('bg3b.png');">
+  <body style="overflow-y:hidden;background-image: url('bg3b.png');background-color:black;">
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="fg2"><div id="root"></div></div>
+    <div id="bg" style="background-image: url('minimal2b.png');">
+    <div id="root" style="background-image: url('minimal1c.png');">
+      <div style="width:100vw;height:100vh;background:black;">
+      <span style="position:absolute;top:50%;left:50%;font-size:2em;color:#b29966;margin-left:-5rem;">
+        loading...
+      </span>
+    </div>
+  </div>
+</div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
