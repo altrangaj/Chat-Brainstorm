@@ -1,18 +1,25 @@
 import React from 'react'
+import styled from 'styled-components'
 import ScrollableFeed from 'react-scrollable-feed'
 import Message from './Message'
 import { connect } from 'react-redux'
-import './FocusScrollable.css'
 
 const FocusScrollable = (props) => {
 
+  const Div = styled.div`
+      padding: 0.1em 0.3em;
+      height: 33em;
+      background-image:linear-gradient(rgba(85, 71, 43,0.9),rgba(22,12,12,0.9));
+      color:#d9d9d9;
+  `
+
   if(props.user)
     return (
-      <div id='scrollable'>
+      <Div>
         <ScrollableFeed>
           {props.messages.map((m,i) => <Message index={props.messages.length - i} key={i} message={m} user={props.user.username} />)}
         </ScrollableFeed>
-      </div>
+      </Div>
     ) 
   return <div></div>
 } 
