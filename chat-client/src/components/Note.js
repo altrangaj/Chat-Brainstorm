@@ -68,6 +68,7 @@ const Note = (props) => {
         followCursor='true'
         theme='transparent'
         duration='800'
+        delay='300'
         trigger="mouseenter">
         <div className='noteHeader' style={{marginTop:'0px'}} >{pr.author} {setDate(pr.date)}</div>
       </Tooltip>

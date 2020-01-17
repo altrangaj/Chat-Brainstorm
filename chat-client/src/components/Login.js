@@ -4,6 +4,7 @@ import  { useField } from '../hooks/field'
 import { signUp } from '../reducers/usersReducer'
 import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
 import { useTransition, animated } from 'react-spring'
+import styled from 'styled-components'
 import { Button, Divider, Form, Grid, Segment, Image, Message, Icon } from 'semantic-ui-react'
 const image = require('./meeting.jpg')
 
@@ -36,10 +37,11 @@ const Login = (props) => {
     setU()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  const transitions = useTransition((!props.user || !window.localStorage.getItem('loggedChatUser')) && loaded , null, {
+  const transitions = useTransition((!window.localStorage.getItem('loggedChatUser') || !props.user) && loaded , null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
+    config: {duration:500}
   })
   const handleInputs = async (event, func) => {
     event.preventDefault()
@@ -101,8 +103,18 @@ const Login = (props) => {
       <Divider style={{color:'#b29966'}} vertical>Or</Divider>
     </div>
   )
+  
+  const Div = styled.div`
+    animation-name: backGroundAnim;
+    animation-timing-function:ease-in;
+    animation-duration:500ms;
+    width:100vw;
+    height:100vh;
+  @keyframes backGroundAnim {
+    from {background:black;}
+    to {background:transparent;}
+  }`
 
-   
   return loaded ? transitions.map(({ item, key, props }) =>
     item && <animated.div key={key} style={props}>
       <div style={{border:'0px',padding:'0px', maxWidth:'1280px',width:'70%',margin:'auto'}}>
@@ -112,25 +124,24 @@ const Login = (props) => {
           {signUp && form('Sign Up',handleSignUp)}
         </Segment>
         {message &&
-         <Message attached='bottom' warning>
-           <Icon name='warning sign' />
-           {message}
-         </Message>
+          <Message style={{backgroundColor:'black',color:'red'}} attached='bottom' warning>
+            <Icon name='warning sign' />
+            {message}
+          </Message>
         }
       </div>
     </animated.div>
-  ) : <div style={{width:'100vw',height:'100vh',background:'transparent'}}>
+  ) : <Div>
     <Image onLoad={() => setLoaded(true)} style={{display:'none',paddingTop:'7vh'}} src={image} />
     <span style={{position:'absolute',top:'50%',left:'50%',fontSize:'2em',color:'#b29966',marginLeft:'-5rem'}}>
-    loading...
+      loading...
     </span>
-  </div>
+  </Div>
 }
 
 const mapStateToProps = (state) => {
   return {
-    user: state.loggedUser,
-    channel: state.channel
+    user: state.loggedUser
   }
 }
 export default connect(mapStateToProps,{ setUser, clearUser, resetUser, signUp })(Login)

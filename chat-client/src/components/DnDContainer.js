@@ -16,6 +16,7 @@ const DnDContainer = (props) => {
   const [menu2, setMenu2] = useState({visible: false})
   const [pos, setPos] = useState({left:'0px',top:'0px'})
   const [open, setOpen] = useState(undefined)
+  const [seen, setSeen] = useState(false)
   const [zIndex, setZIndex] = useState('5')
     
   const transitions = useTransition(menu.visible || menu2.visible, null, {
@@ -158,6 +159,7 @@ const DnDContainer = (props) => {
       offsetY = e.clientY - Number(pos.top.replace('px',''))
     }
   }
+  
   const stop = e => {
     moveContent = false
     if(e.target.className === 'dndC'){
@@ -169,16 +171,16 @@ const DnDContainer = (props) => {
     }
   }
 
-  let timeoutid = useRef(-1)
-  let o = useRef(true)
+  const timeoutid = useRef(-1)
+  const o = useRef(true)
 
   const hideTip = useCallback(() => {
-    clearTimeout(timeoutid.current)
-    if(o.current)
+    if(!o.current) clearTimeout(timeoutid.current)
+    if(o.current && timeoutid.current === -1)
       timeoutid.current = setTimeout(() => {
-        setOpen(false)
-      },2500)
-  },[timeoutid])
+        setSeen(true)
+      },12000)
+  },[])
 
   useEffect(() => {
     return () => {
@@ -194,6 +196,7 @@ const DnDContainer = (props) => {
     }
     setOpen(false)
   }
+
   const onpointerdown = e => {
     setOpen(false)
     if(e.target.id === 'dnd') setZIndex('2')
@@ -213,14 +216,13 @@ const DnDContainer = (props) => {
         <div className='hoverjuttu'>
           <div id='dnd2' className='dndC' style={{zIndex:'3'}} ></div>
           <Tooltip
-            open={open}
+            open={!seen && open}
             title='add note with the right mouse button'
             followCursor='true'
             theme='transparent'
             duration='800'
             onShown={hideTip}
           >
-         
             <div ref={drop} id='dnd' className='dndC'
               style={{zIndex:zIndex}}
             >

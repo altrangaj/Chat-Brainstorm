@@ -10,9 +10,8 @@ import { clearUser } from '../reducers/loggedUserReducer'
 import ChannelName from './ChannelName'
 import { Segment } from 'semantic-ui-react'
 import Clock from './Clock'
-
+import { useTransition, animated } from 'react-spring'
 import { CSSTransition } from 'react-transition-group'
-
 import './Chat.css'
 
 const Chat = (props) => {
@@ -20,18 +19,32 @@ const Chat = (props) => {
   const [chat, setChat] = useState(true)
   const [inProp, setInProp] = useState(false)
   const [item, setItem] = useState(null)
+  const [user, setUser] = useState({})
+  const [connected, setConnected] = useState([])
 	
-	
+  useEffect(() => {
+    if(!props.user) setUser({})
+    else setUser(props.user)
+  },[props.user])
 
-  if(!item) setTimeout(()=>setItem(() => <ChatWindow setChat={setChat} setIn={setInProp}/>),350)
+  useEffect(() => {
+    setConnected(props.connectedUsers)
+  },[props.connectedUsers])
+
+  if(!item) setTimeout(()=>setItem(() => <ChatWindow setChat={setChat} setIn={setInProp}/>),500)
 
   useEffect(() => {
     setInProp(false)
-    if(chat) setTimeout(()=>setItem(() => <ChatWindow setChat={setChat} setIn={setInProp}/>),350)
-    else setTimeout(()=>setItem(() => <CreateChannelForm setChat={setChat} setIn={setInProp} />),350)
+    if(chat) setTimeout(()=>setItem(() => <ChatWindow setChat={setChat} setIn={setInProp}/>),500)
+    else setTimeout(()=>setItem(() => <CreateChannelForm setChat={setChat} setIn={setInProp} />),500)
   },[chat])
 	
-
+  const transitions = useTransition(props.user, null, {
+    from: { transform: 'scaleX(0)' },
+    enter: { transform: 'scaleX(1)' },
+    leave: { transform: 'scaleX(0)' },
+    config: {duration:350}
+  })
 
   const dnd = () => (
     <DndProvider backend={HTML5Backend}>
@@ -50,18 +63,18 @@ const Chat = (props) => {
     props.clearUser(props.user)
   }
 
-  if(props.user)
-    return (
-      <div>
-        <Segment  style={{margin:'0',padding:'0',backgroundColor:'transparent'}} placeholder >
-          {props.channel && dnd()}
-        </Segment>
-        <div style={{textAlign:'left',position:'absolute',top:'5%',left:'33%'}}>	
-          { props.channel && <span style={{fontWeight:'bold', textAlign:'left',color:'#d4c6aa'}}>
-            <ChannelName/>
-          </span> }
-        </div>	
-        <div style={{zIndex:'10',textAlign:'left',position:'absolute',top:'5%',left:'4em'}}>
+  return (
+    <div>
+      <Segment  style={{margin:'0',padding:'0',backgroundColor:'transparent'}} placeholder >
+        {props.channel && dnd()}
+      </Segment>
+      <div style={{textAlign:'left',position:'absolute',top:'5%',left:'33%'}}>	
+        { props.channel && <span style={{fontWeight:'bold', textAlign:'left',color:'#d4c6aa'}}>
+          <ChannelName/>
+        </span> }
+      </div>
+      {transitions.map(({ item, key, props }) =>
+        item && <animated.div key={key} style={{...props,zIndex:'10',textAlign:'left',position:'absolute',top:'5%',left:'4em'}}>
           <div style={{
             paddingTop:'0.16em', 
             fontFamily: 'Cinzel, serif',
@@ -71,19 +84,20 @@ const Chat = (props) => {
             color:'#b29966',
             textShadow: '-2px 0 black, 0 2px black, 2px 0 black, 0 -2px black'
           }} ><Clock/></div>
-        </div>
-        <div style={{ zIndex:'10',position:'absolute',top:'5%',right:'5%',minWidth:'22rem', width:'25vw',paddingRight:'0'}} >  
-          <CSSTransition
-            in={inProp}
-            classNames="transitio"
-            timeout={400}
-          >
-            <div id='chatW' style={{padding:'0rem', borderWidth:'0rem'}}>
-              {item}
-            </div>
-          </CSSTransition>
-        </div>
-        <div style={{zIndex:'10',position:'absolute',bottom:'2em',left:'2em'}}>
+        </animated.div> )}
+      {props.user && <div style={{ zIndex:'10',position:'absolute',top:'5%',right:'5%',minWidth:'22rem', width:'25vw',paddingRight:'0'}} >  
+        <CSSTransition
+          in={inProp}
+          classNames="transitio"
+          timeout={550}
+        >
+          <div id='chatW' style={{padding:'0rem', borderWidth:'0rem'}}>
+            {item}
+          </div>
+        </CSSTransition>
+      </div>}
+      {transitions.map(({ item, key, props }) =>
+        item && <animated.div key={key} style={{...props,zIndex:'10',position:'absolute',bottom:'2em',left:'2em'}}>
           <div style={{
             borderRadius:'2px 0px 0px 2px', 
             fontSize:'1.2em',
@@ -96,7 +110,7 @@ const Chat = (props) => {
             marginTop:'1px',
             padding:'0.15em 0.5em 0.2em 0.35em',
             textShadow: '-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black'
-          }}>{props.user.username} is logged in </div>
+          }}>{user.username} is logged in </div>
           <div style={{float:'left',display:'inline'}}>
             <button style={{
               cursor: 'pointer',
@@ -111,8 +125,9 @@ const Chat = (props) => {
               padding:'0.25em 0.4em 0.25em 0.4em'
             }} onClick={handleLogout}>logout</button>
           </div>
-        </div>
-        <div style={{
+        </animated.div>)}
+      {transitions.map(({ item, key, props }) =>
+        item && <animated.div key={key} style={{...props,
           lineHeight:'1.1em',
           fontSize:'1.1em',
           textAlign:'center', 
@@ -140,12 +155,11 @@ const Chat = (props) => {
             marginBottom:'0',
             padding:'0.2em 0 0 0'
           }}>
-            {props.connectedUsers.map((e,i) => <li style={{flex:'right'}} key={i}>{e}</li>)}
+            {connected.map((e,i) => <li style={{flex:'right'}} key={i}>{e}</li>)}
           </ul>
-        </div>
-      </div>
-    )
-  return <div></div> 
+        </animated.div>)}
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
