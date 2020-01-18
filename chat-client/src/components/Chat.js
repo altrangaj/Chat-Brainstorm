@@ -68,24 +68,24 @@ const Chat = (props) => {
       <Segment  style={{margin:'0',padding:'0',backgroundColor:'transparent'}} placeholder >
         {props.channel && dnd()}
       </Segment>
-      <div style={{textAlign:'left',position:'absolute',top:'5%',left:'33%'}}>	
-        { props.channel && <span style={{fontWeight:'bold', textAlign:'left',color:'#d4c6aa'}}>
+      <div style={{position:'absolute',top:'3em',left:'33%'}}>	
+        { props.channel && <span style={{fontWeight:'bold', color:'#d4c6aa'}}>
           <ChannelName/>
         </span> }
       </div>
       {transitions.map(({ item, key, props }) =>
-        item && <animated.div key={key} style={{...props,zIndex:'10',textAlign:'left',position:'absolute',top:'5%',left:'4em'}}>
+        item && <animated.div key={key} style={{...props,zIndex:'10',position:'absolute',top:'3em',left:'3em'}}>
           <div style={{
             paddingTop:'0.16em', 
             fontFamily: 'Cinzel, serif',
             fontSize: '2.6em', 
-            fontWeight:'900',
+            fontWeight:'700',
             textAlign:'left',
             color:'#b29966',
             textShadow: '-2px 0 black, 0 2px black, 2px 0 black, 0 -2px black'
           }} ><Clock/></div>
         </animated.div> )}
-      {props.user && <div style={{ zIndex:'10',position:'absolute',top:'5%',right:'5%',minWidth:'22rem', width:'25vw',paddingRight:'0'}} >  
+      {props.user && <div style={{ zIndex:'10',position:'absolute',top:'3em',right:'3em',minWidth:'22rem', width:'25vw',paddingRight:'0'}} >  
         <CSSTransition
           in={inProp}
           classNames="transitio"
@@ -97,7 +97,7 @@ const Chat = (props) => {
         </CSSTransition>
       </div>}
       {transitions.map(({ item, key, props }) =>
-        item && <animated.div key={key} style={{...props,zIndex:'10',position:'absolute',bottom:'2em',left:'2em'}}>
+        item && <animated.div key={key} style={{...props,zIndex:'10',position:'absolute',bottom:'3em',left:'3em'}}>
           <div style={{
             borderRadius:'2px 0px 0px 2px', 
             fontSize:'1.2em',
@@ -114,7 +114,7 @@ const Chat = (props) => {
           <div style={{float:'left',display:'inline'}}>
             <button style={{
               cursor: 'pointer',
-              border: '1px solid #b29966',
+              border: '1px solid #665533',
               color:'#b29966', 
               backgroundColor:'black',
               fontSize:'1.1em',
@@ -133,11 +133,11 @@ const Chat = (props) => {
           textAlign:'center', 
           position:'absolute',
           zIndex:'10',
-          bottom:'2em',
-          right:'2em',
+          bottom:'3em',
+          right:'3em',
           padding:'0.3em 0.6em 0.3em 0.6em',
           fontWeight:'500',
-          border:'solid 2px #665533', 
+          border:'solid 1px #665533', 
           color:'#b29966',
           whiteSpace: 'nowrap',
           backgroundColor:'rgba(0,0,0,0.7)',

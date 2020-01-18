@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import  { useField } from '../hooks/field'
 import { initializeUsers } from '../reducers/usersReducer'
 import { createChannel } from '../reducers/channelsReducer'
 import { setError } from '../reducers/errorReducer'
+import Info from './Info'
 import { setChannel } from '../reducers/selectedChannelReducer'
-import { makeEmptyMessages } from '../reducers/messageReducer'
-import { makeEmptyNotes } from '../reducers/noteReducer'
-import { Button, Form, Dropdown, Message, Icon } from 'semantic-ui-react'
+import { Form, Dropdown } from 'semantic-ui-react'
+import styled from 'styled-components'
 
 const CreateChannelForm = (props) => {
 
@@ -15,51 +15,31 @@ const CreateChannelForm = (props) => {
   const name = useField('text')
   const [message,setMessage] = useState(null)
   const [channelsCount,setChannelsCount] = useState(props.channels.length)
-  let timeout = -1
-  const isMounted = useRef(true)
   props.setIn(true)
 	
   const resetWarnings = () => {
-    if(isMounted.current){
-      setMessage(null)
-      props.setError(null)
-    }
+    setMessage(null)
+    props.setError(null)
   }
+  
+  useEffect(() => {
+    if(props.error) setMessage({content:props.error,color:'red'})
+  },[props.error])
 
-  const showMessage = (m) => {
-    clearTimeout(timeout)
-    if(m) {
-      timeout = setTimeout(resetWarnings,5000)
-      return (
-        <Message style={{width:'80%', margin:'auto', marginTop:'1.5em',color:'red',backgroundColor:'black'}} attached='bottom' warning>
-          <Icon name='warning sign' />
-          { m }
-        </Message>
-      ) 
-    }
-    else return <div></div>
-  }
-	
   useEffect(() => {
     props.initializeUsers(props.user)
     if(channelsCount < props.channels.length){
       setChannelsCount(props.channels.length)
-      clearTimeout(timeout)
-			
       const setNewChannel = async () => {
         const chId = await props.channels.find(i => i.name === name.input.value.trim()).id
         await props.setChannel(chId, name.input.value.trim(), props.user)
-        await props.makeEmptyMessages()
-        await props.makeEmptyNotes()
-				
         resetWarnings()	
       }
       setNewChannel()
       props.setChat(true)
     }
     return () => {
-      showMessage(null)
-      isMounted.current = false
+      resetWarnings()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.channels])
@@ -74,16 +54,30 @@ const CreateChannelForm = (props) => {
     const chName = name.input.value.trim()
     if(selection.length > 0 && chName !== '') {
       if(props.channels.find(c => c.name === chName)){
-        setMessage('dublicate channel name')
+        setMessage({content:'dublicate channel name',color:'red'})
         return
       }
       await props.createChannel(chName, [...selection,props.user.userId], props.user)
     }
-    else setMessage('users or name missing')
+    else setMessage({content:'users or name missing', color:'red'})
   }
   const cancel = () => {
     props.setChat(true)
   }
+
+  const Button = styled.button`
+    border: 1px solid #665533;
+    cursor:pointer;
+    color:#b29966;
+    font-size:1.1em;
+    font-weight:500; 
+    padding:0.25em 0.4em 0.4em 0.4em;
+    border-radius:2px;
+    vertical-align:middle;
+    background-color:black;
+    margin-top:1.4em;
+    display:inline;
+  `
 
   if(props.users)
     return (
@@ -103,12 +97,13 @@ const CreateChannelForm = (props) => {
             />
           </div>
           <div style={{margin:'auto',textAlign:'center'}}>
-            <Button type='button' style={{border: '2px solid #b29966',color:'#b29966', backgroundColor:'black',marginTop:'0.9em',display:'inline'}} content='create'  onClick={handleSubmit} />
-            <Button type='button' style={{border: '2px solid #b29966',color:'#b29966', backgroundColor:'black', marginLeft:'0.9em',marginTop:'0.9em',display:'inline'}} content='cancel'  onClick={cancel} />
+            <Button type='button' onClick={handleSubmit}>create</Button>
+            <Button type='button' style={{marginLeft:'1.4em'}} onClick={cancel}>cancel</Button>
           </div>
         </Form>
-        {message && showMessage(message)}
-        {props.error && showMessage(props.error.message)}
+        <div style={{margin:'auto',width:'80%',marginTop:'2em'}}>
+          <Info message={message} clear={resetWarnings} />
+        </div>
       </div>
     )
   return <div></div>
@@ -126,6 +121,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps,{ initializeUsers,
   createChannel,
   setError,
-  setChannel,
-  makeEmptyNotes,
-  makeEmptyMessages })(CreateChannelForm)
+  setChannel})(CreateChannelForm)

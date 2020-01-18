@@ -10,12 +10,6 @@ export const initializeMessages = (id, user) => async dispatch => {
   })
 }
 
-export const makeEmptyMessages = () => dispatch => {
-  dispatch ({
-    type: 'INIT_EMPTY_MESSAGES'
-  })
-}
-
 export const addMsg = (message, user, channel) => dispatch => {
   const date = new Date()
   const msgByAuthor =`${user.username}:${new Date(date.getTime()-date.getTimezoneOffset()*60*1000).toISOString()};${message}`
@@ -41,8 +35,6 @@ const reducer = (state = [], action) => {
     return [...state,action.data.message]
   case 'REMOVE_ANIMATION':
     return state.map((m) => (m.split(':',1) == 'UUSIVIESTI' ? m.replace('UUSIVIESTI:', '') : m))
-  case 'INIT_EMPTY_MESSAGES':
-    return []
   default:
     return state
   }

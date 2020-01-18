@@ -8,12 +8,6 @@ export const initializeNotes = (id, user) => async dispatch => {
   })
 }
 
-export const makeEmptyNotes = () => dispatch => {
-  dispatch ({
-    type: 'INIT_EMPTY_NOTELIST'
-  })
-}
-
 export const addNote = (note, channel, user) => {
   return {
     type: 'ADD_NOTE',
@@ -49,8 +43,6 @@ const reducer = (state = [], action) => {
     return state.map(n => (action.data.id === n.id ? action.data : n))
   case 'SOCKET_DELETE_NOTE':
     return state.filter(n => n.id !== action.data)
-  case 'INIT_EMPTY_NOTELIST':
-    return []
   default:
     return state
   }

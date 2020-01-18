@@ -32,6 +32,7 @@ const Note = (props) => {
   const onChange = (event) => {
     setText(event.target.value)
   }
+
   const transitions = useTransition(show, null, {
     from: { opacity: 0, transform: 'scale(0)' },
     enter: { opacity: 1, transform: 'scale(1)' },
@@ -70,19 +71,22 @@ const Note = (props) => {
         duration='800'
         delay='300'
         trigger="mouseenter">
-        <div className='noteHeader' style={{marginTop:'0px'}} >{pr.author} {setDate(pr.date)}</div>
+        <div className='noteHeader' style={{marginTop:'0px',marginBottom:'0px'}} >{pr.author} {setDate(pr.date)}</div>
       </Tooltip>
       <textarea className='txt-mesta' style={{
         textAlign:'center',
         border: '0px solid transparent',
         paddingLeft:'0.2em',
-        fontSize: '1rem',width:'100%', 
+        fontSize: '1rem',
+        lineHeight:'1.1rem',
+        width:'100%', 
         height:'70%',
         ...map.get(pr.backgroundColor) }} 
       value={text} onChange={onChange}  onBlur={() => updateText(pr.id)} />
     </animated.div>)
   )
 }
+
 const mapStateToProps = (state) => {
   return {
     user: state.loggedUser,
@@ -90,4 +94,5 @@ const mapStateToProps = (state) => {
     notes: state.notes
   }
 }
+
 export default connect(mapStateToProps,{setNote})(Note)

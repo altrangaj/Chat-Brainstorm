@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import  { useField } from '../hooks/field'
 import { addMsg, removeAnimation } from '../reducers/messageReducer'
+import Info from './Info'
 import { connect } from 'react-redux'
 /*eslint-disable eqeqeq*/
 const MessageForm = (props) => {
 
   const [warning, setWarning] = useState(null)
   const msg = useField('text')
+
+  useEffect(() => {
+    setWarning(null)
+  }, [props.channel])
+
+  useEffect(() => {
+    return () => setWarning(null)
+  }, [])
 
   const sendMsg = async () => {
     const txt = msg.input.value
@@ -15,10 +24,7 @@ const MessageForm = (props) => {
       await props.removeAnimation()
       await props.addMsg(txt,props.user, props.channel.id)
     } else {
-      setWarning('select channel first')
-      setTimeout(() => {
-        setWarning(null)
-      },5000)
+      setWarning({content:'select channel first',color:'red'})
     }
     msg.reset()
   }
@@ -36,7 +42,7 @@ const MessageForm = (props) => {
           lineHeight:'1.2em',
           backgroundColor:'black',
           borderTop: 'none',
-          borderBottom: '1px solid #b29966',
+          borderBottom: '1px solid #443922',
           borderLeft:'none',
           borderRight:'none',
           color:'#b29966',
@@ -45,7 +51,7 @@ const MessageForm = (props) => {
         <button style={{
           cursor: 'pointer',
           padding:'0.2em 0 0.15em 0',
-          border:'1px solid #b29966',
+          border:'1px solid #665533',
           color:'#b29966',
           marginTop:'0px',
           backgroundColor:'black',
@@ -53,7 +59,7 @@ const MessageForm = (props) => {
           fontWeight:'700',
           width:'20%'}} 
         onClick={sendMsg}>send</button>
-        {warning && <div style={{color:'red',backgroundColor:'black',border:'2px solid red',padding:'1em',margin:'0em'}}>{warning}</div>}
+        <Info message={warning} clear={() => setWarning(null)} />
       </div>
     )
   return <div></div>

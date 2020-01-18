@@ -16,7 +16,7 @@ const DnDContainer = (props) => {
   const [menu2, setMenu2] = useState({visible: false})
   const [pos, setPos] = useState({left:'0px',top:'0px'})
   const [open, setOpen] = useState(undefined)
-  const [seen, setSeen] = useState(false)
+  const seen = useRef(false)
   const [zIndex, setZIndex] = useState('5')
     
   const transitions = useTransition(menu.visible || menu2.visible, null, {
@@ -87,26 +87,26 @@ const DnDContainer = (props) => {
       item && <animated.div className='menu' key={key} style={{...menu2.style, width:'9rem',...props}}>
         <ul className="menu-options">
           <li className="menu-option" onClick={handleDelete}>delete note</li>
-          <li className="menu-option">
-            <div className='dropdown'>
+          <li className="menu-option" >
+            <div className='dropdown' >
               set color
               <div className="dropdown-content">
-                <table style={{width:'6em', padding:'0.2em',background:'black',border:'solid 1px #665533'}}>
+                <table style={{width:'6em',height:'6em', background:'black',border:'solid 1px #665533',cursor:'auto'}}>
                   <tbody>
                     <tr>
-                      <td><button id='#ffffcc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffffcc').background, width:'20px',height:'20px'}}></button></td>
-                      <td><button id='#ffcccc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffcccc').background, width:'20px',height:'20px'}}></button></td>
-                      <td><button id='#ccffff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ccffff').background, width:'20px',height:'20px'}}></button></td>
+                      <td><button className='button' id='#ffffcc' onClick={setColor} style={{background:map.get('#ffffcc').background}}></button></td>
+                      <td><button className='button' id='#ffcccc' onClick={setColor} style={{background:map.get('#ffcccc').background}}></button></td>
+                      <td><button className='button' id='#ccffff' onClick={setColor} style={{background:map.get('#ccffff').background}}></button></td>
                     </tr>
                     <tr>
-                      <td><button id='#99ffcc' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#99ffcc').background, width:'20px',height:'20px'}}></button></td>
-                      <td><button id='#ffccff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ffccff').background, width:'20px',height:'20px'}}></button></td>
-                      <td><button id='#80ffff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#80ffff').background, width:'20px',height:'20px'}}></button></td>
+                      <td><button className='button' id='#99ffcc' onClick={setColor} style={{background:map.get('#99ffcc').background}}></button></td>
+                      <td><button className='button' id='#ffccff' onClick={setColor} style={{background:map.get('#ffccff').background}}></button></td>
+                      <td><button className='button' id='#80ffff' onClick={setColor} style={{background:map.get('#80ffff').background}}></button></td>
                     </tr>
                     <tr>
-                      <td><button id='#ff99c2' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ff99c2').background, width:'20px',height:'20px'}}></button></td>
-                      <td><button id='#99ff99' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#99ff99').background, width:'20px',height:'20px'}}></button></td>
-                      <td><button id='#ff99ff' onClick={setColor} style={{cursor: 'pointer',backgroundColor:map.get('#ff99ff').background, width:'20px',height:'20px'}}></button></td>
+                      <td><button className='button' id='#ff99c2' onClick={setColor} style={{background:map.get('#ff99c2').background}}></button></td>
+                      <td><button className='button' id='#99ff99' onClick={setColor} style={{background:map.get('#99ff99').background}}></button></td>
+                      <td><button className='button' id='#ff99ff' onClick={setColor} style={{background:map.get('#ff99ff').background}}></button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -178,7 +178,7 @@ const DnDContainer = (props) => {
     if(!o.current) clearTimeout(timeoutid.current)
     if(o.current && timeoutid.current === -1)
       timeoutid.current = setTimeout(() => {
-        setSeen(true)
+        seen.current = true
       },12000)
   },[])
 
@@ -190,7 +190,7 @@ const DnDContainer = (props) => {
   }, [hideTip])
 
   const onpointerover = (e) => {
-    if(e.target.id === 'dnd' && !open) {
+    if(!seen.current && e.target.id === 'dnd' && !open) {
       setOpen(true)
       return
     }
@@ -216,7 +216,7 @@ const DnDContainer = (props) => {
         <div className='hoverjuttu'>
           <div id='dnd2' className='dndC' style={{zIndex:'3'}} ></div>
           <Tooltip
-            open={!seen && open}
+            open={open}
             title='add note with the right mouse button'
             followCursor='true'
             theme='transparent'

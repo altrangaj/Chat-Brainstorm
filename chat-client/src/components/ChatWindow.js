@@ -12,22 +12,18 @@ const ChatWindow = (props) => {
     props.setChat(false)
   }
   return (
-    <div style={{borderTop:'3px solid rgba(51,38,26,0.9)',
-      borderLeft:'4px solid rgba(51,38,26,0.9)',
-      borderRight:'4px solid rgba(51,38,26,0.9)',
-      borderBottom:'3px solid rgba(51,38,26,0.9)'}}>
-      <div style={{backgroundColor: 'black',color:'white',borderBottom:'1px solid #665533'}}>
-        <table style={{width:'100%', borderTop:'1px solid #665533'}}>
+    <div>
+      <div style={{backgroundColor: 'black',color:'white',borderBottom:'1px solid #443922'}}>
+        <table style={{width:'100%', borderTop:'1px solid #443922'}}>
           <tbody>
             <tr >
               <td style={{paddingLeft:'0.6em',fontSize:'1.2em',fontWeight:'bold',paddingBottom:'0em', width:'50%'}}>
                 <div style={{
                   fontFamily: 'Abhaya Libre, serif',
-                  fontWeight:'900',
+                  fontWeight:'800',
                   baddingBottom:'0px', 
-                  color:'#e9d396',
-                  display:'inline',
-                  verticalAlign: 'middle'}}>
+                  marginBottom:'-0.2em',
+                  color:'#e9d396'}}>
 									CHANNEL 
                 </div>
               </td>
@@ -43,6 +39,7 @@ const ChatWindow = (props) => {
                   fontSize:'1.3em',
                   fontFamily: 'Abhaya Libre, serif',
                   fontWeight:'700',
+                  baddingBottom:'0px', 
                   whiteSpace: 'nowrap', 
                   display:'inline'}}>
                   create new channel
@@ -50,7 +47,7 @@ const ChatWindow = (props) => {
                 <div style={{marginLeft:'0.5em', display:'inline'}}>
                   <button style={{
                     cursor: 'pointer',
-                    border: '1px solid #b29966',
+                    border: '1px solid #887144',
                     color:'#b29966', 
                     backgroundColor:'black', 
                     fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', 

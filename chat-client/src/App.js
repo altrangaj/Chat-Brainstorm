@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container } from 'semantic-ui-react'
 import Login from './components/Login'
 import Chat from './components/Chat'
-
+import './App.css'
 
 const App = () => {
   const [ loading, setLoading ] = useState(true)

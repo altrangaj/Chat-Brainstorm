@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import  { useField } from '../hooks/field'
 import { signUp } from '../reducers/usersReducer'
+import Info from './Info'
 import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
 import { useTransition, animated } from 'react-spring'
 import styled from 'styled-components'
-import { Button, Divider, Form, Grid, Segment, Image, Message, Icon } from 'semantic-ui-react'
+import { Divider, Form, Grid, Segment, Image } from 'semantic-ui-react'
 const image = require('./meeting.jpg')
 
 
@@ -16,13 +17,6 @@ const Login = (props) => {
   const [signUp, setSignUp] = useState(false)
   const [message,setMessage] = useState(null)
   const [loaded, setLoaded] = useState(false)
-
-  const showMessage = (m) => {
-    setMessage(m)
-    setTimeout(() => {
-      setMessage(null)
-    },5000)
-  }
   
   useEffect(() => {
     const setU = async () => {
@@ -47,11 +41,11 @@ const Login = (props) => {
     event.preventDefault()
     try {
       if(!username.input.value || username.input.value.trim().length < 3) {
-        showMessage('valid username is required (min length is 3)')
+        setMessage({content: 'valid username is required (min length is 3)', color:'red'})
         return
       }
       if(!password.input.value || password.input.value.length < 3) {
-        showMessage('valid password is required (min length is 3)')
+        setMessage({content: 'valid password is required (min length is 3)', color:'red'})
         return
       }
       const credentials = {
@@ -59,18 +53,40 @@ const Login = (props) => {
       }
       await func(credentials)
     } catch (exception) {
-      showMessage(exception.message)
+      setMessage({content:exception.message, color:'red'})
+      return
     }
-    username.reset()
-    password.reset()
+    if(signUp) {
+      setMessage({content:`account created for user: ${username.input.value}!`,color:'green'})
+      return
+    }
+    setMessage(null)
   }
+
   const handleLogin = (e) => {
     handleInputs(e,props.setUser)
   }
-  const handleSignUp = (e) => {
-    handleInputs(e,props.signUp)
+  const handleSignUp = async (e) => {
+    await handleInputs(e,props.signUp)
     setSignUp(false)
+    username.reset()
+    password.reset()
   }
+
+  const Button = styled.button`
+    border: 1px solid #665533;
+    cursor:pointer;
+    color:#b29966;
+    font-size:1.1em;
+    font-weight:500; 
+    padding:0.6em 0.9em 0.6em 0.9em;
+    border-radius:5px;
+    background-color:black;
+    display:flex;
+    justify-content: center;
+    margin:auto;
+  `
+
   const form = (buttonText, eventHandler) => (
     <Form inverted style={{paddingTop:'2em', paddingBottom:'1em'}} onSubmit={eventHandler} >
       <Form.Input
@@ -84,10 +100,10 @@ const Login = (props) => {
         icon='lock'
         iconPosition='left'
         label='Password'
-        style={{color:'#b29966',backgroundColor:'black',border:'solid 1px #b29966'}}
+        style={{color:'#b29966',backgroundColor:'black',border:'solid 1px #b29966',marginBottom:'0.5em'}}
         {...password.input}
       />
-      <Button style={{color:'#b29966',backgroundColor:'black',border:'solid 1px #b29966'}}  content={buttonText} type="submit" />
+      <Button type="submit">{buttonText}</Button>
     </Form>
   )
   const options = () => (
@@ -97,7 +113,7 @@ const Login = (props) => {
           {form('Login', handleLogin)}
         </Grid.Column>
         <Grid.Column verticalAlign='middle'>
-          <Button style={{ color:'#b29966',backgroundColor:'black',border:'solid 1px #b29966'}} content='Sign up' icon='signup' size='big' onClick={() => setSignUp(true)} />
+          <Button onClick={() => setSignUp(true)} >Sign up</Button>
         </Grid.Column>
       </Grid>
       <Divider style={{color:'#b29966'}} vertical>Or</Divider>
@@ -119,16 +135,11 @@ const Login = (props) => {
     item && <animated.div key={key} style={props}>
       <div style={{border:'0px',padding:'0px', maxWidth:'1280px',width:'70%',margin:'auto'}}>
         <Image style={{paddingTop:'7vh'}} src={image} />
-        <Segment style={{padding:'0px', margin:'0rem',backgroundColor:'black',border:'solid 3px #665533'}} placeholder>
+        <Segment style={{padding:'0px', margin:'0rem',backgroundColor:'black',border:'solid 1px #665533'}} placeholder>
           {!signUp && options()}
           {signUp && form('Sign Up',handleSignUp)}
         </Segment>
-        {message &&
-          <Message style={{backgroundColor:'black',color:'red'}} attached='bottom' warning>
-            <Icon name='warning sign' />
-            {message}
-          </Message>
-        }
+        <Info message={message} clear={() => setMessage(null)}/>
       </div>
     </animated.div>
   ) : <Div>

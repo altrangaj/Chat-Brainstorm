@@ -18,7 +18,7 @@
     white-space: nowrap;
     border:solid 1px #665533;
     margin-bottom: 0.1em;
-    transition: background 1s;
+    transition: background 300ms;
   }
   .menu-option:hover {
     background: rgba(119, 104, 35, 0.2);
@@ -49,11 +49,18 @@
     background-image: none;
     margin: 6em 4em;
 }
+.button {
+  border:solid 1px;
+  border-color: #e9d396 #7e641b #7e641b #e9d396;
+  cursor: pointer;
+  width:2em;
+  height:2em;
+}
 .dndC{
     position: absolute;
     top:0px;
     left:0px;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     width:2000px;
     height:1200px;
     transition: border-color 1s;
@@ -62,7 +69,6 @@
 }
 #wa {
     position:absolute;
-    font-family: 'Quantico', sans-serif;
     font-weight:700;
     vertical-align:center;
     top:0px;
@@ -71,5 +77,5 @@
     color: transparent;
     transition: color 1s;
 }
-div.hoverjuttu:hover #dnd {border-color: rgba(178, 153, 102, 0.5)}
-div.hoverjuttu:hover #wa {color: rgba(178, 153, 102,0.6);}
+div.hoverjuttu:hover #dnd {border-color: rgba(178, 153, 102, 0.3)}
+div.hoverjuttu:hover #wa {color: rgba(178, 153, 102,0.4);}
