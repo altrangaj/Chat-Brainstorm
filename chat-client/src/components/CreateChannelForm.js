@@ -7,6 +7,7 @@ import { setError } from '../reducers/errorReducer'
 import Info from './Info'
 import { setChannel } from '../reducers/selectedChannelReducer'
 import { Form, Dropdown } from 'semantic-ui-react'
+import { HoverButton } from './Chat'
 import styled from 'styled-components'
 
 const CreateChannelForm = (props) => {
@@ -15,7 +16,6 @@ const CreateChannelForm = (props) => {
   const name = useField('text')
   const [message,setMessage] = useState(null)
   const [channelsCount,setChannelsCount] = useState(props.channels.length)
-  props.setIn(true)
 	
   const resetWarnings = () => {
     setMessage(null)
@@ -23,11 +23,11 @@ const CreateChannelForm = (props) => {
   }
   
   useEffect(() => {
-    if(props.error) setMessage({content:props.error,color:'red'})
+    if(props.error) setMessage({content:props.error.message,color:'red'})
   },[props.error])
 
   useEffect(() => {
-    props.initializeUsers(props.user)
+    if(props.user) props.initializeUsers(props.user)
     if(channelsCount < props.channels.length){
       setChannelsCount(props.channels.length)
       const setNewChannel = async () => {
@@ -65,16 +65,12 @@ const CreateChannelForm = (props) => {
     props.setChat(true)
   }
 
-  const Button = styled.button`
-    border: 1px solid #665533;
-    cursor:pointer;
-    color:#b29966;
+  const Button = styled(HoverButton)`
     font-size:1.1em;
     font-weight:500; 
     padding:0.25em 0.4em 0.4em 0.4em;
     border-radius:2px;
     vertical-align:middle;
-    background-color:black;
     margin-top:1.4em;
     display:inline;
   `

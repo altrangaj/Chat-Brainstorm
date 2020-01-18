@@ -7,7 +7,9 @@ import { setUser, clearUser, resetUser } from '../reducers/loggedUserReducer'
 import { useTransition, animated } from 'react-spring'
 import styled from 'styled-components'
 import { Divider, Form, Grid, Segment, Image } from 'semantic-ui-react'
+import './Login.css'
 const image = require('./meeting.jpg')
+
 
 
 
@@ -34,8 +36,7 @@ const Login = (props) => {
   const transitions = useTransition((!window.localStorage.getItem('loggedChatUser') || !props.user) && loaded , null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: {duration:500}
+    leave: { opacity: 0 }
   })
   const handleInputs = async (event, func) => {
     event.preventDefault()
@@ -73,19 +74,6 @@ const Login = (props) => {
     password.reset()
   }
 
-  const Button = styled.button`
-    border: 1px solid #665533;
-    cursor:pointer;
-    color:#b29966;
-    font-size:1.1em;
-    font-weight:500; 
-    padding:0.6em 0.9em 0.6em 0.9em;
-    border-radius:5px;
-    background-color:black;
-    display:flex;
-    justify-content: center;
-    margin:auto;
-  `
 
   const form = (buttonText, eventHandler) => (
     <Form inverted style={{paddingTop:'2em', paddingBottom:'1em'}} onSubmit={eventHandler} >
@@ -103,7 +91,7 @@ const Login = (props) => {
         style={{color:'#b29966',backgroundColor:'black',border:'solid 1px #b29966',marginBottom:'0.5em'}}
         {...password.input}
       />
-      <Button type="submit">{buttonText}</Button>
+      <button className='myButton' autoFocus type="submit">{buttonText}</button>
     </Form>
   )
   const options = () => (
@@ -113,7 +101,7 @@ const Login = (props) => {
           {form('Login', handleLogin)}
         </Grid.Column>
         <Grid.Column verticalAlign='middle'>
-          <Button onClick={() => setSignUp(true)} >Sign up</Button>
+          <button className='myButton' onClick={() => setSignUp(true)} type='button'>Sign up</button>
         </Grid.Column>
       </Grid>
       <Divider style={{color:'#b29966'}} vertical>Or</Divider>

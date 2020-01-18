@@ -37,7 +37,7 @@ const Info = ({message,clear}) => {
       border:`1px solid ${text.color}`,
       borderRadius:'6px', 
       padding:'1em',
-      fontSize:'1.5em',
+      fontSize:'1.2em',
       margin:'0em',
       ...props}}>
       {text.content}

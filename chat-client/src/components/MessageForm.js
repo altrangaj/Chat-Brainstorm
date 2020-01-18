@@ -3,6 +3,7 @@ import  { useField } from '../hooks/field'
 import { addMsg, removeAnimation } from '../reducers/messageReducer'
 import Info from './Info'
 import { connect } from 'react-redux'
+import { HoverButton } from './Chat'
 /*eslint-disable eqeqeq*/
 const MessageForm = (props) => {
 
@@ -48,17 +49,13 @@ const MessageForm = (props) => {
           color:'#b29966',
           width:'80%'}} 
         onKeyPress={keyPressed} {...msg.input} />
-        <button style={{
-          cursor: 'pointer',
+        <HoverButton style={{
           padding:'0.2em 0 0.15em 0',
-          border:'1px solid #665533',
-          color:'#b29966',
           marginTop:'0px',
-          backgroundColor:'black',
           fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', 
           fontWeight:'700',
           width:'20%'}} 
-        onClick={sendMsg}>send</button>
+        onClick={sendMsg}>send</HoverButton>
         <Info message={warning} clear={() => setWarning(null)} />
       </div>
     )

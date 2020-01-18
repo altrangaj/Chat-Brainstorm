@@ -1,19 +1,19 @@
 import React from 'react'
 import FocusScrollable from './FocusScrollable'
 import MessageForm from './MessageForm'
+import { HoverButton } from './Chat'
 import DropDownContainer from './DropDownContainer'
 import { connect } from 'react-redux'
 
 
 const ChatWindow = (props) => {
-  props.setIn(true)
 
   const handle = () => {	
     props.setChat(false)
   }
   return (
     <div>
-      <div style={{backgroundColor: 'black',color:'white',borderBottom:'1px solid #443922'}}>
+      <div style={{backgroundColor: 'black',color:'white',borderBottom:'1px solid #443922', marginTop:'-0.2em'}}>
         <table style={{width:'100%', borderTop:'1px solid #443922'}}>
           <tbody>
             <tr >
@@ -45,13 +45,9 @@ const ChatWindow = (props) => {
                   create new channel
                 </div>
                 <div style={{marginLeft:'0.5em', display:'inline'}}>
-                  <button style={{
-                    cursor: 'pointer',
-                    border: '1px solid #887144',
-                    color:'#b29966', 
-                    backgroundColor:'black', 
+                  <HoverButton style={{
                     fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', 
-                    fontWeight:'700'}}  onClick={handle}>create</button>
+                    fontWeight:'700'}}  onClick={handle}>create</HoverButton>
                 </div>
               </td>
             </tr>

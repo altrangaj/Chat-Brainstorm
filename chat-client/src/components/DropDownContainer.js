@@ -25,26 +25,25 @@ const DropDownContainer = (props) => {
     }
   }
 	
-  if(props.channels.length !== 0){
-    return (
-      <div>
-        <select onChange={handleChange} 
-          style={{
-            border:'none',
-            cursor:'pointer',
-            paddingLeft:'0.4em',
-            fontSize:'1.4em',
-            fontFamily: 'Abhaya Libre, serif',
-            fontWeight:'900',
-            color:'#b29966',
-            borderColor:'black',
-            backgroundColor:'black',
-            width:'100%'}}>
-          {[<option key='-1' defaultValue=''>select channel:</option>,...props.channels.map((channel,i) => (<option value={channel.name} key={i}>{channel.name}</option>))]}
-        </select>
-      </div>
-    )    
-  } else return (<div></div>)}
+  return (
+    <div>
+      <select onChange={handleChange} 
+        style={{
+          border:'none',
+          cursor:'pointer',
+          paddingLeft:'0.4em',
+          fontSize:'1.4em',
+          fontFamily: 'Abhaya Libre, serif',
+          fontWeight:'900',
+          color:'#b29966',
+          borderColor:'black',
+          backgroundColor:'black',
+          width:'100%'}}>
+        {[<option key='-1' defaultValue=''>select channel:</option>,...props.channels.map((channel,i) => (<option value={channel.name} key={i}>{channel.name}</option>))]}
+      </select>
+    </div>
+  )    
+} 
 
 const mapStateToProps = (state) => {
   return {
@@ -53,6 +52,7 @@ const mapStateToProps = (state) => {
     user: state.loggedUser
   }
 }
+
 export default connect(
   mapStateToProps,
   { initializeChannels, 
