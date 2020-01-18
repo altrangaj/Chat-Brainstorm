@@ -1,20 +1,10 @@
 # chat & brainstrorming - sovellus
 
-[online versio sovelluksesta](https://dry-dusk-03720.herokuapp.com/)
+[onlineversio sovelluksesta](https://dry-dusk-03720.herokuapp.com/)
 
 ## kuvaus
-kullakin chat-kanavalla on oma muistiinpanonäkymä. muistiinpanoja voi jokainen kanavan käyttäjä vapaasti luoda, muokata tekstisisältöä,
-liikutella, vaihtaa väriä tai poistaa. Muistiinpanonäkymän tila välittyy reaaliaikaisesti kyseisen kanavan käyttäjille.
-
-##### muita ominaisuuksia
-* kirjautuminen ja rekisteröityminen
-* tieto aktiivisista käyttäjistä sekä tieto, millä kanavalla käyttäjä on. (verkkoyhteyden katkeaminen ja uudelleenyhdistäminen päivittää myös palvelimen käyttäjälistaa, mikä näkyy verkkoyhteyden omaaville käyttäjille)
-* kanavan luominen
-* muistiinpanoaluetta (working area) voi dragata. Tilan leveys on 2000px
-* kello
-* muistiinpanoon jää merkintä editoijasta/luojasta sekä ajankohta. Liikuttelu tai värin muuttaminen ei jätä tietoa
-* chat
-* uloskirjautuminen
+kullakin chat-kanavalla on oma muistiinpanonäkymä. muistiinpanoja voi jokainen kanavan käyttäjä vapaasti luoda, muokata,
+järjestellä, vaihtaa väriä tai poistaa. Muistiinpanonäkymän tila välittyy reaaliaikaisesti kyseisen kanavan käyttäjille. Muistiinpanoon jää merkintä editoijasta/luojasta sekä ajankohta. Liikuttelu tai värin muuttaminen ei jätä tietoa. Palvelin päivittää listaa socket-yhteyksistä (connect ja disconnect eventit) ja näyttää käyttäjälle listan aktiivisista käyttäjistä sekä kanavista. Verkkoyhteys ongelmissa client puolella reconnect tapahtuma lähettää tiedon aktiivisten käyttäjien listaan verkkoyhteyden palautuessa.
 
 ## asennus
 1. chat-client kansiossa `npm install`
@@ -29,16 +19,15 @@ liikutella, vaihtaa väriä tai poistaa. Muistiinpanonäkymän tila välittyy re
 ```
 
 ## käyttö
-Käynnistä chat palvelin komennolla `npm start` chat-server hakemistossa. Vastaavasti client `npm start` chat-client hakemistossa. **Sovellus ei toimi Edge selaimessa.** Uusi käyttäjä ei kuulu mihinkään kanavaan, joten kanavan valinta - alasvetovalikko ei ole näkyvissä.
+Käynnistä chat palvelin komennolla `npm start` chat-server hakemistossa. Vastaavasti client `npm start` chat-client hakemistossa. **Sovellus ei toimi Edge selaimessa.**
 
 ### työskentelynäkymä valitulle kanavalle
 
 ![Image of UI](https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/images/UI.png)
 
 * Kellertävä reunus (hover-tyyppinen) rajaa työskentelyaluetta, jossa voi toimia muistiinpanojen kanssa. Aluetta pystyy dragaamaan, koska se on laajempi mitä kuva-alaan mahtuu.
-* Oikeassa ylänurkassa on chat-ikkuna, jonka oikeassa ylänurkassa on nappi kanavan luomiseen. Siitä aukeaa lomake, jossa on tekstikenttä kanavan nimelle, multiselect-search-dropdown tyyppinen lista käyttäjien valintaan sekä create että cancel napit.
-* Kanavan valinta - alasvetovalikossa näkyy käyttäjälle näkyvät kanavat. Tämä sijaitsee chat-ikkunan ylälaidassa. (kuvassa valikko, missä näkyy 'Idea Wall' valittuna)
-* Vasemmassa alanurkassa on uloskirjautuminen.
+* Oikeassa ylänurkassa on chat-ikkuna, jonka oikeassa ylänurkassa on nappi kanavan luomiseen. Siitä aukeaa lomake, jossa on tekstikenttä kanavan nimelle sekä lista käyttäjien valintaan.
+* Kanavan valinta - alasvetovalikossa näkyy käyttäjälle näkyvät kanavat. Tämä sijaitsee chat-ikkunan ylälaidassa. (kuvassa valikko, missä näkyy 'Idea Wall' valittuna). Alasvetovalikon sisältö päivittyy reaaliaikaisesti. Eli, jos joku muu käyttäjä lisää käyttäjän kanavalle, niin tämä näkyy kanavavalikossa.
 
 ![Image of UI](https://github.com/altrangaj/FULLSTACK_HARJOITUSTYO/blob/master/images/note.jpg)
 
