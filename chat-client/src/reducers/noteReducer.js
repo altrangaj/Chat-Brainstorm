@@ -22,6 +22,8 @@ export const setNote = (note, channel, user) => {
   }
 }
 
+export const initEmpty = () => ({ type: 'INIT_EMPTY' })
+
 export const deleteNote = (noteID, channelID, user) => {
   return {
     type: 'DELETE_NOTE',
@@ -43,6 +45,8 @@ const reducer = (state = [], action) => {
     return state.map(n => (action.data.id === n.id ? action.data : n))
   case 'SOCKET_DELETE_NOTE':
     return state.filter(n => n.id !== action.data)
+  case 'INIT_EMPTY':
+    return []
   default:
     return state
   }

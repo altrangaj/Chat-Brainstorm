@@ -10,6 +10,8 @@ export const initializeMessages = (id, user) => async dispatch => {
   })
 }
 
+export const newFeed = () => ({ type: 'NEW_FEED' })
+
 export const addMsg = (message, user, channel) => dispatch => {
   const date = new Date()
   const msgByAuthor =`${user.username}:${new Date(date.getTime()-date.getTimezoneOffset()*60*1000).toISOString()};${message}`
@@ -35,6 +37,8 @@ const reducer = (state = [], action) => {
     return [...state,action.data.message]
   case 'REMOVE_ANIMATION':
     return state.map((m) => (m.split(':',1) == 'UUSIVIESTI' ? m.replace('UUSIVIESTI:', '') : m))
+  case 'NEW_FEED':
+    return []
   default:
     return state
   }

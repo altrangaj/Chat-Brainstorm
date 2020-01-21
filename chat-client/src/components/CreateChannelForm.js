@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import  { useField } from '../hooks/field'
 import { initializeUsers } from '../reducers/usersReducer'
 import { createChannel } from '../reducers/channelsReducer'
+import { newFeed } from '../reducers/messageReducer'
+import { initEmpty } from '../reducers/noteReducer'
 import { setError } from '../reducers/errorReducer'
 import Info from './Info'
 import { setChannel } from '../reducers/selectedChannelReducer'
@@ -33,6 +35,8 @@ const CreateChannelForm = (props) => {
       const setNewChannel = async () => {
         const chId = await props.channels.find(i => i.name === name.input.value.trim()).id
         await props.setChannel(chId, name.input.value.trim(), props.user)
+        await props.newFeed()
+        await props.initEmpty()
         resetWarnings()	
       }
       setNewChannel()
@@ -117,4 +121,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps,{ initializeUsers,
   createChannel,
   setError,
-  setChannel})(CreateChannelForm)
+  setChannel,
+  newFeed,
+  initEmpty})(CreateChannelForm)
