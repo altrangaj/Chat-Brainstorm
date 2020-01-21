@@ -1,4 +1,4 @@
-# chat & brainstrorming - sovellus
+# chat & brainstorming - sovellus
 
 [onlineversio sovelluksesta](https://dry-dusk-03720.herokuapp.com/)
 
