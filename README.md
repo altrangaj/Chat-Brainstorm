@@ -2,7 +2,7 @@
 
 [app in Heroku](https://dry-dusk-03720.herokuapp.com/)
 
-Each chat channel has individual note view. Channel members can arrange, create, edit, delete or change colour of the notes. The note view is updated in real time for channel users. Connected users and active channels are shown for application users.
+Each chat channel has its own note view. It is common to channel users. Channel members can arrange, create, edit, delete or change colour of the notes. The note view is updated in real time for channel users. Connected users and active channels are shown for application users.
 
 ## prerequisites
 
