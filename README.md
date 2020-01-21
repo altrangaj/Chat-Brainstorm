@@ -1,35 +1,42 @@
-# chat & brainstorming - sovellus
+# chat & brainstorming - application
 
-[onlineversio sovelluksesta](https://dry-dusk-03720.herokuapp.com/)
+[app in Heroku](https://dry-dusk-03720.herokuapp.com/)
 
-## kuvaus
-kullakin chat-kanavalla on oma muistiinpanonäkymä. muistiinpanoja voi jokainen kanavan käyttäjä vapaasti luoda, muokata,
-järjestellä, vaihtaa väriä tai poistaa. Muistiinpanonäkymän tila välittyy reaaliaikaisesti kyseisen kanavan käyttäjille. Muistiinpanoon jää merkintä editoijasta/luojasta sekä ajankohta. Liikuttelu tai värin muuttaminen ei jätä tietoa. Palvelin päivittää listaa socket-yhteyksistä (connect ja disconnect eventit) ja näyttää käyttäjälle listan aktiivisista käyttäjistä sekä kanavista. Verkkoyhteys ongelmissa client puolella reconnect tapahtuma lähettää tiedon aktiivisten käyttäjien listaan verkkoyhteyden palautuessa.
+Each chat channel has individual note view. Channel members can arrange, create, edit, delete or change colour of the notes. The note view is updated in real time for channel users. Connected users and active channels are shown for application users.
 
-## asennus
-1. chat-client kansiossa `npm install`
-1. chat-server kansiossa `npm install`
-1. asenna MongoDB. ks. [MongoDB asennus](https://docs.mongodb.com/manual/installation/)
-1. luo .env tiedosto chat-server hakemiston juureen:
-```
+## prerequisites
+
+* MongoDB [installation](https://docs.mongodb.com/manual/installation/)
+  * In Windows environment I got it working with msiexec (I had some difficulties with the default installation wizard):
+  * 1. download [installer](https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2012plus-4.2.2-signed.msi)
+    1. run `msiexec.exe /l*v mdbinstall.log  /qb /i mongodb-win32-x86_64-2012plus-4.2.2-signed.msi ADDLOCAL="ServerNoService,ServerService,Client,Router,Client,MonitoringTools,ImportExportTools,MiscellaneousTools"`
+* npm [get npm](https://www.npmjs.com/get-npm)
+
+## installation
+
+1. run `npm install` in folder `chat-client`
+1. run `npm install` in folder `chat-server`
+1. create .env file with content:
+   ```
     MONGODB_URI=mongodb://localhost/chat
     PORT=3003
     NODE_ENV=test
     SECRET='mySecretStrimg'
-```
+   ```
+    into folder `chat-server`
 
-## käyttö
-Käynnistä chat palvelin komennolla `npm start` chat-server hakemistossa. Vastaavasti client `npm start` chat-client hakemistossa. **Sovellus ei toimi Edge selaimessa.**
+## usage
 
-### työskentelynäkymä valitulle kanavalle
+### Application doesn't work in Edge browser!
 
-![Image of UI](https://github.com/altrangaj/Chat-Brainstorm/blob/master/images/UI.png)
+1. `npm start` in **chat-server** folder.
+1. `npm start` in **chat-client** folder.
 
-* Kellertävä reunus (hover-tyyppinen) rajaa työskentelyaluetta, jossa voi toimia muistiinpanojen kanssa. Aluetta pystyy dragaamaan, koska se on laajempi mitä kuva-alaan mahtuu.
-* Oikeassa ylänurkassa on chat-ikkuna, jonka oikeassa ylänurkassa on nappi kanavan luomiseen. Siitä aukeaa lomake, jossa on tekstikenttä kanavan nimelle sekä lista käyttäjien valintaan.
-* Kanavan valinta - alasvetovalikossa näkyy käyttäjälle näkyvät kanavat. Tämä sijaitsee chat-ikkunan ylälaidassa. (kuvassa valikko, missä näkyy 'Idea Wall' valittuna). Alasvetovalikon sisältö päivittyy reaaliaikaisesti. Eli, jos joku muu käyttäjä lisää käyttäjän kanavalle, niin tämä näkyy kanavavalikossa.
+### working scene for selected channel
 
-![Image of UI](https://github.com/altrangaj/Chat-Brainstorm/blob/master/images/note.jpg)
+![Image of note view](https://github.com/altrangaj/Chat-Brainstorm/blob/master/images/UI.png)
 
-* punaisella merkityn alueen päällä hiiren oikea nappi avaa valikon muistiinpanon editointiin. Tekstikentän sisältöä pystyy vapaasti muokkaamaan. Teksti päivittyy kantaan ja muille käyttäjille, kun fokus poistuu tekstikentästä.
-
+* yellow border (type hover) restricts working area for the notes. The working area is draggable because it covers bigger area than browser window has. On that area you can add note with the right mouse button
+* right upper corner has the chat window with the channel selection list and button for creating new channel
+* ![Image of UI](https://github.com/altrangaj/Chat-Brainstorm/blob/master/images/note.jpg)
+  * over the area marked with red, the right mouse button opens a menu for editing the note. Text content update occurs for other users and the database when focus get out from the text area.
