@@ -2,7 +2,7 @@
 
 [app in Heroku](https://dry-dusk-03720.herokuapp.com/)
 
-Each chat channel has its own note view. It is common to channel users. Channel members can arrange, create, edit, delete or change colour of the notes. The note view is updated in real time for channel users. Connected users and active channels are shown for application users.
+Each chat channel has its own note view. It is common to channel users. Channel members can arrange, create, edit, delete or change color of the notes. The note view is updated in real time. Connected users and active channels are shown for application users.
 
 ## prerequisites
 
@@ -16,7 +16,7 @@ Each chat channel has its own note view. It is common to channel users. Channel 
 
 1. run `npm install` in folder `chat-client`
 1. run `npm install` in folder `chat-server`
-1. create .env file with content:
+1. create _.env_ file with content:
    ```
     MONGODB_URI=mongodb://localhost/chat
     PORT=3003
