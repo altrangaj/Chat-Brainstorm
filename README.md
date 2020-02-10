@@ -36,7 +36,7 @@ ____Application doesn't work in Edge browser!____
 
 ![Image of note view](https://github.com/altrangaj/Chat-Brainstorm/blob/master/images/UI.png)
 
-* yellow border (type hover) restricts working area for the notes. The working area is draggable because it covers bigger area than browser window has. On that area you can add note with the right mouse button
+* yellow border (type hover) restricts working area for the notes. The working area is draggable because it covers bigger area than browser window has. On that area you can add note with the right mouse button (does not work with Apple mouse)
 * right upper corner has the chat window with the channel selection list and button for creating new channel
 * ![Image of UI](https://github.com/altrangaj/Chat-Brainstorm/blob/master/images/note.jpg)
   * over the area marked with red, the right mouse button opens a menu for editing the note. Text content update occurs for other users and the database when focus get out from the text area.
