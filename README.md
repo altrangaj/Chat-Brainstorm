@@ -7,9 +7,9 @@ Each chat channel has its own note view. It is common to channel users. Channel 
 ## prerequisites
 
 * MongoDB [installation](https://docs.mongodb.com/manual/installation/)
-  * In Windows environment I got it working with msiexec (I had some difficulties with the default installation wizard):
-  * 1. download [installer](https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2012plus-4.2.2-signed.msi)
-    1. run `msiexec.exe /l*v mdbinstall.log  /qb /i mongodb-win32-x86_64-2012plus-4.2.2-signed.msi ADDLOCAL="ServerNoService,ServerService,Client,Router,MonitoringTools,ImportExportTools,MiscellaneousTools"`
+  * In Windows environment it's easiest to install signed version:
+  * 1. download [installer](https://fastdl.mongodb.org/win32/mongodb-win32-x86_64-2012plus-4.2.6-signed.msi)
+    1. run `msiexec.exe /l*v mdbinstall.log  /qb /i mongodb-win32-x86_64-2012plus-4.2.6-signed.msi`
 * npm [get npm](https://www.npmjs.com/get-npm)
 
 ## installation
